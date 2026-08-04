@@ -36,23 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
     inspectInputs();
 
     // Toggle Password Visibility
-    btnTogglePwd.addEventListener('click', () => {
-        if (inputPassword.type === 'password') {
-            inputPassword.type = 'text';
-            btnTogglePwd.textContent = 'Hide';
-        } else {
-            inputPassword.type = 'password';
-            btnTogglePwd.textContent = 'Show';
-        }
-    });
+    if (btnTogglePwd) {
+        btnTogglePwd.addEventListener('click', () => {
+            if (inputPassword.type === 'password') {
+                inputPassword.type = 'text';
+                btnTogglePwd.textContent = 'Hide';
+            } else {
+                inputPassword.type = 'password';
+                btnTogglePwd.textContent = 'Show';
+            }
+        });
+    }
 
     // Fill Demo Creds
-    btnDemoCreds.addEventListener('click', () => {
-        inputEmail.value = btnDemoCreds.getAttribute('data-email');
-        inputPassword.value = btnDemoCreds.getAttribute('data-pwd');
-        inspectInputs();
-        showToast("Demo credentials autofilled successfully!");
-    });
+    if (btnDemoCreds) {
+        btnDemoCreds.addEventListener('click', () => {
+            inputEmail.value = btnDemoCreds.getAttribute('data-email') || "yash.khadge@symbiosis.edu";
+            inputPassword.value = btnDemoCreds.getAttribute('data-pwd') || "symbiosis2026";
+            inspectInputs();
+            showToast("Demo credentials autofilled!");
+        });
+    }
 
     // Real-time input validation listeners
     inputEmail.addEventListener('input', inspectInputs);
@@ -71,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
             emailStatusIcon.classList.remove('active');
         }
 
-        // Password status & strength
-        if (pwdVal.length >= 6) {
+        // Password status
+        if (pwdVal.length >= 4) {
             pwdStatusIcon.classList.add('active');
             groupPassword.classList.remove('has-error');
         } else {
@@ -106,67 +110,86 @@ document.addEventListener('DOMContentLoaded', () => {
         pwdStrengthLbl.textContent = strengthText;
     }
 
-    // Submit Action Handlers
-    btnLoginSubmit.addEventListener('click', executeLogin);
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        executeLogin();
-    });
-
+    // Main Authentication Action
     function executeLogin() {
         const emailVal = inputEmail.value.trim();
         const pwdVal = inputPassword.value.trim();
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
         let isValid = true;
 
-        if (!emailRegex.test(emailVal)) {
+        if (!emailVal || !emailVal.includes('@')) {
             groupEmail.classList.add('has-error');
             isValid = false;
         }
 
-        if (pwdVal.length < 6) {
+        if (!pwdVal || pwdVal.length < 4) {
             groupPassword.classList.add('has-error');
             isValid = false;
         }
 
         if (!isValid) {
-            showToast("Please fix the highlighted input errors.", true);
+            showToast("Please enter a valid email and password.", true);
             return;
         }
 
-        // Successful Authentication!
+        // Populate User Info
         displayUserEmail.textContent = emailVal;
 
         const now = new Date();
-        const timeStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'SHORT', year: 'numeric' }) + 
+        const timeStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + 
                         ' • ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         
         displayLoginTime.textContent = timeStr.toUpperCase();
-        displaySecToken.textContent = `AUTH-${Math.floor(10000 + Math.random() * 90000)}-TOKEN`;
+        displaySecToken.textContent = `AUTH-${Math.floor(100000 + Math.random() * 900000)}-TOKEN`;
 
-        // Switch Stages
+        // Direct Style & Class View Switching (100% RELIABLE)
+        loginStage.style.display = 'none';
         loginStage.classList.add('hidden');
+
+        successStage.style.display = 'flex';
         successStage.classList.remove('hidden');
 
-        showToast("Authentication Successful! Welcome back.");
+        showToast(`Authentication Successful! Welcome back.`);
+    }
+
+    // Attach Click and Form Submit Listeners
+    if (btnLoginSubmit) {
+        btnLoginSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
+            executeLogin();
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            executeLogin();
+        });
     }
 
     // Sign Out Handler
-    btnSignOut.addEventListener('click', () => {
-        inputPassword.value = "";
-        inspectInputs();
-        successStage.classList.add('hidden');
-        loginStage.classList.remove('hidden');
-        showToast("Signed out successfully.");
-    });
+    if (btnSignOut) {
+        btnSignOut.addEventListener('click', () => {
+            inputPassword.value = "";
+            inspectInputs();
+
+            successStage.style.display = 'none';
+            successStage.classList.add('hidden');
+
+            loginStage.style.display = 'flex';
+            loginStage.classList.remove('hidden');
+
+            showToast("Signed out of session.");
+        });
+    }
 
     function showToast(msg, isError = false) {
+        if (!toastBanner) return;
         toastMsg.textContent = msg;
         toastBanner.style.borderColor = isError ? "#F43F5E" : "#10B981";
         toastBanner.classList.add('show');
         setTimeout(() => {
             toastBanner.classList.remove('show');
-        }, 3000);
+        }, 3200);
     }
 });
