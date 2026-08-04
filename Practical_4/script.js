@@ -1,63 +1,81 @@
 /**
- * Practical 4: Raycast Utility - Palindrome Analyzer Engine
+ * Practical 4: Palindrome Phrase Analyzer Engine (Minimum 3 Words Logic)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const palindromeInput = document.getElementById('palindrome-input');
+    const wordCountBadge = document.getElementById('word-count-badge');
     const presetChips = document.querySelectorAll('.preset-chip');
-
-    const forwardBoxContainer = document.getElementById('forward-box-container');
-    const reverseBoxContainer = document.getElementById('reverse-box-container');
-    const connectorRowContainer = document.getElementById('connector-row-container');
 
     const statusBanner = document.getElementById('status-banner');
     const statusIcon = document.getElementById('status-icon');
     const statusTitle = document.getElementById('status-title');
     const statusSub = document.getElementById('status-sub');
-    const symmetryPct = document.getElementById('symmetry-pct');
+    const symmetryBadge = document.getElementById('symmetry-badge');
+
+    const forwardNodesBox = document.getElementById('forward-nodes-box');
+    const reverseNodesBox = document.getElementById('reverse-nodes-box');
+    const connectorsBox = document.getElementById('connectors-box');
 
     const valRawLen = document.getElementById('val-raw-len');
     const valCleanLen = document.getElementById('val-clean-len');
+    const valWordCount = document.getElementById('val-word-count');
     const valCleanStr = document.getElementById('val-clean-str');
 
-    // Run initial analysis
-    analyzeString();
+    // Initial evaluation
+    analyzePhrase();
 
-    palindromeInput.addEventListener('input', analyzeString);
+    palindromeInput.addEventListener('input', analyzePhrase);
 
     presetChips.forEach(chip => {
         chip.addEventListener('click', () => {
             palindromeInput.value = chip.getAttribute('data-text');
-            analyzeString();
+            analyzePhrase();
         });
     });
 
-    function analyzeString() {
+    function analyzePhrase() {
         const rawText = palindromeInput.value;
-        const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const reversed = cleaned.split('').reverse().join('');
+        const words = rawText.trim().split(/\s+/).filter(w => w.length > 0);
+        const wordCount = words.length;
 
         valRawLen.textContent = rawText.length;
-        valCleanLen.textContent = cleaned.length;
-        valCleanStr.textContent = cleaned || "(empty)";
+        valWordCount.textContent = `${wordCount} Word${wordCount !== 1 ? 's' : ''}`;
 
-        if (cleaned.length === 0) {
-            forwardBoxContainer.innerHTML = '<span style="color:#888; font-size:0.75rem;">Type text above...</span>';
-            reverseBoxContainer.innerHTML = '';
-            connectorRowContainer.innerHTML = '';
+        // Minimum 3 words verification logic
+        if (wordCount < 3) {
+            wordCountBadge.textContent = `${wordCount} / 3 Words`;
+            wordCountBadge.className = "word-counter-badge";
 
-            statusBanner.className = "status-banner";
-            statusIcon.className = "fa-solid fa-circle-info status-icon";
-            statusTitle.textContent = "Awaiting Input";
-            statusSub.textContent = "Enter a string sequence above to initiate character symmetry analysis.";
-            symmetryPct.textContent = "0%";
+            statusBanner.className = "status-banner warning";
+            statusIcon.className = "fa-solid fa-triangle-exclamation status-icon";
+            statusTitle.textContent = "Minimum 3 Words Required";
+            statusSub.textContent = `Current input contains ${wordCount} word${wordCount !== 1 ? 's' : ''}. Please enter a phrase with at least 3 words (e.g. 'Never odd or even').`;
+
+            symmetryBadge.textContent = "--";
+            valCleanLen.textContent = "0";
+            valCleanStr.textContent = "(Requires 3+ words)";
+
+            forwardNodesBox.innerHTML = '<span style="color:#94A3B8; font-size:0.75rem;">Awaiting 3-word phrase...</span>';
+            reverseNodesBox.innerHTML = '';
+            connectorsBox.innerHTML = '';
             return;
         }
 
-        forwardBoxContainer.innerHTML = "";
-        reverseBoxContainer.innerHTML = "";
-        connectorRowContainer.innerHTML = "";
+        // 3+ words requirement met
+        wordCountBadge.textContent = `${wordCount} Words`;
+        wordCountBadge.className = "word-counter-badge valid";
+
+        const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const reversed = cleaned.split('').reverse().join('');
+
+        valCleanLen.textContent = cleaned.length;
+        valCleanStr.textContent = cleaned || "(empty)";
+
+        forwardNodesBox.innerHTML = "";
+        reverseNodesBox.innerHTML = "";
+        connectorsBox.innerHTML = "";
 
         let matchCount = 0;
         const total = cleaned.length;
@@ -69,40 +87,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isMatch) matchCount++;
 
-            // Forward Box
-            const boxF = document.createElement('div');
-            boxF.className = `char-card-node ${isMatch ? 'match' : 'mismatch'}`;
-            boxF.textContent = charF.toUpperCase();
-            forwardBoxContainer.appendChild(boxF);
+            // Forward Node
+            const nodeF = document.createElement('div');
+            nodeF.className = `char-node ${isMatch ? 'match' : 'mismatch'}`;
+            nodeF.textContent = charF.toUpperCase();
+            forwardNodesBox.appendChild(nodeF);
 
-            // Connector Slot
+            // Connector
             const conn = document.createElement('div');
-            conn.className = `connector-slot ${isMatch ? 'match' : 'mismatch'}`;
+            conn.className = `connector-item ${isMatch ? 'match' : 'mismatch'}`;
             conn.innerHTML = isMatch ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>';
-            connectorRowContainer.appendChild(conn);
+            connectorsBox.appendChild(conn);
 
-            // Reverse Box
-            const boxR = document.createElement('div');
-            boxR.className = `char-card-node ${isMatch ? 'match' : 'mismatch'}`;
-            boxR.textContent = charR.toUpperCase();
-            reverseBoxContainer.appendChild(boxR);
+            // Reverse Node
+            const nodeR = document.createElement('div');
+            nodeR.className = `char-node ${isMatch ? 'match' : 'mismatch'}`;
+            nodeR.textContent = charR.toUpperCase();
+            reverseNodesBox.appendChild(nodeR);
         }
 
         const pct = Math.round((matchCount / total) * 100);
         const isPalindrome = (cleaned === reversed);
 
-        symmetryPct.textContent = `${pct}%`;
+        symmetryBadge.textContent = `${pct}%`;
 
         if (isPalindrome) {
-            statusBanner.className = "status-banner is-palindrome";
+            statusBanner.className = "status-banner match";
             statusIcon.className = "fa-solid fa-circle-check status-icon";
             statusTitle.textContent = "Palindrome Confirmed";
-            statusSub.textContent = "Forward and reversed alphanumeric sequences are 100% symmetrical.";
+            statusSub.textContent = `Valid 3+ word phrase! Forward and reversed character sequences exhibit 100% symmetry.`;
         } else {
-            statusBanner.className = "status-banner not-palindrome";
+            statusBanner.className = "status-banner mismatch";
             statusIcon.className = "fa-solid fa-circle-xmark status-icon";
             statusTitle.textContent = "Not a Palindrome";
-            statusSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s).`;
+            statusSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s) in this ${wordCount}-word phrase.`;
         }
     }
 });

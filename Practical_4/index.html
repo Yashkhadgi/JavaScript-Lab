@@ -3,107 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raycast Utility - Palindrome Analyzer</title>
+    <title>Palindrome Phrase Analyzer - Practical 4</title>
     <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="raycast-viewport">
-        <!-- ===== CENTERED UTILITY BOX (RAYCAST STYLE) ===== -->
-        <main class="raycast-modal">
+    <!-- Background Image with Blur Overlay -->
+    <div class="blurred-bg-overlay"></div>
+
+    <div class="palindrome-viewport">
+        <!-- ===== SOPHISTICATED CENTERED CARD CONTAINER (LARGE & SPACIOUS) ===== -->
+        <main class="analysis-card">
             
-            <!-- SEARCH-BAR INPUT HEADER -->
-            <div class="search-input-header">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="palindrome-input" value="A man a plan a canal Panama" placeholder="Type a string phrase to inspect symmetry..." autocomplete="off">
-                <span class="cmd-shortcut">⌘K</span>
+            <!-- HEADER -->
+            <header class="card-header">
+                <div class="brand-badge"><i class="fa-solid fa-align-center"></i></div>
+                <div>
+                    <h1 class="card-title">Palindrome Phrase Analyzer</h1>
+                    <p class="card-subtitle">Symmetry &amp; Word Matrix Engine &bull; Minimum 3 Words Required</p>
+                </div>
+            </header>
+
+            <!-- INPUT SECTION -->
+            <div class="input-section">
+                <div class="input-label-row">
+                    <label for="palindrome-input">Enter Phrase (Minimum 3 Words)</label>
+                    <span class="word-counter-badge" id="word-count-badge">0 / 3 Words</span>
+                </div>
+
+                <div class="input-box-wrapper">
+                    <i class="fa-solid fa-i-cursor input-icon"></i>
+                    <input type="text" id="palindrome-input" value="A man a plan a canal Panama" placeholder="Type a phrase with at least 3 words (e.g., Never odd or even)..." autocomplete="off">
+                </div>
+
+                <!-- Presets Row -->
+                <div class="presets-row">
+                    <span class="presets-label">TRY PHRASES:</span>
+                    <button class="preset-chip" data-text="A man a plan a canal Panama">canal Panama</button>
+                    <button class="preset-chip" data-text="never odd or even">never odd or even</button>
+                    <button class="preset-chip" data-text="borrow or rob">borrow or rob</button>
+                    <button class="preset-chip" data-text="was it a car or a cat i saw">car or cat</button>
+                    <button class="preset-chip" data-text="top spot in spot">top spot</button>
+                </div>
             </div>
 
-            <!-- PRESETS QUICK BAR -->
-            <div class="presets-row">
-                <span class="presets-lbl">PRESETS:</span>
-                <button class="preset-chip" data-text="racecar">racecar</button>
-                <button class="preset-chip" data-text="A man a plan a canal Panama">canal Panama</button>
-                <button class="preset-chip" data-text="never odd or even">never odd or even</button>
-                <button class="preset-chip" data-text="javascript">javascript</button>
+            <!-- DYNAMIC STATUS BANNER -->
+            <div class="status-banner" id="status-banner">
+                <div class="status-left">
+                    <i class="fa-solid fa-circle-info status-icon" id="status-icon"></i>
+                    <div>
+                        <h3 class="status-title" id="status-title">Awaiting 3-Word Input</h3>
+                        <p class="status-sub" id="status-sub">Please enter a phrase containing a minimum of 3 words to analyze symmetry.</p>
+                    </div>
+                </div>
+                <div class="status-right">
+                    <span class="symmetry-badge mono" id="symmetry-badge">--</span>
+                </div>
             </div>
 
-            <!-- CHARACTER ANALYSIS GRID -->
-            <div class="raycast-body">
-                
-                <!-- Status Banner -->
-                <div class="status-banner" id="status-banner">
-                    <div class="flex-align gap-2">
-                        <i class="fa-solid fa-circle-check status-icon" id="status-icon"></i>
-                        <div>
-                            <h3 class="status-title" id="status-title">Palindrome Confirmed</h3>
-                            <p class="status-sub" id="status-sub">Forward and reversed alphanumeric sequences are symmetrical.</p>
-                        </div>
-                    </div>
-                    <span class="badge-pct mono" id="symmetry-pct">100%</span>
+            <!-- CHARACTER MATRIX GRID -->
+            <div class="matrix-container" id="matrix-container">
+                <div class="matrix-head">
+                    <span>Character Sequence Alignment Grid</span>
                 </div>
 
-                <!-- Grid Character Matrix Box -->
-                <div class="matrix-card">
-                    <div class="matrix-head">
-                        <span>Character Position Alignment Grid</span>
+                <div class="matrix-scroll-wrapper">
+                    <!-- Forward Row -->
+                    <div class="row-flex">
+                        <span class="row-label">FORWARD</span>
+                        <div class="nodes-wrap" id="forward-nodes-box"></div>
                     </div>
 
-                    <div class="matrix-scroll-wrapper">
-                        <!-- Forward row -->
-                        <div class="char-row-wrap">
-                            <span class="row-tag">FORWARD</span>
-                            <div class="char-boxes-flex" id="forward-box-container">
-                                <!-- Dynamic character boxes -->
-                            </div>
-                        </div>
+                    <!-- Connectors Row -->
+                    <div class="connectors-wrap" id="connectors-box"></div>
 
-                        <!-- Connector row -->
-                        <div class="connector-row" id="connector-row-container">
-                            <!-- Dynamic connector icons -->
-                        </div>
-
-                        <!-- Reverse row -->
-                        <div class="char-row-wrap">
-                            <span class="row-tag">REVERSED</span>
-                            <div class="char-boxes-flex" id="reverse-box-container">
-                                <!-- Dynamic character boxes -->
-                            </div>
-                        </div>
+                    <!-- Reverse Row -->
+                    <div class="row-flex">
+                        <span class="row-label">REVERSED</span>
+                        <div class="nodes-wrap" id="reverse-nodes-box"></div>
                     </div>
                 </div>
-
-                <!-- Metrics Metrics Footer Details -->
-                <div class="telemetry-grid">
-                    <div class="tele-box">
-                        <span class="tele-lbl">Raw Length</span>
-                        <span class="tele-val mono" id="val-raw-len">30</span>
-                    </div>
-                    <div class="tele-box">
-                        <span class="tele-lbl">Cleaned Length</span>
-                        <span class="tele-val mono" id="val-clean-len">21</span>
-                    </div>
-                    <div class="tele-box">
-                        <span class="tele-lbl">Sanitized String</span>
-                        <span class="tele-val mono text-truncate" id="val-clean-str">amanaplanacanalpanama</span>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- RAYCAST MODAL FOOTER -->
-            <footer class="raycast-footer">
-                <div class="footer-left">
-                    <i class="fa-solid fa-terminal"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            <!-- TELEMETRY METRICS GRID -->
+            <div class="telemetry-grid">
+                <div class="tele-card">
+                    <span class="lbl">Raw Input Length</span>
+                    <span class="val mono" id="val-raw-len">30</span>
                 </div>
-                <div class="footer-right">
-                    <span>Press <kbd>Enter</kbd> to inspect</span>
+                <div class="tele-card">
+                    <span class="lbl">Cleaned Length</span>
+                    <span class="val mono" id="val-clean-len">21</span>
+                </div>
+                <div class="tele-card">
+                    <span class="lbl">Word Count</span>
+                    <span class="val mono" id="val-word-count">7 Words</span>
+                </div>
+                <div class="tele-card">
+                    <span class="lbl">Sanitized String</span>
+                    <span class="val mono truncate" id="val-clean-str">amanaplanacanalpanama</span>
+                </div>
+            </div>
+
+            <!-- PROMINENT AUTHOR FOOTER -->
+            <footer class="card-footer">
+                <div class="footer-text">
+                    Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
                 </div>
             </footer>
 
