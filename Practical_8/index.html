@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Forge Gym Admission - Practical 8</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gym-viewport">
+        <!-- ===== TOPBAR HEADER ===== -->
+        <header class="gym-topbar">
+            <div class="topbar-left">
+                <div class="gym-icon-badge"><i class="fa-solid fa-dumbbell"></i></div>
+                <div>
+                    <h1>IRON FORGE CLUB</h1>
+                    <p class="subtitle">Candidate Registration &bull; Dynamic Member ID Card Compiler</p>
+                </div>
+            </div>
+            <div class="gym-pill">
+                <i class="fa-solid fa-bolt"></i> VOLT ATHLETIC ENGINE
+            </div>
+        </header>
+
+        <!-- ===== MAIN WORKSPACE (2-COLUMN GRID) ===== -->
+        <main class="gym-dashboard">
+            
+            <!-- LEFT COLUMN: ADMISSION FORM & PERKS -->
+            <section class="gym-panel panel-left">
+                <div class="panel-header">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>CANDIDATE REGISTRATION FORM</span>
+                </div>
+
+                <form id="gym-form" class="form-body" novalidate>
+                    <!-- Name & Age -->
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label for="gym-name">Full Name</label>
+                            <div class="field-wrapper">
+                                <input type="text" id="gym-name" placeholder="e.g. Yash Khadge" autocomplete="off">
+                                <span class="status-indicator" id="name-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="gym-age">Age (16 - 65)</label>
+                            <div class="field-wrapper">
+                                <input type="number" id="gym-age" placeholder="Age" autocomplete="off">
+                                <span class="status-indicator" id="age-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone & Email -->
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label for="gym-phone">Phone Number</label>
+                            <div class="field-wrapper">
+                                <input type="tel" id="gym-phone" placeholder="10 Digits" autocomplete="off">
+                                <span class="status-indicator" id="phone-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="gym-email">Email Address</label>
+                            <div class="field-wrapper">
+                                <input type="email" id="gym-email" placeholder="name@domain.com" autocomplete="off">
+                                <span class="status-indicator" id="email-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plan & Slot -->
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label for="gym-plan">Membership Program</label>
+                            <select id="gym-plan">
+                                <option value="basic">Basic Fit (₹999/mo)</option>
+                                <option value="standard" selected>Standard Forge (₹1,999/mo)</option>
+                                <option value="premium">Elite Premium (₹3,499/mo)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="gym-slot">Preferred Slot</label>
+                            <select id="gym-slot">
+                                <option value="morning">Morning (06:00 - 10:00)</option>
+                                <option value="evening">Evening (16:00 - 21:00)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Perks checklist -->
+                    <div class="perks-checklist">
+                        <h3>Included Program Privileges</h3>
+                        <div class="perks-grid">
+                            <div class="perk-row" id="perk-gym"><i class="fa-solid fa-circle-check checked"></i> Gym Floor Access</div>
+                            <div class="perk-row" id="perk-locker"><i class="fa-solid fa-circle-xmark unchecked"></i> Private Locker</div>
+                            <div class="perk-row" id="perk-trainer"><i class="fa-solid fa-circle-xmark unchecked"></i> Personal Trainer</div>
+                            <div class="perk-row" id="perk-spa"><i class="fa-solid fa-circle-xmark unchecked"></i> Sauna &amp; Spa Entry</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-submit" disabled>
+                        <i class="fa-solid fa-lock"></i> Verification Pending
+                    </button>
+                </form>
+            </section>
+
+            <!-- RIGHT COLUMN: 3D MEMBER ID BADGE -->
+            <section class="gym-panel panel-right">
+                <div class="panel-header">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>DIGITAL MEMBER ID BADGE (3D ROTATABLE)</span>
+                </div>
+
+                <div class="badge-display-area">
+                    <!-- 3D Rotatable ID Badge Wrapper -->
+                    <div class="badge-flip-container" id="badge-card">
+                        <div class="badge-card-inner">
+                            <div class="badge-front">
+                                <div class="badge-accent-bar"></div>
+                                <div class="badge-body">
+                                    <div class="badge-top-row">
+                                        <span class="logo"><i class="fa-solid fa-dumbbell"></i> IRON FORGE</span>
+                                        <span class="level-badge" id="badge-plan-txt">STANDARD</span>
+                                    </div>
+                                    <div class="badge-center-row">
+                                        <div class="badge-photo-slot">
+                                            <i class="fa-solid fa-user-astronaut photo-placeholder"></i>
+                                        </div>
+                                        <div class="badge-details">
+                                            <div class="badge-field">
+                                                <span class="lbl">NAME:</span>
+                                                <span class="val" id="rec-name">Candidate Name</span>
+                                            </div>
+                                            <div class="badge-field">
+                                                <span class="lbl">ID:</span>
+                                                <span class="val text-volt" id="rec-id">IF-90876</span>
+                                            </div>
+                                            <div class="badge-field">
+                                                <span class="lbl">SLOT:</span>
+                                                <span class="val" id="rec-slot">MORNING</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="badge-bottom-row">
+                                        <div class="barcode"></div>
+                                        <div class="prn-stamp">PRN: 24070521137</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="badge-hint"><i class="fa-solid fa-hand-pointer"></i> Move cursor over card to rotate 3D hologram matrix.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="gym-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-dumbbell"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>

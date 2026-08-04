@@ -1,0 +1,462 @@
+/* ============================================================
+   ATHLETIC VOLT DARK & 3D BADGE - PRACTICAL 8
+   ============================================================ */
+:root {
+    --bg-color: #0C0C0E;
+    --panel-bg: rgba(22, 22, 26, 0.88);
+    --card-bg: #1A1C23;
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    --volt-color: #C6FF00;
+    --volt-glow: rgba(198, 255, 0, 0.25);
+    --error-color: #FF4444;
+    --success-color: #00E676;
+    
+    --text-color: #ECECEF;
+    --text-muted: #8E929B;
+    
+    --font-family: 'Poppins', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-image: linear-gradient(rgba(12, 12, 14, 0.85), rgba(12, 12, 14, 0.85)), url('assets/gym-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Avoid page scrolls */
+}
+
+/* ============================================================
+   GYM VIEWPORT CONTAINER
+   ============================================================ */
+.gym-viewport {
+    width: 100%;
+    max-width: 1100px;
+    height: 96vh;
+    max-height: 700px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ============================================================
+   TOPBAR HEADER
+   ============================================================ */
+.gym-topbar {
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--volt-color);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.gym-icon-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(198, 255, 0, 0.15);
+    border: 1px solid var(--volt-color);
+    color: var(--volt-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--volt-glow);
+}
+
+.gym-topbar h1 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+}
+
+.gym-topbar .subtitle {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.gym-pill {
+    background-color: rgba(198, 255, 0, 0.15);
+    border: 1px solid var(--volt-color);
+    border-radius: 20px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--volt-color);
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* ============================================================
+   MAIN DASHBOARD WORKSPACE (2-COLUMN GRID)
+   ============================================================ */
+.gym-dashboard {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 0.85rem;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.gym-panel {
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 0;
+}
+
+.panel-header {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--volt-color);
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
+    flex-shrink: 0;
+}
+
+/* Form Styles */
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.input-group label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.field-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-wrapper input,
+.input-group select {
+    width: 100%;
+    padding: 0.5rem 1.8rem 0.5rem 0.75rem;
+    font-family: var(--font-family);
+    font-size: 0.82rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 6px;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.4);
+    outline: none;
+    transition: var(--transition);
+}
+
+.input-group select {
+    padding-right: 0.75rem;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='grey'><path d='M0 3l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.field-wrapper input:focus,
+.input-group select:focus {
+    border-color: var(--volt-color);
+    box-shadow: 0 0 8px var(--volt-glow);
+}
+
+.status-indicator {
+    position: absolute;
+    right: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.status-indicator .neutral { color: #4B4F56; }
+.status-indicator .valid { color: var(--success-color); }
+.status-indicator .invalid { color: var(--error-color); }
+
+/* Perks checklist */
+.perks-checklist {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.perks-checklist h3 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.2rem;
+}
+
+.perks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+}
+
+.perk-row {
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-muted);
+}
+
+.perk-row.active { color: #FFFFFF; }
+.perk-row i.checked { color: var(--success-color); }
+.perk-row i.unchecked { color: var(--error-color); opacity: 0.35; }
+.perk-row.active i.checked { color: var(--volt-color); }
+
+.btn-submit {
+    background-color: var(--volt-color);
+    color: #000000;
+    border: none;
+    padding: 0.65rem;
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px var(--volt-glow);
+}
+
+.btn-submit:hover:not(:disabled) {
+    background-color: #D6FF33;
+}
+
+.btn-submit:disabled {
+    background-color: #242817;
+    color: #555A38;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 3D BADGE AREA */
+.badge-display-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.badge-flip-container {
+    perspective: 1000px;
+    width: 300px;
+    height: 180px;
+    cursor: grab;
+}
+
+.badge-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.badge-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #22252C;
+    border: 2px solid var(--volt-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-accent-bar {
+    height: 6px;
+    background-color: var(--volt-color);
+}
+
+.badge-body {
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.badge-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge-top-row .logo {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: #FFFFFF;
+}
+
+.level-badge {
+    background-color: var(--volt-color);
+    color: #000000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 0.05rem 0.4rem;
+    border-radius: 4px;
+}
+
+.badge-center-row {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.badge-photo-slot {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    background-color: #17181C;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-placeholder {
+    font-size: 2rem;
+    color: var(--volt-color);
+    opacity: 0.5;
+}
+
+.badge-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.75rem;
+}
+
+.badge-field {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.badge-field .lbl { color: var(--text-muted); font-weight: 600; }
+.badge-field .val { color: #FFFFFF; font-weight: 700; }
+.text-volt { color: var(--volt-color); }
+
+.badge-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.barcode {
+    width: 110px;
+    height: 22px;
+    background-image: repeating-linear-gradient(90deg, 
+        #FFFFFF 0px, #FFFFFF 1px, 
+        transparent 1px, transparent 3px, 
+        #FFFFFF 3px, #FFFFFF 4px
+    );
+    opacity: 0.7;
+}
+
+.prn-stamp {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.badge-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+/* ============================================================
+   PROMINENT BRANDING FOOTER
+   ============================================================ */
+.gym-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.2rem;
+}
+
+.footer-badge {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-badge i {
+    color: var(--volt-color);
+    font-size: 0.9rem;
+}
