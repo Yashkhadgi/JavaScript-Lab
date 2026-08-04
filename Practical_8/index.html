@@ -3,176 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron Forge Club - Industrial Athletic HUD</title>
-    <!-- ===== GOOGLE FONTS (MONTSERRAT & SHARE TECH MONO) ===== -->
+    <title>Iron Forge Club - Athletic Member Portal</title>
+    <!-- ===== GOOGLE FONTS (MONTSERRAT & INTER) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Share+Tech+Mono&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Carbon Fiber Dark Texture Layer -->
-    <div class="carbon-bg-overlay"></div>
-
-    <div class="athletic-viewport">
-        <!-- ===== INDUSTRIAL TOPBAR HEADER ===== -->
-        <header class="athletic-topbar">
-            <div class="brand-athletic">
-                <div class="volt-badge"><i class="fa-solid fa-dumbbell"></i></div>
+    <div class="nike-viewport">
+        <!-- ===== NIKE ATHLETIC NAVBAR ===== -->
+        <header class="nike-navbar">
+            <div class="brand-box">
+                <div class="logo-icon"><i class="fa-solid fa-dumbbell"></i></div>
                 <div>
-                    <h1 class="bold-impact-title">IRON FORGE ATHLETIC CLUB</h1>
-                    <p class="sub-athletic">VIP Member Registration &bull; Dynamic Access Pass Generator</p>
+                    <h1 class="brand-title">IRON FORGE ATHLETIC CLUB</h1>
+                    <p class="brand-sub">VIP Membership Registration Portal</p>
                 </div>
             </div>
-            <div class="volt-status-pill">
-                <i class="fa-solid fa-bolt"></i> VOLT ENGINE ACTIVE
+            <div class="status-badge">
+                <i class="fa-solid fa-circle text-lime"></i> ADMISSIONS OPEN
             </div>
         </header>
 
-        <!-- ===== TWO-COLUMN HEAVY-WEIGHT WORKSPACE ===== -->
-        <main class="athletic-workspace">
+        <!-- ===== MAIN 2-COLUMN WORKSPACE ===== -->
+        <main class="nike-workspace">
             
-            <!-- LEFT COLUMN: ATHLETIC DARK-MODE FORM (55% width) -->
-            <section class="athletic-panel panel-registration">
-                <div class="panel-header-volt">
-                    <i class="fa-solid fa-id-card"></i>
-                    <span>CANDIDATE ADMISSION REGISTRATION</span>
+            <!-- LEFT COLUMN: STEP-BY-STEP REGISTRATION FORM (55% width) -->
+            <section class="nike-card panel-form">
+                <div class="card-head">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <h2>Candidate Membership Form</h2>
                 </div>
 
-                <form id="gym-form" class="athletic-form" novalidate>
+                <form id="gym-form" class="nike-form" novalidate>
                     <!-- Row 1: Name & Age -->
                     <div class="form-row-2">
-                        <div class="field-group-volt">
+                        <div class="form-group">
                             <label for="gym-name">Full Candidate Name</label>
-                            <div class="input-wrap-volt">
+                            <div class="input-wrap">
                                 <input type="text" id="gym-name" placeholder="e.g. Yash Khadge" autocomplete="off">
-                                <span class="indicator-icon" id="name-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                                <span class="indicator-icon" id="name-status"><i class="fa-solid fa-minus neutral"></i></span>
                             </div>
                         </div>
-                        <div class="field-group-volt">
+                        <div class="form-group">
                             <label for="gym-age">Age (16 - 65)</label>
-                            <div class="input-wrap-volt">
+                            <div class="input-wrap">
                                 <input type="number" id="gym-age" placeholder="Age" autocomplete="off">
-                                <span class="indicator-icon" id="age-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                                <span class="indicator-icon" id="age-status"><i class="fa-solid fa-minus neutral"></i></span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Row 2: Phone & Email -->
                     <div class="form-row-2">
-                        <div class="field-group-volt">
-                            <label for="gym-phone">Phone Number</label>
-                            <div class="input-wrap-volt">
-                                <input type="tel" id="gym-phone" placeholder="10 Digits" autocomplete="off">
-                                <span class="indicator-icon" id="phone-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                        <div class="form-group">
+                            <label for="gym-phone">Phone Number (10 Digits)</label>
+                            <div class="input-wrap">
+                                <input type="tel" id="gym-phone" placeholder="9876543210" autocomplete="off">
+                                <span class="indicator-icon" id="phone-status"><i class="fa-solid fa-minus neutral"></i></span>
                             </div>
                         </div>
-                        <div class="field-group-volt">
+                        <div class="form-group">
                             <label for="gym-email">Email Address</label>
-                            <div class="input-wrap-volt">
+                            <div class="input-wrap">
                                 <input type="email" id="gym-email" placeholder="name@domain.com" autocomplete="off">
-                                <span class="indicator-icon" id="email-status"><i class="fa-solid fa-circle-minus neutral"></i></span>
+                                <span class="indicator-icon" id="email-status"><i class="fa-solid fa-minus neutral"></i></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Row 3: Membership Tier & Slot -->
-                    <div class="form-row-2">
-                        <div class="field-group-volt">
-                            <label for="gym-plan">Membership Tier</label>
-                            <select id="gym-plan">
-                                <option value="basic">BASIC FIT (₹999/mo)</option>
-                                <option value="standard" selected>STANDARD FORGE (₹1,999/mo)</option>
-                                <option value="premium">ELITE VIP (₹3,499/mo)</option>
-                            </select>
-                        </div>
-                        <div class="field-group-volt">
-                            <label for="gym-slot">Training Slot</label>
-                            <select id="gym-slot">
-                                <option value="morning">MORNING (06:00 - 10:00)</option>
-                                <option value="evening">EVENING (16:00 - 21:00)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Privileges Checkbox Perks -->
-                    <div class="perks-panel-volt">
-                        <span class="perks-title">PROGRAM PRIVILEGES CHECKLIST</span>
-                        <div class="perks-flex-grid">
-                            <div class="perk-item" id="perk-gym"><i class="fa-solid fa-circle-check checked"></i> Gym Floor Access</div>
-                            <div class="perk-item" id="perk-locker"><i class="fa-solid fa-circle-xmark unchecked"></i> Private Locker</div>
-                            <div class="perk-item" id="perk-trainer"><i class="fa-solid fa-circle-xmark unchecked"></i> Personal Trainer</div>
-                            <div class="perk-item" id="perk-spa"><i class="fa-solid fa-circle-xmark unchecked"></i> Sauna &amp; Spa Entry</div>
+                    <!-- Tier Custom Radio Cards -->
+                    <div class="form-group">
+                        <label>Select Membership Tier</label>
+                        <div class="tier-radio-grid">
+                            <label class="tier-card active">
+                                <input type="radio" name="tier" value="basic">
+                                <span class="tier-name">BASIC FIT</span>
+                                <span class="tier-price">₹999/mo</span>
+                            </label>
+                            <label class="tier-card">
+                                <input type="radio" name="tier" value="standard" checked>
+                                <span class="tier-name">STANDARD</span>
+                                <span class="tier-price">₹1,999/mo</span>
+                            </label>
+                            <label class="tier-card">
+                                <input type="radio" name="tier" value="elite">
+                                <span class="tier-name">ELITE VIP</span>
+                                <span class="tier-price">₹3,499/mo</span>
+                            </label>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-volt-submit" id="btn-submit" disabled>
+                    <!-- Training Slot -->
+                    <div class="form-group">
+                        <label for="gym-slot">Training Slot</label>
+                        <select id="gym-slot">
+                            <option value="morning">MORNING (06:00 - 10:00)</option>
+                            <option value="evening" selected>EVENING (16:00 - 21:00)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-nike-submit" id="btn-submit" disabled>
                         <i class="fa-solid fa-lock"></i> Verification Pending
                     </button>
                 </form>
             </section>
 
-            <!-- RIGHT COLUMN: 3D INTERACTIVE VIP MEMBER CARD (45% width) -->
-            <section class="athletic-panel panel-pass-preview">
-                <div class="panel-header-volt">
-                    <i class="fa-solid fa-address-card"></i>
-                    <span>DYNAMIC 3D VIP ACCESS PASS</span>
+            <!-- RIGHT COLUMN: REALISTIC DIGITAL PASS PREVIEW (45% width) -->
+            <section class="nike-card panel-pass">
+                <div class="card-head">
+                    <i class="fa-solid fa-id-card"></i>
+                    <h2>Digital Member Access Pass</h2>
                 </div>
 
                 <div class="pass-stage">
-                    <div class="pass-card-3d" id="pass-card">
-                        <div class="pass-inner">
-                            <div class="pass-front">
-                                <div class="pass-stripe"></div>
-                                <div class="pass-content">
-                                    <div class="pass-head">
-                                        <span class="pass-brand"><i class="fa-solid fa-dumbbell"></i> IRON FORGE</span>
-                                        <span class="pass-level" id="badge-plan-txt">STANDARD</span>
-                                    </div>
+                    <div class="real-member-pass">
+                        <div class="pass-header-row">
+                            <span class="pass-brand-title"><i class="fa-solid fa-dumbbell"></i> IRON FORGE</span>
+                            <span class="pass-tier-tag" id="badge-tier-txt">STANDARD</span>
+                        </div>
 
-                                    <div class="pass-body">
-                                        <div class="photo-container">
-                                            <i class="fa-solid fa-user-astronaut placeholder-avatar"></i>
-                                            <span class="holo-watermark">VIP PASS</span>
-                                        </div>
-                                        <div class="pass-info-col">
-                                            <div class="pass-field">
-                                                <span class="lbl">CANDIDATE:</span>
-                                                <span class="val" id="rec-name">Yash Khadge</span>
-                                            </div>
-                                            <div class="pass-field">
-                                                <span class="lbl">PASS ID:</span>
-                                                <span class="val text-volt" id="rec-id">IF-98042</span>
-                                            </div>
-                                            <div class="pass-field">
-                                                <span class="lbl">SLOT:</span>
-                                                <span class="val" id="rec-slot">MORNING</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="pass-foot">
-                                        <div class="qr-barcode-graphic"></div>
-                                        <span class="author-prn-stamp">PRN: 24070521137</span>
-                                    </div>
+                        <div class="pass-body-row">
+                            <div class="member-photo-box">
+                                <i class="fa-solid fa-user user-icon"></i>
+                            </div>
+                            <div class="member-details-col">
+                                <div class="pass-line">
+                                    <span class="lbl">MEMBER:</span>
+                                    <span class="val" id="rec-name">Yash Khadge</span>
+                                </div>
+                                <div class="pass-line">
+                                    <span class="lbl">MEMBER ID:</span>
+                                    <span class="val mono text-lime" id="rec-id">IF-98042</span>
+                                </div>
+                                <div class="pass-line">
+                                    <span class="lbl">SLOT:</span>
+                                    <span class="val" id="rec-slot">EVENING</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <p class="tilt-hint-text"><i class="fa-solid fa-hand-pointer"></i> Hover cursor over card to rotate 3D holographic matrix.</p>
+                        <div class="pass-footer-row">
+                            <div class="barcode-graphics"></div>
+                            <span class="pass-prn-code mono">PRN: 24070521137</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
         </main>
 
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
-        <footer class="athletic-footer">
-            <div class="footer-volt-bar">
-                <i class="fa-solid fa-dumbbell"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Industrial Fitness Pass Engine
+        <footer class="nike-footer">
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>

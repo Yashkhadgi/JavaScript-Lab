@@ -1,5 +1,5 @@
 /**
- * Practical 8: Iron Forge Athletic Club - Pass Generator Engine
+ * Practical 8: Iron Forge Athletic Club - Member Registration Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,20 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const ageInput = document.getElementById('gym-age');
     const phoneInput = document.getElementById('gym-phone');
     const emailInput = document.getElementById('gym-email');
-    const planSelect = document.getElementById('gym-plan');
     const slotSelect = document.getElementById('gym-slot');
 
-    const perkLocker = document.getElementById('perk-locker');
-    const perkTrainer = document.getElementById('perk-trainer');
-    const perkSpa = document.getElementById('perk-spa');
+    const tierCards = document.querySelectorAll('.tier-card');
 
     const recName = document.getElementById('rec-name');
     const recId = document.getElementById('rec-id');
     const recSlot = document.getElementById('rec-slot');
-    const badgePlanTxt = document.getElementById('badge-plan-txt');
-
-    const passCard = document.getElementById('pass-card');
-    const passInner = passCard.querySelector('.pass-inner');
+    const badgeTierTxt = document.getElementById('badge-tier-txt');
 
     const validationStates = {
         name: false,
@@ -33,45 +27,34 @@ document.addEventListener('DOMContentLoaded', () => {
         email: false
     };
 
-    function updatePerksList() {
-        const plan = planSelect.value;
+    let selectedTier = 'standard';
 
-        perkLocker.className = "perk-item";
-        perkLocker.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
-        perkTrainer.className = "perk-item";
-        perkTrainer.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
-        perkSpa.className = "perk-item";
-        perkSpa.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
+    tierCards.forEach(card => {
+        card.addEventListener('click', () => {
+            tierCards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
 
-        if (plan === 'standard') {
-            perkLocker.classList.add('active');
-            perkLocker.querySelector('i').className = "fa-solid fa-circle-check checked";
-        } else if (plan === 'premium') {
-            perkLocker.classList.add('active');
-            perkLocker.querySelector('i').className = "fa-solid fa-circle-check checked";
-            perkTrainer.classList.add('active');
-            perkTrainer.querySelector('i').className = "fa-solid fa-circle-check checked";
-            perkSpa.classList.add('active');
-            perkSpa.querySelector('i').className = "fa-solid fa-circle-check checked";
-        }
-    }
-
-    planSelect.addEventListener('change', updatePerksList);
-    updatePerksList();
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                selectedTier = radio.value;
+            }
+        });
+    });
 
     function updateStatusUI(statusId, isValid) {
         const statusSpan = document.getElementById(statusId);
         if (isValid) {
-            statusSpan.innerHTML = '<i class="fa-solid fa-circle-check valid"></i>';
+            statusSpan.innerHTML = '<i class="fa-solid fa-check valid"></i>';
         } else {
-            statusSpan.innerHTML = '<i class="fa-solid fa-circle-xmark invalid"></i>';
+            statusSpan.innerHTML = '<i class="fa-solid fa-xmark invalid"></i>';
         }
         checkFormValidity();
     }
 
     function setStatusNeutral(statusId) {
         const statusSpan = document.getElementById(statusId);
-        statusSpan.innerHTML = '<i class="fa-solid fa-circle-minus neutral"></i>';
+        statusSpan.innerHTML = '<i class="fa-solid fa-minus neutral"></i>';
         checkFormValidity();
     }
 
@@ -127,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allValid = validationStates.name && validationStates.age && validationStates.phone && validationStates.email;
         if (allValid) {
             submitBtn.removeAttribute('disabled');
-            submitBtn.innerHTML = '<i class="fa-solid fa-unlock"></i> COMPILE VIP ACCESS PASS';
+            submitBtn.innerHTML = '<i class="fa-solid fa-unlock"></i> Issue Member Access Pass';
         } else {
             submitBtn.setAttribute('disabled', 'true');
             submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Verification Pending';
@@ -144,29 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         recName.textContent = nameInput.value.trim();
         recSlot.textContent = slotSelect.value.toUpperCase();
-        badgePlanTxt.textContent = planSelect.value.toUpperCase();
+        badgeTierTxt.textContent = selectedTier.toUpperCase();
 
         const randomNum = Math.floor(10000 + Math.random() * 90000);
         recId.textContent = `IF-${randomNum}`;
 
-        passCard.style.boxShadow = '0 0 25px #CFFF04';
-        setTimeout(() => {
-            passCard.style.boxShadow = '';
-        }, 600);
-    });
-
-    passCard.addEventListener('mousemove', (e) => {
-        const rect = passCard.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const rotateY = ((x / rect.width) - 0.5) * 30;
-        const rotateX = (0.5 - (y / rect.height)) * 30;
-
-        passInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    passCard.addEventListener('mouseleave', () => {
-        passInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        alert("💪 Admission Verified! Member Access Pass generated successfully.");
     });
 });
