@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Analytics Console - Practical 6</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-viewport">
+        <!-- ===== FROSTED GLASS TOPBAR ===== -->
+        <header class="glass-topbar">
+            <div class="topbar-brand">
+                <div class="glass-badge"><i class="fa-solid fa-code-compare"></i></div>
+                <div>
+                    <h1>REGEX ANALYTICS CONSOLE</h1>
+                    <p class="subtitle">Pattern Verification Engine &bull; Text Mining &amp; Extractors</p>
+                </div>
+            </div>
+            <div class="glass-pill">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> FROSTED GLASS UI
+            </div>
+        </header>
+
+        <!-- ===== MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT) ===== -->
+        <main class="glass-dashboard">
+            
+            <!-- LEFT COLUMN: SCANNER & EXTRACTION ACCORDIONS -->
+            <section class="glass-panel panel-left">
+                <!-- Laser Scanner Email Validator Card -->
+                <div class="glass-card card-scanner">
+                    <div class="card-title">
+                        <i class="fa-solid fa-laser"></i>
+                        <span>EMAIL SCANNER VERIFIER</span>
+                    </div>
+
+                    <div class="scanner-input-wrapper">
+                        <div class="laser-beam" id="laser-beam"></div>
+                        <input type="email" id="email-input" placeholder="Enter target email (e.g. yash@domain.com)" value="yash.khadge@domain.com" autocomplete="off">
+                        <span class="scan-badge" id="scan-badge">VALIDATING</span>
+                    </div>
+                    <span class="scanner-status-text" id="scanner-status">Regex Verification: Email layout confirmed.</span>
+                </div>
+
+                <!-- Extracted Regex Data Chip Accordion -->
+                <div class="glass-card card-extracted">
+                    <div class="card-title">
+                        <i class="fa-solid fa-filter"></i>
+                        <span>REGEX MINED DATA CHIPS</span>
+                    </div>
+
+                    <div class="accordion-container">
+                        <!-- Accordion 1: Emails -->
+                        <div class="accordion-item active">
+                            <div class="accordion-header">
+                                <span><i class="fa-regular fa-envelope"></i> Mined Emails</span>
+                                <span class="badge-tag" id="tag-email-count">1 Found</span>
+                            </div>
+                            <div class="accordion-body" id="chip-email-box">
+                                <!-- Dynamic Chips -->
+                            </div>
+                        </div>
+
+                        <!-- Accordion 2: Phone Numbers -->
+                        <div class="accordion-item active">
+                            <div class="accordion-header">
+                                <span><i class="fa-solid fa-phone"></i> Mined Phones</span>
+                                <span class="badge-tag" id="tag-phone-count">2 Found</span>
+                            </div>
+                            <div class="accordion-body" id="chip-phone-box">
+                                <!-- Dynamic Chips -->
+                            </div>
+                        </div>
+
+                        <!-- Accordion 3: Dates -->
+                        <div class="accordion-item active">
+                            <div class="accordion-header">
+                                <span><i class="fa-regular fa-calendar"></i> Mined Dates</span>
+                                <span class="badge-tag" id="tag-date-count">1 Found</span>
+                            </div>
+                            <div class="accordion-body" id="chip-date-box">
+                                <!-- Dynamic Chips -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: TEXT AREA & DISTRIBUTION CHART -->
+            <section class="glass-panel panel-right">
+                <div class="glass-card card-text-mine">
+                    <div class="card-title">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span>PARAGRAPH TEXT MINER</span>
+                    </div>
+                    
+                    <textarea id="paragraph-input" rows="5" placeholder="Paste or type text to extract regex metrics...">Contact us at support@company.org or sales@domain.com. Call +91 9876543210 or 022-25901234 before 15/08/2026 for registration details.</textarea>
+                </div>
+
+                <!-- Word Length Distribution Chart -->
+                <div class="glass-card card-chart">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <span>WORD LENGTH BREAKDOWN CHART</span>
+                    </div>
+
+                    <div class="chart-bars-wrapper">
+                        <!-- Short words bar -->
+                        <div class="chart-row">
+                            <div class="chart-label">
+                                <span>Short Words (1-3)</span>
+                                <span class="chart-count-val" id="cnt-short">0</span>
+                            </div>
+                            <div class="chart-track">
+                                <div class="chart-fill fill-short" id="bar-short" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Medium words bar -->
+                        <div class="chart-row">
+                            <div class="chart-label">
+                                <span>Medium Words (4-6)</span>
+                                <span class="chart-count-val" id="cnt-medium">0</span>
+                            </div>
+                            <div class="chart-track">
+                                <div class="chart-fill fill-medium" id="bar-medium" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Long words bar -->
+                        <div class="chart-row">
+                            <div class="chart-label">
+                                <span>Long Words (7+)</span>
+                                <span class="chart-count-val" id="cnt-long">0</span>
+                            </div>
+                            <div class="chart-track">
+                                <div class="chart-fill fill-long" id="bar-long" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="glass-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-code-compare"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>

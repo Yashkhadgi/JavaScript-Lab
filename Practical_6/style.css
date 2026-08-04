@@ -1,0 +1,374 @@
+/* ============================================================
+   DARK GLASSMORPHISM CONSOLE - PRACTICAL 6
+   ============================================================ */
+:root {
+    --bg-color: #090C15;
+    --glass-bg: rgba(18, 24, 38, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    
+    --neon-emerald: #10B981;
+    --neon-cyan: #06B6D4;
+    --neon-rose: #EC4899;
+    --error-color: #EF4444;
+    
+    --text-color: #F3F4F6;
+    --text-muted: #9CA3AF;
+    
+    --font-family: 'Poppins', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 40%);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Avoid page scrolls */
+}
+
+/* ============================================================
+   GLASS VIEWPORT CONTAINER
+   ============================================================ */
+.glass-viewport {
+    width: 100%;
+    max-width: 1100px;
+    height: 96vh;
+    max-height: 700px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ============================================================
+   FROSTED GLASS TOPBAR
+   ============================================================ */
+.glass-topbar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.glass-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--neon-emerald);
+    color: var(--neon-emerald);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.glass-topbar h1 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+}
+
+.glass-topbar .subtitle {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.glass-pill {
+    background-color: rgba(6, 182, 212, 0.15);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 20px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* ============================================================
+   MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT)
+   ============================================================ */
+.glass-dashboard {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0.85rem;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.glass-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    min-height: 0;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--neon-emerald);
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.35rem;
+    flex-shrink: 0;
+}
+
+/* Scanner Input Card */
+.scanner-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: rgba(9, 12, 21, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.laser-beam {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--neon-emerald);
+    box-shadow: 0 0 12px var(--neon-emerald);
+    left: 0;
+    animation: laserScan 2s infinite linear;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.scanner-input-wrapper input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #FFFFFF;
+}
+
+.scan-badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    background-color: rgba(16, 185, 129, 0.2);
+    color: var(--neon-emerald);
+    flex-shrink: 0;
+}
+
+.scanner-status-text {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+/* Accordion Extractor Card */
+.card-extracted {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.accordion-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.accordion-item {
+    background-color: rgba(9, 12, 21, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.badge-tag {
+    font-size: 0.62rem;
+    background-color: rgba(6, 182, 212, 0.2);
+    color: var(--neon-cyan);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+}
+
+.accordion-body {
+    padding: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.chip {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    background-color: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--neon-emerald);
+}
+
+/* Right Panel: Text Miner & Chart */
+.card-text-mine textarea {
+    width: 100%;
+    background-color: rgba(9, 12, 21, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #FFFFFF;
+    outline: none;
+    resize: none;
+}
+
+.card-text-mine textarea:focus {
+    border-color: var(--neon-cyan);
+}
+
+.card-chart {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.chart-bars-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.chart-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.chart-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.chart-count-val {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--neon-emerald);
+}
+
+.chart-track {
+    height: 12px;
+    background-color: rgba(9, 12, 21, 0.6);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.chart-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fill-short { background-color: var(--neon-cyan); }
+.fill-medium { background-color: var(--neon-emerald); }
+.fill-long { background-color: var(--neon-rose); }
+
+/* ============================================================
+   PROMINENT BRANDING FOOTER
+   ============================================================ */
+.glass-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.2rem;
+}
+
+.footer-badge {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.footer-badge i {
+    color: var(--neon-emerald);
+    font-size: 0.9rem;
+}
+
+@keyframes laserScan {
+    0% { left: 0%; }
+    50% { left: 98%; }
+    100% { left: 0%; }
+}
