@@ -22,5 +22,5 @@ A collection of 10 standalone web applications demonstrating core to advanced Ja
 ---
 
 ## 👨‍💻 Author Info
-**Designed by Yash Khadge**  
+**Designed by Yash Khadgi**  
 **PRN:** `24070521137`
