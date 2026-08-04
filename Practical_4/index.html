@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palindrome Phrase Analyzer - Practical 4</title>
+    <title>Palindrome Phrase &amp; Word Analyzer - Practical 4</title>
     <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,38 +18,39 @@
     <div class="blurred-bg-overlay"></div>
 
     <div class="palindrome-viewport">
-        <!-- ===== SOPHISTICATED CENTERED CARD CONTAINER (LARGE & SPACIOUS) ===== -->
+        <!-- ===== SOPHISTICATED CENTERED CARD CONTAINER ===== -->
         <main class="analysis-card">
             
             <!-- HEADER -->
             <header class="card-header">
                 <div class="brand-badge"><i class="fa-solid fa-align-center"></i></div>
                 <div>
-                    <h1 class="card-title">Palindrome Phrase Analyzer</h1>
-                    <p class="card-subtitle">Symmetry &amp; Word Matrix Engine &bull; Minimum 3 Words Required</p>
+                    <h1 class="card-title">Palindrome Phrase &amp; Word Analyzer</h1>
+                    <p class="card-subtitle">Symmetry &amp; Alignment Matrix Engine</p>
                 </div>
             </header>
 
             <!-- INPUT SECTION -->
             <div class="input-section">
                 <div class="input-label-row">
-                    <label for="palindrome-input">Enter Phrase (Minimum 3 Words)</label>
-                    <span class="word-counter-badge" id="word-count-badge">0 / 3 Words</span>
+                    <label for="palindrome-input">Enter Any Word or Phrase</label>
+                    <span class="word-counter-badge" id="word-count-badge">0 Words</span>
                 </div>
 
                 <div class="input-box-wrapper">
                     <i class="fa-solid fa-i-cursor input-icon"></i>
-                    <input type="text" id="palindrome-input" value="A man a plan a canal Panama" placeholder="Type a phrase with at least 3 words (e.g., Never odd or even)..." autocomplete="off">
+                    <input type="text" id="palindrome-input" value="racecar" placeholder="Type any word or phrase (e.g. racecar, madam, never odd or even)..." autocomplete="off">
                 </div>
 
                 <!-- Presets Row -->
                 <div class="presets-row">
-                    <span class="presets-label">TRY PHRASES:</span>
+                    <span class="presets-label">QUICK PRESETS:</span>
+                    <button class="preset-chip" data-text="racecar">racecar</button>
+                    <button class="preset-chip" data-text="madam">madam</button>
+                    <button class="preset-chip" data-text="kayak">kayak</button>
                     <button class="preset-chip" data-text="A man a plan a canal Panama">canal Panama</button>
                     <button class="preset-chip" data-text="never odd or even">never odd or even</button>
-                    <button class="preset-chip" data-text="borrow or rob">borrow or rob</button>
-                    <button class="preset-chip" data-text="was it a car or a cat i saw">car or cat</button>
-                    <button class="preset-chip" data-text="top spot in spot">top spot</button>
+                    <button class="preset-chip" data-text="javascript">javascript</button>
                 </div>
             </div>
 
@@ -58,8 +59,8 @@
                 <div class="status-left">
                     <i class="fa-solid fa-circle-info status-icon" id="status-icon"></i>
                     <div>
-                        <h3 class="status-title" id="status-title">Awaiting 3-Word Input</h3>
-                        <p class="status-sub" id="status-sub">Please enter a phrase containing a minimum of 3 words to analyze symmetry.</p>
+                        <h3 class="status-title" id="status-title">Awaiting Input</h3>
+                        <p class="status-sub" id="status-sub">Enter a word or phrase above to evaluate palindrome symmetry.</p>
                     </div>
                 </div>
                 <div class="status-right">
@@ -95,19 +96,19 @@
             <div class="telemetry-grid">
                 <div class="tele-card">
                     <span class="lbl">Raw Input Length</span>
-                    <span class="val mono" id="val-raw-len">30</span>
+                    <span class="val mono" id="val-raw-len">7</span>
                 </div>
                 <div class="tele-card">
                     <span class="lbl">Cleaned Length</span>
-                    <span class="val mono" id="val-clean-len">21</span>
+                    <span class="val mono" id="val-clean-len">7</span>
                 </div>
                 <div class="tele-card">
                     <span class="lbl">Word Count</span>
-                    <span class="val mono" id="val-word-count">7 Words</span>
+                    <span class="val mono" id="val-word-count">1 Word</span>
                 </div>
                 <div class="tele-card">
                     <span class="lbl">Sanitized String</span>
-                    <span class="val mono truncate" id="val-clean-str">amanaplanacanalpanama</span>
+                    <span class="val mono truncate" id="val-clean-str">racecar</span>
                 </div>
             </div>
 

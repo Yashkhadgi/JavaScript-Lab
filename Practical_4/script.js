@@ -1,5 +1,5 @@
 /**
- * Practical 4: Palindrome Phrase Analyzer Engine (Minimum 3 Words Logic)
+ * Practical 4: Palindrome Phrase & Word Analyzer Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,35 +43,34 @@ document.addEventListener('DOMContentLoaded', () => {
         valRawLen.textContent = rawText.length;
         valWordCount.textContent = `${wordCount} Word${wordCount !== 1 ? 's' : ''}`;
 
-        // Minimum 3 words verification logic
-        if (wordCount < 3) {
-            wordCountBadge.textContent = `${wordCount} / 3 Words`;
+        const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        if (cleaned.length === 0) {
+            wordCountBadge.textContent = "0 Words";
             wordCountBadge.className = "word-counter-badge";
 
-            statusBanner.className = "status-banner warning";
-            statusIcon.className = "fa-solid fa-triangle-exclamation status-icon";
-            statusTitle.textContent = "Minimum 3 Words Required";
-            statusSub.textContent = `Current input contains ${wordCount} word${wordCount !== 1 ? 's' : ''}. Please enter a phrase with at least 3 words (e.g. 'Never odd or even').`;
+            statusBanner.className = "status-banner";
+            statusIcon.className = "fa-solid fa-circle-info status-icon";
+            statusTitle.textContent = "Awaiting Input";
+            statusSub.textContent = "Enter a word or phrase above to evaluate palindrome symmetry.";
 
             symmetryBadge.textContent = "--";
             valCleanLen.textContent = "0";
-            valCleanStr.textContent = "(Requires 3+ words)";
+            valCleanStr.textContent = "(empty)";
 
-            forwardNodesBox.innerHTML = '<span style="color:#94A3B8; font-size:0.75rem;">Awaiting 3-word phrase...</span>';
+            forwardNodesBox.innerHTML = '<span style="color:#94A3B8; font-size:0.75rem;">Type any word or phrase...</span>';
             reverseNodesBox.innerHTML = '';
             connectorsBox.innerHTML = '';
             return;
         }
 
-        // 3+ words requirement met
-        wordCountBadge.textContent = `${wordCount} Words`;
-        wordCountBadge.className = "word-counter-badge valid";
-
-        const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
         const reversed = cleaned.split('').reverse().join('');
 
+        wordCountBadge.textContent = `${wordCount} Word${wordCount > 1 ? 's' : ''}`;
+        wordCountBadge.className = "word-counter-badge valid";
+
         valCleanLen.textContent = cleaned.length;
-        valCleanStr.textContent = cleaned || "(empty)";
+        valCleanStr.textContent = cleaned;
 
         forwardNodesBox.innerHTML = "";
         reverseNodesBox.innerHTML = "";
@@ -114,13 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isPalindrome) {
             statusBanner.className = "status-banner match";
             statusIcon.className = "fa-solid fa-circle-check status-icon";
-            statusTitle.textContent = "Palindrome Confirmed";
-            statusSub.textContent = `Valid 3+ word phrase! Forward and reversed character sequences exhibit 100% symmetry.`;
+            statusTitle.textContent = "YES! PALINDROME CONFIRMED";
+            statusSub.textContent = `"${rawText.trim()}" reads identical forwards and backwards! (100% symmetry match).`;
         } else {
             statusBanner.className = "status-banner mismatch";
             statusIcon.className = "fa-solid fa-circle-xmark status-icon";
-            statusTitle.textContent = "Not a Palindrome";
-            statusSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s) in this ${wordCount}-word phrase.`;
+            statusTitle.textContent = "NO! NOT A PALINDROME";
+            statusSub.textContent = `"${rawText.trim()}" is not symmetrical. ${total - matchCount} character position(s) mismatch.`;
         }
     }
 });

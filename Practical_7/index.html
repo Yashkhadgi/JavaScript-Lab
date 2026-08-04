@@ -3,81 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple Assessment Card - Practical 7</title>
-    <!-- ===== GOOGLE FONTS (INTER & SF PRO STYLE) ===== -->
+    <title>Apple Assessment Portal - Practical 7</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="apple-viewport">
-        <!-- ===== CENTERED APPLE ASSESSMENT CARD ===== -->
-        <main class="apple-card">
-            
-            <!-- TOP PROGRESS BAR -->
-            <div class="card-progress-bar-wrap">
-                <div class="progress-fill" id="apple-progress-fill" style="width: 25%;"></div>
-            </div>
+    <!-- Background Image with Blur Overlay -->
+    <div class="blurred-tech-overlay"></div>
 
-            <!-- CARD HEADER -->
-            <header class="apple-card-header">
-                <div class="header-top">
-                    <span class="step-indicator" id="step-indicator">Task &bull; 1 of 4</span>
-                    <span class="category-badge">JavaScript DOM Engine</span>
+    <div class="apple-viewport">
+        <!-- ===== MAIN ASSESSMENT DASHBOARD ===== -->
+        <main class="apple-dashboard">
+            
+            <!-- HEADER -->
+            <header class="apple-header">
+                <div class="brand-group">
+                    <div class="logo-badge"><i class="fa-solid fa-square-check"></i></div>
+                    <div>
+                        <h1>Interactive Assessment Portal</h1>
+                        <p class="subtitle">Task Engine &bull; DOM Tree Traversal Monitor</p>
+                    </div>
                 </div>
-                <h1 class="card-title">Interactive Task &amp; Assessment Portal</h1>
-                <p class="card-subtitle">Manage tasks seamlessly and observe real-time DOM tree traversal logs.</p>
+
+                <div class="progress-pill-group">
+                    <span class="step-lbl" id="step-indicator">Tasks • 0 of 0 Completed</span>
+                </div>
             </header>
 
-            <!-- CARD BODY CONTENT -->
-            <div class="apple-card-body">
+            <!-- 2-ROW WORKSPACE -->
+            <div class="workspace-2rows">
                 
-                <!-- Task Creation Input Bar -->
-                <div class="task-input-bar">
-                    <input type="text" id="task-input" placeholder="Create a new task..." autocomplete="off">
-                    <select id="task-priority-select">
-                        <option value="medium" selected>Medium Priority</option>
-                        <option value="high">High Priority</option>
-                        <option value="low">Low Priority</option>
-                    </select>
-                    <button id="btn-add-task" class="btn-apple-primary">
-                        <i class="fa-solid fa-plus"></i> Add Task
-                    </button>
-                </div>
-
-                <!-- Filter Tabs -->
-                <div class="apple-tabs-bar">
-                    <button class="apple-tab active" data-filter="all">All Tasks</button>
-                    <button class="apple-tab" data-filter="pending">Active</button>
-                    <button class="apple-tab" data-filter="completed">Completed</button>
-                </div>
-
-                <!-- Scrollable Task List -->
-                <div class="task-list-viewport">
-                    <ul class="apple-task-list" id="todo-list-ul">
-                        <li class="empty-apple-state" id="todo-empty-state">
-                            <i class="fa-solid fa-square-check empty-apple-icon"></i>
-                            <p>No tasks registered. Type a task above to begin.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- DOM Traversal Monitor Drawer -->
-                <div class="dom-traversal-box">
-                    <div class="dom-box-head">
-                        <i class="fa-solid fa-code-branch"></i> DOM TREE TRAVERSAL MONITOR
+                <!-- ROW 1: INPUT & METRICS (2 COLUMNS) -->
+                <div class="row-1-grid">
+                    <!-- Column 1: Creation Input -->
+                    <div class="card-box card-input">
+                        <div class="card-box-head">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <span>Create Assessment Task</span>
+                        </div>
+                        <div class="input-form-row">
+                            <input type="text" id="task-input" placeholder="Type a task description..." autocomplete="off">
+                            <select id="task-priority-select">
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="low">Low</option>
+                            </select>
+                            <button id="btn-add-task" class="btn-apple-action">
+                                <i class="fa-solid fa-bolt"></i> Add
+                            </button>
+                        </div>
                     </div>
-                    <div class="dom-code-line mono" id="console-dom-path">Awaiting element interaction...</div>
+
+                    <!-- Column 2: Progress Track -->
+                    <div class="card-box card-metrics">
+                        <div class="card-box-head">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Completion Track</span>
+                        </div>
+                        <div class="metrics-track-body">
+                            <div class="track-info">
+                                <span class="lbl">Progress Score</span>
+                                <span class="val mono" id="pct-val-str">0%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" id="apple-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2: TASK BOARD LIST & DOM MONITOR -->
+                <div class="row-2-grid">
+                    <div class="card-box card-board">
+                        <div class="board-head-row">
+                            <div class="tabs-group">
+                                <button class="apple-tab active" data-filter="all">All Tasks</button>
+                                <button class="apple-tab" data-filter="pending">Active</button>
+                                <button class="apple-tab" data-filter="completed">Completed</button>
+                            </div>
+                            <span class="count-badge mono" id="task-count-badge">0 Listed</span>
+                        </div>
+
+                        <!-- Task List Scroll -->
+                        <div class="task-scroll-area">
+                            <ul class="apple-task-list" id="todo-list-ul">
+                                <li class="empty-apple-state" id="todo-empty-state">
+                                    <i class="fa-solid fa-check-double empty-icon"></i>
+                                    <p>No tasks created. Add a task above to begin DOM traversal testing.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DOM Traversal Console -->
+                    <div class="dom-traversal-drawer">
+                        <div class="dom-head">
+                            <i class="fa-solid fa-code-branch"></i> DOM TREE TRAVERSAL LOG MONITOR
+                        </div>
+                        <div class="dom-code mono" id="console-dom-path">Awaiting element interaction...</div>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- CARD FOOTER -->
-            <footer class="apple-card-footer">
+            <!-- PROMINENT AUTHOR FOOTER -->
+            <footer class="apple-footer">
                 <div class="footer-bar">
                     Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
                 </div>

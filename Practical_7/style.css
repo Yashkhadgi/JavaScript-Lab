@@ -1,23 +1,24 @@
 /* ============================================================
-   APPLE-STYLE ASSESSMENT CARD - PRACTICAL 7
+   APPLE ASSESSMENT PORTAL - PRACTICAL 7 (2-ROW LAYOUT)
    ============================================================ */
 :root {
-    --bg-light: #F8FAFC;
-    --card-bg: #FFFFFF;
-    --border-color: #E2E8F0;
-    --border-hover: #CBD5E1;
-    
-    --text-primary: #0F172A;
-    --text-muted: #64748B;
+    --bg-dark: #0A0C12;
+    --card-bg: rgba(18, 22, 32, 0.88);
+    --card-solid: #121622;
+    --border-color: #2D354A;
+    --border-hover: #434F6E;
     
     --royal-blue: #2563EB;
-    --royal-blue-hover: #1D4ED8;
+    --royal-hover: #1D4ED8;
     --emerald-green: #10B981;
     --rose-red: #F43F5E;
     
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    --transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 * {
@@ -28,25 +29,43 @@
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--bg-light);
+    background-color: var(--bg-dark);
     color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     overflow: hidden; /* Avoid page scrolls */
+    position: relative;
 }
 
 .mono { font-family: var(--font-mono); }
+
+/* ============================================================
+   BLURRED TECH BACKGROUND
+   ============================================================ */
+.blurred-tech-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: linear-gradient(rgba(10, 12, 18, 0.78), rgba(10, 12, 18, 0.78)), url('assets/assessment-tech-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
+    transform: scale(1.05);
+}
 
 /* ============================================================
    APPLE VIEWPORT CONTAINER
    ============================================================ */
 .apple-viewport {
     width: 100%;
-    max-width: 850px;
+    max-width: 1050px;
     height: 96vh;
-    max-height: 680px;
+    max-height: 700px;
     padding: 0.85rem;
     display: flex;
     justify-content: center;
@@ -54,79 +73,76 @@ body {
 }
 
 /* ============================================================
-   APPLE CARD CONTAINER
+   MAIN DASHBOARD CONTAINER
    ============================================================ */
-.apple-card {
+.apple-dashboard {
     width: 100%;
-    background-color: var(--card-bg);
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    padding: 1.25rem 1.5rem;
     display: flex;
     flex-direction: column;
+    gap: 0.85rem;
+    max-height: 670px;
     overflow: hidden;
-    max-height: 650px;
 }
 
-/* TOP PROGRESS BAR */
-.card-progress-bar-wrap {
-    height: 4px;
-    background-color: #F1F5F9;
-    width: 100%;
-}
-
-.progress-fill {
-    height: 100%;
-    background-color: var(--royal-blue);
-    transition: width 0.4s ease;
-}
-
-/* CARD HEADER */
-.apple-card-header {
-    padding: 1.25rem 1.5rem 0.85rem 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.header-top {
+/* HEADER */
+.apple-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.6rem;
+    flex-shrink: 0;
 }
 
-.step-indicator {
-    font-size: 0.72rem;
-    font-weight: 700;
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: rgba(37, 99, 235, 0.15);
+    border: 1px solid var(--royal-blue);
     color: var(--royal-blue);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
 }
 
-.category-badge {
-    font-size: 0.65rem;
-    font-weight: 600;
-    background-color: #F1F5F9;
-    color: var(--text-muted);
-    padding: 0.15rem 0.55rem;
-    border-radius: 6px;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 700;
+.apple-header h1 {
+    font-size: 1.15rem;
+    font-weight: 800;
     letter-spacing: -0.3px;
 }
 
-.card-subtitle {
-    font-size: 0.78rem;
+.subtitle {
+    font-size: 0.7rem;
     color: var(--text-muted);
 }
 
-/* CARD BODY */
-.apple-card-body {
-    padding: 1.25rem 1.5rem;
+.step-lbl {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--royal-blue);
+    background-color: var(--card-solid);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* 2-ROW WORKSPACE */
+.workspace-2rows {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
@@ -134,52 +150,72 @@ body {
     min-height: 0;
 }
 
-/* TASK INPUT BAR */
-.task-input-bar {
+/* ROW 1: INPUT & METRICS */
+.row-1-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0.85rem;
+    flex-shrink: 0;
+}
+
+.card-box {
+    background-color: var(--card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.card-box-head {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.input-form-row {
     display: flex;
     gap: 0.5rem;
 }
 
-.task-input-bar input {
+.input-form-row input {
     flex-grow: 1;
-    padding: 0.55rem 0.85rem;
+    padding: 0.5rem 0.75rem;
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: #F8FAFC;
+    border-radius: 6px;
+    background-color: #0A0C12;
     color: var(--text-primary);
     outline: none;
-    transition: var(--transition);
 }
 
-.task-input-bar select {
-    padding: 0.55rem 0.75rem;
+.input-form-row select {
+    padding: 0.5rem;
     font-family: var(--font-sans);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: #F8FAFC;
+    border-radius: 6px;
+    background-color: #0A0C12;
     color: var(--text-primary);
     outline: none;
     cursor: pointer;
 }
 
-.task-input-bar input:focus,
-.task-input-bar select:focus {
-    border-color: var(--royal-blue);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-}
-
-.btn-apple-primary {
+.btn-apple-action {
     background-color: var(--royal-blue);
     color: #FFFFFF;
     border: none;
-    padding: 0.55rem 1rem;
+    padding: 0.5rem 0.85rem;
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 600;
-    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -187,24 +223,72 @@ body {
     transition: var(--transition);
 }
 
-.btn-apple-primary:hover {
-    background-color: var(--royal-blue-hover);
+.btn-apple-action:hover {
+    background-color: var(--royal-hover);
 }
 
-/* TABS BAR */
-.apple-tabs-bar {
+.metrics-track-body {
     display: flex;
-    gap: 0.4rem;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.track-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+}
+
+.track-info .lbl { color: var(--text-muted); font-weight: 600; }
+.track-info .val { font-weight: 800; color: var(--royal-blue); }
+
+.progress-bar-bg {
+    height: 8px;
+    background-color: #0A0C12;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--royal-blue);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+/* ROW 2: BOARD & DOM MONITOR */
+.row-2-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.card-board {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.board-head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.4rem;
+}
+
+.tabs-group {
+    display: flex;
+    gap: 0.35rem;
 }
 
 .apple-tab {
     background: none;
     border: none;
-    padding: 0.35rem 0.75rem;
+    padding: 0.3rem 0.65rem;
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: var(--text-muted);
     border-radius: 6px;
@@ -213,12 +297,16 @@ body {
 }
 
 .apple-tab.active {
-    background-color: #EFF6FF;
+    background-color: rgba(37, 99, 235, 0.15);
     color: var(--royal-blue);
 }
 
-/* TASK LIST */
-.task-list-viewport {
+.count-badge {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+}
+
+.task-scroll-area {
     flex-grow: 1;
     overflow-y: auto;
     padding-right: 4px;
@@ -232,10 +320,10 @@ body {
 }
 
 .apple-task-item {
-    background-color: #F8FAFC;
+    background-color: #0A0C12;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -254,9 +342,9 @@ body {
 
 .apple-checkbox {
     appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--border-hover);
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--text-muted);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -274,12 +362,12 @@ body {
     content: "\f00c";
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     color: #FFFFFF;
 }
 
 .apple-task-item.completed {
-    opacity: 0.55;
+    opacity: 0.5;
 }
 
 .apple-task-item.completed .task-text-lbl {
@@ -288,7 +376,7 @@ body {
 }
 
 .task-text-lbl {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 500;
 }
 
@@ -297,63 +385,55 @@ body {
     border: none;
     color: var(--rose-red);
     cursor: pointer;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     padding: 0.25rem;
     border-radius: 4px;
-    transition: var(--transition);
-}
-
-.btn-delete-task:hover {
-    background-color: #FFE4E6;
 }
 
 .empty-apple-state {
-    padding: 2.5rem 1rem;
+    padding: 2rem 1rem;
     text-align: center;
     color: var(--text-muted);
 }
 
-.empty-apple-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.4rem;
-    color: var(--border-hover);
+.empty-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
 }
 
 .empty-apple-state p {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
 }
 
-/* DOM TRAVERSAL DRAWER */
-.dom-traversal-box {
-    background-color: #0F172A;
+/* DOM DRAWER */
+.dom-traversal-drawer {
+    background-color: var(--card-solid);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 0.55rem 0.85rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    padding: 0.45rem 0.75rem;
     flex-shrink: 0;
 }
 
-.dom-box-head {
-    font-size: 0.65rem;
+.dom-head {
+    font-size: 0.62rem;
     font-weight: 700;
-    color: #94A3B8;
+    color: var(--royal-blue);
 }
 
-.dom-code-line {
-    font-size: 0.7rem;
-    color: #38BDF8;
+.dom-code {
+    font-size: 0.68rem;
+    color: var(--emerald-green);
     word-break: break-all;
 }
 
-/* CARD FOOTER */
-.apple-card-footer {
-    background-color: #F8FAFC;
+/* PROMINENT AUTHOR FOOTER */
+.apple-footer {
     border-top: 1px solid var(--border-color);
-    padding: 0.65rem 1.5rem;
+    padding-top: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .footer-bar {

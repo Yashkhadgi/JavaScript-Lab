@@ -1,5 +1,5 @@
 /**
- * Practical 7: Apple-Style Assessment Card & DOM Traversal Engine
+ * Practical 7: Apple Assessment Portal & DOM Traversal Engine (2-Row Layout)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyState = document.getElementById('todo-empty-state');
 
     const appleProgressFill = document.getElementById('apple-progress-fill');
+    const pctValStr = document.getElementById('pct-val-str');
     const stepIndicator = document.getElementById('step-indicator');
+    const taskCountBadge = document.getElementById('task-count-badge');
     const consoleDomPath = document.getElementById('console-dom-path');
     const tabs = document.querySelectorAll('.apple-tab');
 
@@ -32,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createTask() {
         const text = taskInput.value.trim();
-        const priority = taskPrioritySelect.value;
 
         if (text === "") return;
 
@@ -106,9 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-        appleProgressFill.style.width = `${Math.max(10, pct)}%`;
+        appleProgressFill.style.width = `${pct}%`;
+        pctValStr.textContent = `${pct}%`;
 
         stepIndicator.textContent = `Tasks • ${completed} of ${total} Completed`;
+        taskCountBadge.textContent = `${total} Listed`;
     }
 
     function applyFilter() {
