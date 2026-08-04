@@ -1,5 +1,5 @@
 /**
- * Practical 5: La Boutique De Paris - Scandinavian Storefront Cart Engine
+ * Practical 5: La Boutique De Paris - Hackathon Storefront Cart Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,9 +23,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const valTotal = document.getElementById('val-total');
     const btnCheckout = document.getElementById('btn-checkout');
 
+    // Custom product creator elements
+    const customNameInput = document.getElementById('custom-name');
+    const customPriceInput = document.getElementById('custom-price');
+    const customCatSelect = document.getElementById('custom-cat');
+    const btnAddCustom = document.getElementById('btn-add-custom');
+
     let cart = [];
 
     renderCatalog();
+
+    // CUSTOM PRODUCT CREATOR
+    btnAddCustom.addEventListener('click', addCustomProduct);
+
+    function addCustomProduct() {
+        const name = customNameInput.value.trim();
+        const priceVal = customPriceInput.value.trim();
+        const category = customCatSelect.value;
+
+        if (name === "" || priceVal === "") return;
+
+        const price = parseFloat(priceVal);
+        if (isNaN(price) || price <= 0) return;
+
+        const newProd = {
+            id: Date.now(),
+            name: name,
+            category: category,
+            price: price,
+            img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80'
+        };
+
+        products.unshift(newProd);
+
+        customNameInput.value = "";
+        customPriceInput.value = "";
+        customNameInput.focus();
+
+        renderCatalog();
+    }
 
     function renderCatalog() {
         productGrid.innerHTML = "";

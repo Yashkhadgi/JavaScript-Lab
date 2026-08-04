@@ -3,42 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Boutique De Paris - Scandinavian Storefront</title>
+    <title>La Boutique De Paris - Hackathon Storefront</title>
     <!-- ===== GOOGLE FONTS (PLAYFAIR DISPLAY & INTER) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Background Image with Blur Overlay -->
+    <div class="blurred-boutique-overlay"></div>
+
     <div class="shop-viewport">
-        <!-- ===== MINIMALIST HEADER NAVBAR ===== -->
+        <!-- ===== MINIMALIST NAVBAR ===== -->
         <header class="shop-navbar">
             <div class="brand-box">
-                <span class="edition-lbl">PARIS &bull; EST. 2026</span>
+                <span class="edition-lbl">HAUTE COUTURE &bull; PARIS EST. 2026</span>
                 <h1 class="shop-logo">LA BOUTIQUE DE PARIS</h1>
             </div>
 
-            <button class="cart-trigger-btn" id="btn-toggle-bag">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="bag-lbl">SHOPPING BAG</span>
-                <span class="bag-count-pill" id="bag-count-pill">0</span>
-            </button>
+            <div class="nav-actions">
+                <button class="btn-toggle-drawer" id="btn-open-create">
+                    <i class="fa-solid fa-plus"></i> Custom Item Creator
+                </button>
+                <div class="cart-pill-trigger">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>BAG</span>
+                    <span class="bag-count-pill" id="bag-count-pill">0</span>
+                </div>
+            </div>
         </header>
 
         <!-- ===== MAIN STOREFRONT WORKSPACE ===== -->
         <main class="shop-workspace">
             
-            <!-- LEFT 3-COLUMN PRODUCT CATALOG (68% width) -->
+            <!-- LEFT CATALOG PANEL & INPUT CREATOR (65% width) -->
             <section class="catalog-panel">
-                <div class="catalog-header">
-                    <h2>SELECTED CREATIONS</h2>
-                    <span class="catalog-tag">AUTUMN / WINTER 2026</span>
+                
+                <!-- CUSTOM PRODUCT CREATOR INPUT BAR (HACKATHON FEATURE) -->
+                <div class="custom-item-bar" id="custom-item-bar">
+                    <div class="bar-head">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <span>ADD CUSTOM BOUTIQUE CREATION</span>
+                    </div>
+
+                    <div class="inputs-row">
+                        <input type="text" id="custom-name" placeholder="Item Name (e.g. Silk Scarf)" autocomplete="off">
+                        <input type="number" id="custom-price" placeholder="Price (₹)" min="100" autocomplete="off">
+                        <select id="custom-cat">
+                            <option value="Leather Goods">Leather Goods</option>
+                            <option value="Haute Couture">Haute Couture</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Fragrance">Fragrance</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                        <button id="btn-add-custom" class="btn-add-creation">
+                            <i class="fa-solid fa-check"></i> Add Creation
+                        </button>
+                    </div>
                 </div>
 
+                <div class="catalog-header">
+                    <h2>SELECTED BOUTIQUE CATALOG</h2>
+                    <span class="catalog-tag">COLLECTION AUTOMNE-HIVER</span>
+                </div>
+
+                <!-- 3-Column Scrollable Product Grid -->
                 <div class="catalog-grid-scroll">
                     <div class="product-grid-3col" id="product-grid-3col">
                         <!-- Dynamic Scandinavian Product Cards -->
@@ -46,12 +79,12 @@
                 </div>
             </section>
 
-            <!-- RIGHT CHECKOUT RECEIPT DRAWER (32% width) -->
+            <!-- RIGHT CHECKOUT RECEIPT DRAWER (35% width) -->
             <aside class="checkout-panel">
                 <div class="receipt-card">
                     <div class="receipt-head">
                         <h3>Order Summary</h3>
-                        <p class="receipt-date" id="receipt-date-str">AUGUST 04, 2026</p>
+                        <p class="receipt-date" id="receipt-date-str">AUGUST 04, 2026 &bull; PARIS</p>
                     </div>
 
                     <!-- Cart Itemized List -->
@@ -74,8 +107,8 @@
                         </div>
                         <div class="divider-thin"></div>
                         <div class="summary-line total-line">
-                            <span>Total</span>
-                            <span class="val-price" id="val-total">₹0.00</span>
+                            <span>Grand Total</span>
+                            <span class="val-price total-highlight" id="val-total">₹0.00</span>
                         </div>
                     </div>
 
@@ -90,7 +123,7 @@
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
         <footer class="shop-footer">
             <div class="footer-bar">
-                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Hackathon E-Commerce Engine
             </div>
         </footer>
     </div>

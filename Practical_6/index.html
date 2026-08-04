@@ -7,55 +7,68 @@
     <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Background Image with Soft Light Overlay -->
+    <div class="blurred-light-overlay"></div>
+
     <div class="supabase-viewport">
-        <!-- ===== SUPABASE TOPBAR NAVBAR ===== -->
+        <!-- ===== SUPABASE LIGHT NAVBAR ===== -->
         <header class="supabase-navbar">
             <div class="brand-box">
                 <div class="brand-logo"><i class="fa-solid fa-bolt"></i></div>
                 <div>
                     <h1>Regex Data Mining Engine</h1>
-                    <p class="sub-title">Supabase Data Parser v6.0</p>
+                    <p class="sub-title">Supabase Light Data Parser v6.0 &bull; Custom Pattern Tester</p>
                 </div>
             </div>
             <div class="status-indicator-pill">
-                <i class="fa-solid fa-circle-check text-emerald"></i> ENGINE ACTIVE
+                <i class="fa-solid fa-circle-check text-emerald"></i> PARSER ENGINE ACTIVE
             </div>
         </header>
 
         <!-- ===== MAIN HORIZONTAL SPLIT WORKSPACE ===== -->
         <main class="supabase-workspace">
             
-            <!-- TOP HALF: PAYLOAD INPUT & EMAIL VALIDATOR -->
+            <!-- TOP HALF: PAYLOAD & CUSTOM REGEX TESTER INPUTS -->
             <section class="supabase-panel panel-top">
                 <div class="panel-head">
                     <div class="flex-align gap-2">
-                        <i class="fa-solid fa-code"></i>
-                        <h2>Payload &amp; Verification Input</h2>
+                        <i class="fa-solid fa-sliders"></i>
+                        <h2>Interactive Pattern Inputs</h2>
                     </div>
                     <span class="status-tag tag-emerald" id="email-status-tag">Email Format Valid</span>
                 </div>
 
                 <div class="top-inputs-grid">
-                    <!-- Target Email Verifier -->
-                    <div class="input-card">
-                        <label for="email-input">Single Email Verifier Target</label>
-                        <div class="input-wrap">
-                            <input type="email" id="email-input" value="yash.khadge@supabase.io" placeholder="Target email address..." autocomplete="off">
-                            <span class="verify-badge" id="verify-badge">VALID</span>
+                    <!-- Column 1: Single Email & Custom Regex Inputs -->
+                    <div class="inputs-col-1">
+                        <div class="input-card">
+                            <label for="email-input">Single Target Email Verifier</label>
+                            <div class="input-wrap">
+                                <input type="email" id="email-input" value="yash.khadge@supabase.io" placeholder="Target email address..." autocomplete="off">
+                                <span class="verify-badge" id="verify-badge">VALID</span>
+                            </div>
+                        </div>
+
+                        <div class="input-card">
+                            <label for="custom-regex-input">Custom Regex Pattern Tester</label>
+                            <div class="input-wrap">
+                                <input type="text" id="custom-regex-input" value="\b[A-Z][a-z]+\b" placeholder="e.g. \b[A-Z][a-z]+\b" autocomplete="off">
+                                <span class="regex-flag-badge">Global (/g)</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Raw Text Area -->
+                    <!-- Column 2: Raw Text Area Payload -->
                     <div class="input-card flex-grow">
                         <label for="paragraph-input">Raw Text Data Payload</label>
-                        <textarea id="paragraph-input" rows="4" placeholder="Paste data payload text here...">Contact team at support@supabase.io or dev@domain.com. Call +91 9876543210 or 022-25901234 before 15/08/2026 for system clearance access.</textarea>
+                        <textarea id="paragraph-input" rows="4" placeholder="Paste data payload text here...">Contact team at support@supabase.io or dev@domain.com. Call +91 9876543210 or 022-25901234 before 15/08/2026 for system clearance access. Project Alpha launched with 42 microservices.</textarea>
                     </div>
                 </div>
             </section>
@@ -63,8 +76,10 @@
             <!-- BOTTOM HALF: MINED DATA CHIPS & WORD STATS -->
             <section class="supabase-panel panel-bottom">
                 <div class="panel-head">
-                    <i class="fa-solid fa-database"></i>
-                    <h2>Parsed Telemetry Chips &amp; Analytics</h2>
+                    <div class="flex-align gap-2">
+                        <i class="fa-solid fa-database"></i>
+                        <h2>Mined Telemetry Chips &amp; Distribution</h2>
+                    </div>
                 </div>
 
                 <div class="bottom-results-grid">
@@ -74,6 +89,15 @@
                         <div class="card-subtitle">Extracted Entity Chips</div>
                         
                         <div class="chips-scroll-viewport">
+                            <!-- Custom Regex Matches -->
+                            <div class="chip-section">
+                                <div class="chip-sec-title">
+                                    <span><i class="fa-solid fa-filter"></i> Custom Pattern Matches</span>
+                                    <span class="count-badge" id="cnt-custom">0 Found</span>
+                                </div>
+                                <div class="chips-flex" id="box-custom-chips"></div>
+                            </div>
+
                             <!-- Emails -->
                             <div class="chip-section">
                                 <div class="chip-sec-title">
@@ -142,7 +166,7 @@
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
         <footer class="supabase-footer">
             <div class="footer-bar">
-                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Light Studio Telemetry Engine
             </div>
         </footer>
     </div>

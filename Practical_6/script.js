@@ -1,5 +1,5 @@
 /**
- * Practical 6: Supabase SaaS Data Extractor Engine
+ * Practical 6: Light Studio Telemetry & Custom Regex Extractor
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,12 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const verifyBadge = document.getElementById('verify-badge');
     const emailStatusTag = document.getElementById('email-status-tag');
 
+    const customRegexInput = document.getElementById('custom-regex-input');
     const paragraphInput = document.getElementById('paragraph-input');
 
+    const boxCustomChips = document.getElementById('box-custom-chips');
     const boxEmailChips = document.getElementById('box-email-chips');
     const boxPhoneChips = document.getElementById('box-phone-chips');
     const boxDateChips = document.getElementById('box-date-chips');
 
+    const cntCustom = document.getElementById('cnt-custom');
     const cntEmail = document.getElementById('cnt-email');
     const cntPhone = document.getElementById('cnt-phone');
     const cntDate = document.getElementById('cnt-date');
@@ -32,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     emailInput.addEventListener('input', validateEmail);
     paragraphInput.addEventListener('input', analyzeText);
+    customRegexInput.addEventListener('input', analyzeText);
 
     function validateEmail() {
         const val = emailInput.value.trim();
@@ -39,12 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (val === "") {
             verifyBadge.textContent = "EMPTY";
-            verifyBadge.style.backgroundColor = "rgba(148, 163, 184, 0.15)";
+            verifyBadge.style.backgroundColor = "#F1F5F9";
             verifyBadge.style.color = "#94A3B8";
 
             emailStatusTag.className = "status-tag";
             emailStatusTag.textContent = "Awaiting Email Target";
-            emailStatusTag.style.backgroundColor = "#334155";
+            emailStatusTag.style.backgroundColor = "#F1F5F9";
             emailStatusTag.style.color = "#94A3B8";
             return;
         }
@@ -53,14 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isValid) {
             verifyBadge.textContent = "VALID";
-            verifyBadge.style.backgroundColor = "rgba(16, 185, 129, 0.15)";
+            verifyBadge.style.backgroundColor = "#ECFDF5";
             verifyBadge.style.color = "#10B981";
 
             emailStatusTag.className = "status-tag tag-emerald";
             emailStatusTag.textContent = "Email Format Valid";
         } else {
             verifyBadge.textContent = "INVALID";
-            verifyBadge.style.backgroundColor = "rgba(239, 68, 68, 0.15)";
+            verifyBadge.style.backgroundColor = "#FEF2F2";
             verifyBadge.style.color = "#EF4444";
 
             emailStatusTag.className = "status-tag tag-red";
@@ -71,7 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function analyzeText() {
         const text = paragraphInput.value;
 
-        // Extractions
+        // Custom Regex Extraction
+        let foundCustom = [];
+        const patternVal = customRegexInput.value.trim();
+        if (patternVal !== "") {
+            try {
+                const userRegex = new RegExp(patternVal, 'g');
+                foundCustom = text.match(userRegex) || [];
+            } catch(e) {
+                foundCustom = ["Invalid Regex Pattern"];
+            }
+        }
+
+        // Built-in Extractions
         const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
         const phoneRegex = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{10}\b|\b0\d{2,4}[-.\s]?\d{6,8}\b/g;
         const dateRegex = /\b\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4}\b/g;
@@ -80,11 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const foundPhones = text.match(phoneRegex) || [];
         const foundDates = text.match(dateRegex) || [];
 
-        renderChips(boxEmailChips, cntEmail, foundEmails);
-        renderChips(boxPhoneChips, cntPhone, foundPhones);
-        renderChips(boxDateChips, cntDate, foundDates);
+        renderChips(boxCustomChips, cntCustom, foundCustom, true);
+        renderChips(boxEmailChips, cntEmail, foundEmails, false);
+        renderChips(boxPhoneChips, cntPhone, foundPhones, false);
+        renderChips(boxDateChips, cntDate, foundDates, false);
 
-        // Word Length Breakdown
+        // Word Length Distribution
         const words = text.trim().split(/\s+/).map(w => w.replace(/[^a-zA-Z0-9]/g, '')).filter(w => w.length > 0);
 
         let shortCount = 0;
@@ -113,12 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
         barLong.style.width = `${longPct}%`;
     }
 
-    function renderChips(container, counter, items) {
+    function renderChips(container, counter, items, isCustom) {
         container.innerHTML = "";
         counter.textContent = `${items.length} Found`;
 
         if (items.length === 0) {
-            container.innerHTML = '<span style="color:#64748B; font-size:0.7rem;">None detected</span>';
+            container.innerHTML = '<span style="color:#94A3B8; font-size:0.7rem;">None detected</span>';
             return;
         }
 
@@ -126,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uniqueItems.forEach(item => {
             const chip = document.createElement('span');
-            chip.className = 'pastel-chip';
+            chip.className = `pastel-chip ${isCustom ? 'custom-chip' : ''}`;
             chip.textContent = item;
             container.appendChild(chip);
         });
