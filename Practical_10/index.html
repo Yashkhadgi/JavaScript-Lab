@@ -3,123 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yash Khadge - Executive Developer Portfolio &amp; API Engine</title>
-    <!-- ===== GOOGLE FONTS (PLUS JAKARTA SANS & SHARE TECH MONO) ===== -->
+    <title>Yash Khadge - Minimalist Developer Portfolio</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating Mesh Gradient Backdrop -->
-    <div class="portfolio-mesh-bg">
-        <div class="hero-orb orb-indigo"></div>
-        <div class="hero-orb orb-cyan"></div>
-    </div>
-
-    <div class="portfolio-viewport">
-        <!-- ===== LUXURY HEADER ===== -->
-        <header class="portfolio-navbar">
-            <div class="author-badge-group">
-                <div class="author-avatar-badge">YK</div>
+    <div class="vercel-viewport">
+        <!-- ===== VERCEL NAVBAR ===== -->
+        <header class="vercel-navbar">
+            <div class="brand-group">
+                <div class="author-avatar">YK</div>
                 <div>
                     <h1 class="author-name">Yash Khadge</h1>
-                    <p class="author-title">Executive Software Engineer &bull; PRN: 24070521137</p>
+                    <p class="author-sub">PRN: 24070521137 &bull; Software Engineer</p>
                 </div>
             </div>
-            <div class="portfolio-nav-links">
-                <span class="status-live-dot"><i class="fa-solid fa-circle"></i> AVAILABLE FOR ARCHITECTURE</span>
+            <div class="status-pill">
+                <span class="status-dot"></span> AVAILABLE FOR PROJECTS
             </div>
         </header>
 
-        <!-- ===== HERO LANDING & API SHOWCASE WORKSPACE ===== -->
-        <main class="portfolio-hero-workspace">
+        <!-- ===== MAIN PORTFOLIO & API WORKSPACE ===== -->
+        <main class="vercel-workspace">
             
-            <!-- LEFT COLUMN: HERO INTRO & SKILLS (40% width) -->
-            <section class="hero-intro-card">
-                <div class="hero-badge-tag"><i class="fa-solid fa-code"></i> FULL-STACK LAB ARCHITECTURE</div>
-                <h2 class="hero-headline">Building Award-Winning Web Experiences &amp; Telemetry Engines.</h2>
-                <p class="hero-bio">Specializing in asynchronous API data pipelines (Fetch API &amp; jQuery $.getJSON), high-performance UI state management, and responsive layout paradigms.</p>
-
-                <!-- Animated Skills Meters -->
-                <div class="skills-widget">
-                    <div class="skill-row">
-                        <div class="skill-info"><span>Async Data Pipelines</span> <span>98%</span></div>
-                        <div class="skill-track"><div class="skill-fill fill-cyan" style="width: 98%;"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span>UI/UX Architecture</span> <span>95%</span></div>
-                        <div class="skill-track"><div class="skill-fill fill-indigo" style="width: 95%;"></div></div>
-                    </div>
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <span class="hero-tag">ENGINEERING PORTFOLIO</span>
+                    <h2 class="hero-title">Building clean, production-grade web applications &amp; data engines.</h2>
+                    <p class="hero-desc">Specializing in asynchronous API data pipelines (Fetch API &amp; jQuery $.getJSON), component state management, and modern responsive UI design systems.</p>
                 </div>
             </section>
 
-            <!-- RIGHT COLUMN: INTERACTIVE API DIRECTORY SHOWCASE (60% width) -->
-            <section class="api-showcase-card">
-                <div class="showcase-header">
+            <!-- API DIRECTORY ENGINE SHOWCASE -->
+            <section class="api-showcase-section">
+                <div class="showcase-bar">
                     <div class="showcase-title">
-                        <i class="fa-solid fa-database text-cyan"></i>
-                        <span>LIVE API DIRECTORY ENGINE</span>
+                        <i class="fa-solid fa-server"></i>
+                        <span>Live Developer API Directory</span>
                     </div>
 
-                    <!-- Pipeline Action Buttons -->
-                    <div class="pipeline-btn-group">
-                        <button id="btn-load-fetch" class="btn-api btn-fetch">
-                            <i class="fa-solid fa-bolt"></i> FETCH API
+                    <!-- Async Pipeline Buttons -->
+                    <div class="btn-group-pipeline">
+                        <button id="btn-load-fetch" class="btn-vercel btn-fetch">
+                            <i class="fa-solid fa-bolt"></i> Fetch API
                         </button>
-                        <button id="btn-load-jquery" class="btn-api btn-jquery">
+                        <button id="btn-load-jquery" class="btn-vercel btn-jquery">
                             <i class="fa-solid fa-code"></i> $.getJSON()
                         </button>
                     </div>
                 </div>
 
-                <!-- Query Filters & Telemetry Bar -->
-                <div class="telemetry-filter-bar">
+                <!-- Filter & Telemetry Line -->
+                <div class="filter-telemetry-line">
                     <div class="search-input-wrap">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="search-filter" placeholder="Search developers by name..." disabled autocomplete="off">
+                        <input type="text" id="search-filter" placeholder="Filter developer names or cities..." disabled autocomplete="off">
                     </div>
-                    <div class="telemetry-pills">
-                        <span class="tele-pill">LATENCY: <strong id="tele-latency">-- ms</strong></span>
-                        <span class="tele-pill">TOTAL: <strong id="tele-count">00</strong></span>
-                        <span class="tele-pill pill-method" id="tele-method">IDLE</span>
+                    <div class="telemetry-tags">
+                        <span class="tele-tag">LATENCY: <strong class="mono" id="tele-latency">-- ms</strong></span>
+                        <span class="tele-tag">TOTAL: <strong class="mono" id="tele-count">00</strong></span>
+                        <span class="tele-tag method-tag mono" id="tele-method">IDLE</span>
                     </div>
                 </div>
 
-                <!-- Directory Grid / Table -->
-                <div class="directory-scroll-wrapper">
-                    <div class="developer-grid" id="developer-grid-container">
-                        <!-- Initial Placeholder -->
-                        <div class="empty-portfolio-state" id="empty-state">
-                            <i class="fa-solid fa-server empty-icon"></i>
-                            <p>DATABASE IDLE. Click Fetch API or $.getJSON() above to execute data transmission.</p>
+                <!-- Developer Cards Grid -->
+                <div class="grid-scroll-wrapper">
+                    <div class="developer-grid-2col" id="developer-grid-container">
+                        <!-- Initial Empty State -->
+                        <div class="empty-portfolio-box" id="empty-state">
+                            <i class="fa-solid fa-database empty-icon"></i>
+                            <p>API Directory Idle. Click <strong>Fetch API</strong> or <strong>$.getJSON()</strong> above to execute data transmission.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Terminal Syntax Inspector Output -->
-                <div class="code-syntax-drawer">
-                    <div class="drawer-header">
-                        <span class="drawer-title" id="code-tab-title">execution_log.js</span>
+                <!-- Syntax Inspector Console -->
+                <div class="syntax-console-drawer">
+                    <div class="console-head">
+                        <span class="console-file" id="code-tab-title">execution_log.js</span>
                     </div>
-                    <pre class="drawer-code" id="code-display-pre">// Click a query trigger to view live asynchronous execution syntax...</pre>
+                    <pre class="console-code mono" id="code-display-pre">// Click a trigger button above to observe asynchronous execution syntax...</pre>
                 </div>
             </section>
 
         </main>
 
-        <!-- ===== EXECUTIVE AUTHOR FOOTER ===== -->
-        <footer class="portfolio-footer">
-            <div class="footer-portfolio-bar">
-                <i class="fa-solid fa-award text-cyan"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Awwwards Creative Developer Web Engine
+        <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
+        <footer class="vercel-footer">
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>
 
-    <!-- ===== JQUERY CDN ===== -->
+    <!-- ===== JQUERYS CDN ===== -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- ===== JAVASCRIPT ===== -->
     <script src="script.js"></script>

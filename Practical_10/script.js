@@ -1,5 +1,5 @@
 /**
- * Practical 10: Executive Developer Portfolio & API Telemetry Engine
+ * Practical 10: Vercel Engineer Portfolio & API Telemetry Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let fetchedUsers = [];
 
-    const fetchCodeSnippet = `// Native Fetch API Pipeline
+    const fetchCodeSnippet = `// Native Fetch API Request
 fetch("https://jsonplaceholder.typicode.com/users")
   .then(res => res.json())
   .then(users => renderDeveloperGrid(users));`;
 
-    const jqueryCodeSnippet = `// jQuery $.getJSON Pipeline
+    const jqueryCodeSnippet = `// jQuery $.getJSON Request
 $.getJSON("https://jsonplaceholder.typicode.com/users")
   .done(users => renderDeveloperGrid(users));`;
 
@@ -37,11 +37,6 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
         if (parts.length > 0) initials += parts[0][0];
         if (parts.length > 1) initials += parts[parts.length - 1][0];
         return initials.toUpperCase();
-    }
-
-    function getRandomColor() {
-        const colors = ['#00E5FF', '#818CF8', '#10B981', '#F59E0B', '#EC4899'];
-        return colors[Math.floor(Math.random() * colors.length)];
     }
 
     function renderGrid() {
@@ -57,7 +52,7 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
         });
 
         if (filtered.length === 0) {
-            developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#94A3B8; font-size:0.8rem;">No developers match query.</div>';
+            developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#A1A1AA; font-size:0.8rem;">No developers match query.</div>';
             teleCount.textContent = "00";
             return;
         }
@@ -69,13 +64,12 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
             card.className = 'developer-card';
 
             const initials = getInitials(user.name);
-            const avatarBg = getRandomColor();
             const city = user.address ? user.address.city : "Remote";
             const company = user.company ? user.company.name : "Tech Corp";
 
             card.innerHTML = `
                 <div class="dev-card-head">
-                    <div class="dev-avatar" style="background-color: ${avatarBg}">${initials}</div>
+                    <div class="dev-avatar">${initials}</div>
                     <span class="dev-name">${user.name}</span>
                 </div>
                 <div class="dev-meta-line"><i class="fa-regular fa-envelope"></i> ${user.email}</div>
@@ -90,7 +84,7 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
 
     // FETCH API PIPELINE
     btnFetch.addEventListener('click', () => {
-        developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#00E5FF;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;"></i><p style="font-size:0.75rem; margin-top:0.5rem;">Fetching Telemetry Data...</p></div>';
+        developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#3B82F6;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;"></i><p style="font-size:0.75rem; margin-top:0.5rem;">Fetching Telemetry Data...</p></div>';
         
         const t0 = performance.now();
 
@@ -101,7 +95,7 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
 
                 teleLatency.textContent = `${latency} ms`;
                 teleMethod.textContent = "FETCH";
-                teleMethod.style.color = "#00E5FF";
+                teleMethod.style.color = "#3B82F6";
 
                 fetchedUsers = data;
                 renderGrid();
