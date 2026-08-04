@@ -1,5 +1,5 @@
 /**
- * Practical 3: Neumorphic Grade Evaluation Engine
+ * Practical 3: EduPulse SaaS - Academic Grade Assessment Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,31 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const subjectMarksInput = document.getElementById('subject-marks');
     const btnAddSubject = document.getElementById('btn-add-subject');
 
-    const subjectsContainer = document.getElementById('subjects-container');
+    const coursesContainer = document.getElementById('courses-container');
     const emptyState = document.getElementById('empty-state');
-    const subjectCountBadge = document.getElementById('subject-count');
+    const subjectCountChip = document.getElementById('subject-count-chip');
 
-    // Evaluation outputs
-    const scoreRingProgress = document.getElementById('score-ring-progress');
-    const avgPctText = document.getElementById('avg-pct-text');
-    const totalScoreVal = document.getElementById('total-score-val');
-    const gradeRankVal = document.getElementById('grade-rank-val');
-    const resultStamp = document.getElementById('result-stamp');
+    // Metrics outputs
+    const avgPctNum = document.getElementById('avg-pct-num');
+    const statusPill = document.getElementById('status-pill');
+    const scoreBarFill = document.getElementById('score-bar-fill');
 
-    let subjects = [];
+    const gradeRankLetter = document.getElementById('grade-rank-letter');
+    const rankBadge = document.getElementById('rank-badge');
+    const totalMarksStr = document.getElementById('total-marks-str');
 
-    // -------------------------------------------------------------
-    // ADD SUBJECT
-    // -------------------------------------------------------------
-    btnAddSubject.addEventListener('click', addSubject);
-    
+    let courses = [];
+
+    btnAddSubject.addEventListener('click', addCourse);
+
     [subjectNameInput, subjectMarksInput].forEach(input => {
         input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addSubject();
+            if (e.key === 'Enter') addCourse();
         });
     });
 
-    function addSubject() {
+    function addCourse() {
         const name = subjectNameInput.value.trim();
         const marksVal = subjectMarksInput.value.trim();
 
@@ -43,113 +42,103 @@ document.addEventListener('DOMContentLoaded', () => {
         const marks = parseFloat(marksVal);
         if (isNaN(marks) || marks < 0 || marks > 100) return;
 
-        // Push data item
-        const subjectObj = {
+        courses.push({
             id: Date.now(),
             name: name,
             marks: marks
-        };
+        });
 
-        subjects.push(subjectObj);
-
-        // Reset inputs
         subjectNameInput.value = "";
         subjectMarksInput.value = "";
         subjectNameInput.focus();
 
-        renderSubjects();
-        evaluateScores();
+        renderCourses();
+        evaluateAnalytics();
     }
 
-    // -------------------------------------------------------------
-    // RENDER SUBJECT CARDS
-    // -------------------------------------------------------------
-    function renderSubjects() {
-        subjectsContainer.innerHTML = "";
+    function renderCourses() {
+        coursesContainer.innerHTML = "";
 
-        if (subjects.length === 0) {
-            subjectsContainer.appendChild(emptyState);
-            subjectCountBadge.textContent = "0 Subjects";
+        if (courses.length === 0) {
+            coursesContainer.appendChild(emptyState);
+            subjectCountChip.textContent = "0 Subjects";
             return;
         }
 
-        subjectCountBadge.textContent = `${subjects.length} Subject${subjects.length > 1 ? 's' : ''}`;
+        subjectCountChip.textContent = `${courses.length} Subject${courses.length > 1 ? 's' : ''}`;
 
-        subjects.forEach(sub => {
-            const card = document.createElement('div');
-            card.className = 'neu-subject-card';
+        courses.forEach(c => {
+            const tile = document.createElement('div');
+            tile.className = 'course-tile';
 
-            card.innerHTML = `
-                <div class="subject-info">
-                    <h4>${sub.name}</h4>
-                    <p>Score: ${sub.marks} / 100</p>
+            tile.innerHTML = `
+                <div class="course-info">
+                    <h4>${c.name}</h4>
+                    <p>Score: ${c.marks} / 100</p>
                 </div>
-                <button class="btn-del-subject" data-id="${sub.id}" title="Remove Subject">
+                <button class="btn-del-course" data-id="${c.id}" title="Delete Course">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             `;
 
-            card.querySelector('.btn-del-subject').addEventListener('click', () => {
-                deleteSubject(sub.id);
+            tile.querySelector('.btn-del-course').addEventListener('click', () => {
+                deleteCourse(c.id);
             });
 
-            subjectsContainer.appendChild(card);
+            coursesContainer.appendChild(tile);
         });
     }
 
-    function deleteSubject(id) {
-        subjects = subjects.filter(sub => sub.id !== id);
-        renderSubjects();
-        evaluateScores();
+    function deleteCourse(id) {
+        courses = courses.filter(c => c.id !== id);
+        renderCourses();
+        evaluateAnalytics();
     }
 
-    // -------------------------------------------------------------
-    // EVALUATE SCORE & UPDATE RADIAL RING / STAMP
-    // -------------------------------------------------------------
-    function evaluateScores() {
-        const circumference = 326.72; // 2 * PI * r (r=52)
+    function evaluateAnalytics() {
+        if (courses.length === 0) {
+            avgPctNum.textContent = "0%";
+            statusPill.className = "pill-status";
+            statusPill.textContent = "Awaiting Marks";
+            scoreBarFill.style.width = "0%";
 
-        if (subjects.length === 0) {
-            avgPctText.textContent = "0%";
-            totalScoreVal.textContent = "0 / 0";
-            gradeRankVal.textContent = "--";
-            scoreRingProgress.style.strokeDashoffset = circumference;
-            resultStamp.className = "rubber-stamp stamp-pending";
-            resultStamp.textContent = "PENDING";
+            gradeRankLetter.textContent = "--";
+            rankBadge.textContent = "NO RANK";
+            totalMarksStr.textContent = "0 / 0 Total Marks";
             return;
         }
 
-        const totalMarksObtained = subjects.reduce((sum, sub) => sum + sub.marks, 0);
-        const maxMarksPossible = subjects.length * 100;
-        const avgPercentage = Math.round((totalMarksObtained / maxMarksPossible) * 100);
+        const totalObtained = courses.reduce((sum, c) => sum + c.marks, 0);
+        const maxPossible = courses.length * 100;
+        const avgPercentage = Math.round((totalObtained / maxPossible) * 100);
 
-        // Update Text
-        avgPctText.textContent = `${avgPercentage}%`;
-        totalScoreVal.textContent = `${totalMarksObtained} / ${maxMarksPossible}`;
+        // Update score metric
+        avgPctNum.textContent = `${avgPercentage}%`;
+        scoreBarFill.style.width = `${avgPercentage}%`;
 
-        // Update Ring Offset
-        const offset = circumference - (circumference * avgPercentage / 100);
-        scoreRingProgress.style.strokeDashoffset = offset;
-
-        // Calculate Grade Rank
-        let grade = "F";
-        if (avgPercentage >= 90) grade = "A+";
-        else if (avgPercentage >= 75) grade = "A";
-        else if (avgPercentage >= 60) grade = "B";
-        else if (avgPercentage >= 50) grade = "C";
-
-        gradeRankVal.textContent = grade;
-
-        // Pass/Fail check (average >= 40% and no single subject < 35)
-        const hasFailedSubject = subjects.some(sub => sub.marks < 35);
+        // Check pass/fail (Avg >= 40 & no subject < 35)
+        const hasFailedSubject = courses.some(c => c.marks < 35);
         const isPassed = (avgPercentage >= 40) && !hasFailedSubject;
 
         if (isPassed) {
-            resultStamp.className = "rubber-stamp stamp-pass";
-            resultStamp.textContent = "PASSED";
+            statusPill.className = "pill-status pass";
+            statusPill.textContent = "PASSED";
         } else {
-            resultStamp.className = "rubber-stamp stamp-fail";
-            resultStamp.textContent = "FAILED";
+            statusPill.className = "pill-status fail";
+            statusPill.textContent = "FAILED";
         }
+
+        // Rank Grade Assignment
+        let grade = "F";
+        let rankText = "UNSATISFACTORY";
+
+        if (avgPercentage >= 90) { grade = "A+"; rankText = "EXCELLENCE"; }
+        else if (avgPercentage >= 75) { grade = "A"; rankText = "DISTINCTION"; }
+        else if (avgPercentage >= 60) { grade = "B"; rankText = "FIRST CLASS"; }
+        else if (avgPercentage >= 50) { grade = "C"; rankText = "PASS CLASS"; }
+
+        gradeRankLetter.textContent = grade;
+        rankBadge.textContent = rankText;
+        totalMarksStr.textContent = `${totalObtained} / ${maxPossible} Total Marks`;
     }
 });
