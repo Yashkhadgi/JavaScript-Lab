@@ -1,77 +1,73 @@
 /**
- * Practical 4: Cybernetic Palindrome Analyzer
+ * Practical 4: Cybernetic Palindrome HUD Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const palindromeInput = document.getElementById('palindrome-input');
     const btnAnalyze = document.getElementById('btn-analyze');
-    const presetButtons = document.querySelectorAll('.btn-preset');
+    const hudPresets = document.querySelectorAll('.hud-preset');
 
-    // Vector grid elements
-    const forwardCharRow = document.getElementById('forward-char-row');
-    const reverseCharRow = document.getElementById('reverse-char-row');
-    const vectorBridgesRow = document.getElementById('vector-bridges-row');
+    const forwardNodesBox = document.getElementById('forward-nodes-box');
+    const reverseNodesBox = document.getElementById('reverse-nodes-box');
+    const nodesBridgesBox = document.getElementById('nodes-bridges-box');
 
-    // Telemetry & Hologram elements
-    const statusHologram = document.getElementById('status-hologram');
-    const statusIcon = document.getElementById('status-icon');
-    const statusTitle = document.getElementById('status-title');
-    const statusSub = document.getElementById('status-sub');
+    const hologramBanner = document.getElementById('hologram-banner');
+    const holoIcon = document.getElementById('holo-icon');
+    const holoTitle = document.getElementById('holo-title');
+    const holoSub = document.getElementById('holo-sub');
 
-    const metricRawLen = document.getElementById('metric-raw-len');
-    const metricCleanLen = document.getElementById('metric-clean-len');
-    const metricSymmetry = document.getElementById('metric-symmetry');
-    const metricClosure = document.getElementById('metric-closure');
+    const valRawLen = document.getElementById('val-raw-len');
+    const valCleanLen = document.getElementById('val-clean-len');
+    const valSymmetry = document.getElementById('val-symmetry');
+    const valClosure = document.getElementById('val-closure');
 
-    const cleanedStringVal = document.getElementById('cleaned-string-val');
-    const reversedStringVal = document.getElementById('reversed-string-val');
+    const strClean = document.getElementById('str-clean');
+    const strReverse = document.getElementById('str-reverse');
 
-    // Analyze on launch
-    analyzeString();
+    // Run initial scan
+    analyzeMatrix();
 
-    btnAnalyze.addEventListener('click', analyzeString);
+    btnAnalyze.addEventListener('click', analyzeMatrix);
     palindromeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') analyzeString();
+        if (e.key === 'Enter') analyzeMatrix();
     });
 
-    presetButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            palindromeInput.value = btn.getAttribute('data-text');
-            analyzeString();
+    hudPresets.forEach(preset => {
+        preset.addEventListener('click', () => {
+            palindromeInput.value = preset.getAttribute('data-text');
+            analyzeMatrix();
         });
     });
 
-    function analyzeString() {
+    function analyzeMatrix() {
         const rawText = palindromeInput.value;
         const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
         const reversed = cleaned.split('').reverse().join('');
 
-        // Raw metrics
-        metricRawLen.textContent = rawText.length;
-        metricCleanLen.textContent = cleaned.length;
-        cleanedStringVal.textContent = cleaned || "(empty)";
-        reversedStringVal.textContent = reversed || "(empty)";
+        valRawLen.textContent = rawText.length;
+        valCleanLen.textContent = cleaned.length;
+        strClean.textContent = cleaned || "(empty)";
+        strReverse.textContent = reversed || "(empty)";
 
         if (cleaned.length === 0) {
-            forwardCharRow.innerHTML = '<span class="text-muted">Awaiting input...</span>';
-            reverseCharRow.innerHTML = '';
-            vectorBridgesRow.innerHTML = '';
-            
-            statusHologram.className = 'status-hologram-card';
-            statusIcon.className = 'fa-solid fa-triangle-exclamation status-icon';
-            statusTitle.textContent = 'AWAITING INPUT';
-            statusSub.textContent = 'Enter text above to initialize vector inspection.';
-            
-            metricSymmetry.textContent = '0%';
-            metricClosure.textContent = 'FALSE';
+            forwardNodesBox.innerHTML = '<span class="text-muted">AWAITING SEQUENCE...</span>';
+            reverseNodesBox.innerHTML = '';
+            nodesBridgesBox.innerHTML = '';
+
+            hologramBanner.className = 'hologram-banner';
+            holoIcon.className = 'fa-solid fa-triangle-exclamation hologram-icon';
+            holoTitle.textContent = 'AWAITING SEQUENCE';
+            holoSub.textContent = 'Input text above to initiate quantum node analysis.';
+
+            valSymmetry.textContent = '0%';
+            valClosure.textContent = 'FALSE';
             return;
         }
 
-        // Render Character Rows & Bridges
-        forwardCharRow.innerHTML = "";
-        reverseCharRow.innerHTML = "";
-        vectorBridgesRow.innerHTML = "";
+        forwardNodesBox.innerHTML = "";
+        reverseNodesBox.innerHTML = "";
+        nodesBridgesBox.innerHTML = "";
 
         let matchCount = 0;
         const total = cleaned.length;
@@ -83,41 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isMatch) matchCount++;
 
-            // Forward Box
-            const boxF = document.createElement('div');
-            boxF.className = `char-box ${isMatch ? 'match' : 'mismatch'}`;
-            boxF.textContent = charF.toUpperCase();
-            forwardCharRow.appendChild(boxF);
+            // Forward Node
+            const nodeF = document.createElement('div');
+            nodeF.className = `cyber-node ${isMatch ? 'node-match' : 'node-mismatch'}`;
+            nodeF.textContent = charF.toUpperCase();
+            forwardNodesBox.appendChild(nodeF);
 
-            // Bridge icon
+            // Vector Bridge Slot
             const bridge = document.createElement('div');
-            bridge.className = `bridge-icon ${isMatch ? 'match' : 'mismatch'}`;
+            bridge.className = `laser-slot-bridge ${isMatch ? 'match' : 'mismatch'}`;
             bridge.innerHTML = isMatch ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>';
-            vectorBridgesRow.appendChild(bridge);
+            nodesBridgesBox.appendChild(bridge);
 
-            // Reverse Box
-            const boxR = document.createElement('div');
-            boxR.className = `char-box ${isMatch ? 'match' : 'mismatch'}`;
-            boxR.textContent = charR.toUpperCase();
-            reverseCharRow.appendChild(boxR);
+            // Reverse Node
+            const nodeR = document.createElement('div');
+            nodeR.className = `cyber-node ${isMatch ? 'node-match' : 'node-mismatch'}`;
+            nodeR.textContent = charR.toUpperCase();
+            reverseNodesBox.appendChild(nodeR);
         }
 
         const symmetryPct = Math.round((matchCount / total) * 100);
         const isPalindrome = (cleaned === reversed);
 
-        metricSymmetry.textContent = `${symmetryPct}%`;
-        metricClosure.textContent = isPalindrome ? 'TRUE' : 'FALSE';
+        valSymmetry.textContent = `${symmetryPct}%`;
+        valClosure.textContent = isPalindrome ? 'TRUE' : 'FALSE';
 
         if (isPalindrome) {
-            statusHologram.className = 'status-hologram-card is-palindrome';
-            statusIcon.className = 'fa-solid fa-shield-halved status-icon';
-            statusTitle.textContent = 'PALINDROME CONFIRMED';
-            statusSub.textContent = 'Forward and reversed alphanumeric sequences are perfectly symmetrical.';
+            hologramBanner.className = 'hologram-banner is-palindrome';
+            holoIcon.className = 'fa-solid fa-shield-halved hologram-icon';
+            holoTitle.textContent = 'PALINDROME CONFIRMED';
+            holoSub.textContent = 'Forward and reversed quantum node sequences exhibit 100% closure.';
         } else {
-            statusHologram.className = 'status-hologram-card not-palindrome';
-            statusIcon.className = 'fa-solid fa-triangle-exclamation status-icon';
-            statusTitle.textContent = 'PALINDROME MISMATCH';
-            statusSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s).`;
+            hologramBanner.className = 'hologram-banner not-palindrome';
+            holoIcon.className = 'fa-solid fa-triangle-exclamation hologram-icon';
+            holoTitle.textContent = 'PALINDROME MISMATCH';
+            holoSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s).`;
         }
     }
 });

@@ -3,145 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybernetic Palindrome Analyzer - Practical 4</title>
-    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <title>Cyberpunk HUD - Palindrome Scanner</title>
+    <!-- ===== GOOGLE FONTS (SHARE TECH MONO & ORBITRON) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cyber-viewport">
-        <!-- ===== CYBER TOPBAR HEADER ===== -->
-        <header class="cyber-topbar">
-            <div class="topbar-left">
-                <div class="cyber-icon-badge"><i class="fa-solid fa-terminal"></i></div>
+    <!-- Scanline & Hex Background Overlay -->
+    <div class="scanlines"></div>
+    <div class="hex-grid-overlay"></div>
+
+    <div class="hud-viewport">
+        <!-- ===== CYBER HUD TOPBAR ===== -->
+        <header class="hud-topbar">
+            <div class="hud-brand">
+                <div class="hud-logo"><i class="fa-solid fa-atom"></i></div>
                 <div>
-                    <h1>CYBERNETIC PALINDROME ANALYZER</h1>
-                    <p class="subtitle">Linguistic Closure Detection &bull; String Vector Alignment Protocol</p>
+                    <h1 class="glitch-title" data-text="CYBERNETIC PALINDROME HUD">CYBERNETIC PALINDROME HUD</h1>
+                    <p class="hud-subtitle">Quantum String Symmetry &bull; Node Matching Engine</p>
                 </div>
             </div>
-            <div class="cyber-pill">
-                <i class="fa-solid fa-microchip"></i> MATRIX ENGINE ACTIVE
+            <div class="hud-radar-group">
+                <div class="radar-pulse"></div>
+                <span class="hud-tag text-cyan">SYSTEM ONLINE // v4.0</span>
             </div>
         </header>
 
-        <!-- ===== MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT) ===== -->
-        <main class="cyber-dashboard">
+        <!-- ===== FULLSCREEN HUD WORKSPACE ===== -->
+        <main class="hud-workspace">
             
-            <!-- LEFT COLUMN: INPUT TERMINAL & CHARACTER MATRIX -->
-            <section class="cyber-panel panel-left">
-                <div class="panel-header">
-                    <i class="fa-solid fa-code"></i>
-                    <span>STRING INPUT TERMINAL</span>
-                </div>
-
-                <!-- Command input bar -->
-                <div class="input-terminal-box">
-                    <span class="cmd-prompt">&gt;</span>
-                    <input type="text" id="palindrome-input" placeholder="Type a phrase to inspect..." value="A man a plan a canal Panama" autocomplete="off">
-                    <button id="btn-analyze" class="cyber-btn cyber-btn-primary">
-                        <i class="fa-solid fa-bolt"></i> ANALYZE
+            <!-- CENTERED ELECTRIC PLASMA BEAM INPUT SCANNER -->
+            <section class="plasma-scanner-card">
+                <div class="plasma-beam-wrapper">
+                    <div class="plasma-glow-line"></div>
+                    <span class="prompt-symbol">&gt;_</span>
+                    <input type="text" id="palindrome-input" value="A man a plan a canal Panama" placeholder="INITIATE STRING SEQUENCE..." autocomplete="off">
+                    <button id="btn-analyze" class="btn-plasma">
+                        <i class="fa-solid fa-bolt-lightning"></i> ANALYZE MATRIX
                     </button>
                 </div>
 
-                <!-- Quick Presets -->
-                <div class="preset-bar">
-                    <span class="preset-lbl">LOAD PRESETS:</span>
-                    <button class="btn-preset" data-text="racecar">racecar</button>
-                    <button class="btn-preset" data-text="A man a plan a canal Panama">canal Panama</button>
-                    <button class="btn-preset" data-text="never odd or even">never odd or even</button>
-                    <button class="btn-preset" data-text="javascript">javascript</button>
-                </div>
-
-                <!-- Vector Character Grid Mapping -->
-                <div class="matrix-grid-card">
-                    <div class="matrix-card-title">
-                        <i class="fa-solid fa-diagram-project"></i>
-                        <span>VECTOR CHARACTER MATCH GRID</span>
-                    </div>
-
-                    <div class="matrix-scroll-wrapper">
-                        <!-- Upper row: Forward characters -->
-                        <div class="vector-row-container">
-                            <span class="row-tag tag-forward">FORWARD</span>
-                            <div class="char-boxes-row" id="forward-char-row">
-                                <!-- Dynamic character boxes -->
-                            </div>
-                        </div>
-
-                        <!-- Vector Links Row -->
-                        <div class="vector-bridges-row" id="vector-bridges-row">
-                            <!-- Dynamic vector lines -->
-                        </div>
-
-                        <!-- Lower row: Reversed characters -->
-                        <div class="vector-row-container">
-                            <span class="row-tag tag-reverse">REVERSED</span>
-                            <div class="char-boxes-row" id="reverse-char-row">
-                                <!-- Dynamic character boxes -->
-                            </div>
-                        </div>
-                    </div>
+                <!-- Cyber Presets Pills -->
+                <div class="preset-pill-row">
+                    <span class="preset-lbl">MATRIX PRESETS:</span>
+                    <button class="hud-preset" data-text="racecar">racecar</button>
+                    <button class="hud-preset" data-text="A man a plan a canal Panama">canal Panama</button>
+                    <button class="hud-preset" data-text="never odd or even">never odd or even</button>
+                    <button class="hud-preset" data-text="javascript">javascript</button>
                 </div>
             </section>
 
-            <!-- RIGHT COLUMN: TELEMETRY & PALINDROME STATUS -->
-            <section class="cyber-panel panel-right">
-                <div class="panel-header">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>TELEMETRY &amp; RESULT</span>
-                </div>
+            <!-- 2-COLUMN LOWER HUD SECTION -->
+            <div class="hud-grid-row">
+                
+                <!-- LEFT COLUMN: ANIMATED CIRCULAR CYBER-NODES GRID -->
+                <section class="hud-panel panel-nodes">
+                    <div class="panel-header-hud">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                        <span>QUANTUM CHARACTER NODES MAPPING</span>
+                    </div>
 
-                <!-- Dynamic Status Hologram Badge -->
-                <div class="status-hologram-card" id="status-hologram">
-                    <i class="fa-solid fa-shield-halved status-icon" id="status-icon"></i>
-                    <h2 class="status-title" id="status-title">PALINDROME CONFIRMED</h2>
-                    <p class="status-sub" id="status-sub">Forward and reversed alphanumeric sequences are symmetrical.</p>
-                </div>
+                    <div class="nodes-scroll-viewport">
+                        <!-- Forward Nodes -->
+                        <div class="nodes-sequence-row">
+                            <span class="sequence-lbl lbl-forward">FORWARD</span>
+                            <div class="nodes-flex-container" id="forward-nodes-box">
+                                <!-- Dynamic Circular Cyber Nodes -->
+                            </div>
+                        </div>
 
-                <!-- Analytics Breakdown -->
-                <div class="metrics-grid">
-                    <div class="metric-box">
-                        <span class="metric-lbl">RAW LENGTH</span>
-                        <span class="metric-val text-cyan" id="metric-raw-len">30</span>
-                    </div>
-                    <div class="metric-box">
-                        <span class="metric-lbl">CLEANED LENGTH</span>
-                        <span class="metric-val text-lime" id="metric-clean-len">21</span>
-                    </div>
-                    <div class="metric-box">
-                        <span class="metric-lbl">SYMMETRY SCORE</span>
-                        <span class="metric-val text-pink" id="metric-symmetry">100%</span>
-                    </div>
-                    <div class="metric-box">
-                        <span class="metric-lbl">CLOSURE STATUS</span>
-                        <span class="metric-val text-lime" id="metric-closure">TRUE</span>
-                    </div>
-                </div>
+                        <!-- Vector Laser Connections -->
+                        <div class="nodes-bridges-row" id="nodes-bridges-box">
+                            <!-- Dynamic bridge connectors -->
+                        </div>
 
-                <!-- String Transformation Output -->
-                <div class="string-transform-box">
-                    <div class="transform-row">
-                        <span class="lbl">SANITY FORMAT:</span>
-                        <span class="val monospace" id="cleaned-string-val">amanaplanacanalpanama</span>
+                        <!-- Reverse Nodes -->
+                        <div class="nodes-sequence-row">
+                            <span class="sequence-lbl lbl-reverse">REVERSED</span>
+                            <div class="nodes-flex-container" id="reverse-nodes-box">
+                                <!-- Dynamic Circular Cyber Nodes -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="transform-row">
-                        <span class="lbl">REVERSED FORMAT:</span>
-                        <span class="val monospace" id="reversed-string-val">amanaplanacanalpanama</span>
+                </section>
+
+                <!-- RIGHT COLUMN: HOLOGRAPHIC RADAR & METRICS -->
+                <section class="hud-panel panel-status">
+                    <div class="panel-header-hud">
+                        <i class="fa-solid fa-radar"></i>
+                        <span>SYMMETRY ANALYTICS &amp; STATUS</span>
                     </div>
-                </div>
-            </section>
+
+                    <!-- Holographic Status Banner -->
+                    <div class="hologram-banner" id="hologram-banner">
+                        <i class="fa-solid fa-shield-halved hologram-icon" id="holo-icon"></i>
+                        <h2 class="holo-title" id="holo-title">PALINDROME CONFIRMED</h2>
+                        <p class="holo-sub" id="holo-sub">Forward and reversed sequences exhibit 100% closure.</p>
+                    </div>
+
+                    <!-- Analytics Grid -->
+                    <div class="cyber-metrics-grid">
+                        <div class="metric-hud-box">
+                            <span class="lbl">RAW CHARS</span>
+                            <span class="val text-cyan" id="val-raw-len">30</span>
+                        </div>
+                        <div class="metric-hud-box">
+                            <span class="lbl">SANITY LEN</span>
+                            <span class="val text-green" id="val-clean-len">21</span>
+                        </div>
+                        <div class="metric-hud-box">
+                            <span class="lbl">SYMMETRY</span>
+                            <span class="val text-magenta" id="val-symmetry">100%</span>
+                        </div>
+                        <div class="metric-hud-box">
+                            <span class="lbl">CLOSURE</span>
+                            <span class="val text-green" id="val-closure">TRUE</span>
+                        </div>
+                    </div>
+
+                    <div class="sanity-string-display">
+                        <div class="string-line"><span class="lbl">SANITY:</span> <span class="val" id="str-clean">amanaplanacanalpanama</span></div>
+                        <div class="string-line"><span class="lbl">INVERT:</span> <span class="val" id="str-reverse">amanaplanacanalpanama</span></div>
+                    </div>
+                </section>
+
+            </div>
 
         </main>
 
-        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
-        <footer class="cyber-footer">
-            <div class="footer-badge">
-                <i class="fa-solid fa-code"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+        <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
+        <footer class="hud-footer">
+            <div class="footer-hud-bar">
+                <i class="fa-solid fa-atom"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Sci-Fi Cyberpunk HUD Matrix
             </div>
         </footer>
     </div>
