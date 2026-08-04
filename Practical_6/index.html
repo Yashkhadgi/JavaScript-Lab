@@ -3,155 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Threat Regex Console - Practical 6</title>
-    <!-- ===== GOOGLE FONTS (JETBRAINS MONO & INTER) ===== -->
+    <title>Supabase Data Extractor - Practical 6</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="ide-viewport">
-        <!-- ===== IDE TOPBAR HEADER ===== -->
-        <header class="ide-topbar">
-            <div class="ide-brand">
-                <div class="status-dots">
-                    <span class="dot dot-red"></span>
-                    <span class="dot dot-yellow"></span>
-                    <span class="dot dot-green"></span>
+    <div class="supabase-viewport">
+        <!-- ===== SUPABASE TOPBAR NAVBAR ===== -->
+        <header class="supabase-navbar">
+            <div class="brand-box">
+                <div class="brand-logo"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <h1>Regex Data Mining Engine</h1>
+                    <p class="sub-title">Supabase Data Parser v6.0</p>
                 </div>
-                <h1>CYBER REGEX COMMAND CENTER <span class="badge-ide">IDE v6.0</span></h1>
             </div>
-            <div class="ide-status-pill">
-                <i class="fa-solid fa-shield-halved"></i> SCANNER ENGINE ACTIVE
+            <div class="status-indicator-pill">
+                <i class="fa-solid fa-circle-check text-emerald"></i> ENGINE ACTIVE
             </div>
         </header>
 
-        <!-- ===== 3-COLUMN SPLIT INTERFACE WORKSPACE ===== -->
-        <main class="ide-workspace-3col">
+        <!-- ===== MAIN HORIZONTAL SPLIT WORKSPACE ===== -->
+        <main class="supabase-workspace">
             
-            <!-- COLUMN 1: LIVE INPUT TERMINAL (30% width) -->
-            <section class="ide-pane pane-input">
-                <div class="pane-header">
-                    <i class="fa-solid fa-code"></i>
-                    <span>LIVE REGEX &amp; TARGET INPUT</span>
-                </div>
-
-                <div class="input-card-box">
-                    <label class="input-label"><i class="fa-solid fa-at"></i> Email Verifier Target</label>
-                    <div class="email-scanner-box">
-                        <input type="email" id="email-input" value="yash.khadge@cyber.org" placeholder="Target Email..." autocomplete="off">
-                        <span class="status-indicator-tag" id="scan-badge">VALID</span>
+            <!-- TOP HALF: PAYLOAD INPUT & EMAIL VALIDATOR -->
+            <section class="supabase-panel panel-top">
+                <div class="panel-head">
+                    <div class="flex-align gap-2">
+                        <i class="fa-solid fa-code"></i>
+                        <h2>Payload &amp; Verification Input</h2>
                     </div>
-                    <span class="status-explanation-text" id="scanner-status">Status: Valid Email Layout.</span>
+                    <span class="status-tag tag-emerald" id="email-status-tag">Email Format Valid</span>
                 </div>
 
-                <div class="input-card-box flex-grow min-height-0">
-                    <label class="input-label"><i class="fa-solid fa-file-code"></i> Raw Payload Text Miner</label>
-                    <textarea id="paragraph-input" rows="8" placeholder="Paste payload text to mine regex chips...">Contact admin at security@cyber.org or sales@domain.com. Call +91 9876543210 or 022-25901234 before 15/08/2026 for authorization access.</textarea>
-                </div>
-            </section>
-
-            <!-- COLUMN 2: EXTRACTED DATA TERMINAL (40% width) -->
-            <section class="ide-pane pane-extractor">
-                <div class="pane-header">
-                    <i class="fa-solid fa-terminal"></i>
-                    <span>DATA EXTRACTOR TERMINAL</span>
-                </div>
-
-                <div class="terminal-container">
-                    <div class="terminal-header">
-                        <span class="term-title">mined_data_chips.json</span>
+                <div class="top-inputs-grid">
+                    <!-- Target Email Verifier -->
+                    <div class="input-card">
+                        <label for="email-input">Single Email Verifier Target</label>
+                        <div class="input-wrap">
+                            <input type="email" id="email-input" value="yash.khadge@supabase.io" placeholder="Target email address..." autocomplete="off">
+                            <span class="verify-badge" id="verify-badge">VALID</span>
+                        </div>
                     </div>
-                    <div class="terminal-body">
-                        <!-- Mined Emails -->
-                        <div class="chip-group">
-                            <div class="chip-group-title">
-                                <span><i class="fa-regular fa-envelope"></i> MINED EMAILS</span>
-                                <span class="chip-count" id="cnt-email">1 Found</span>
-                            </div>
-                            <div class="chips-flex" id="box-email-chips">
-                                <!-- Dynamic Chips -->
-                            </div>
-                        </div>
 
-                        <!-- Mined Phones -->
-                        <div class="chip-group">
-                            <div class="chip-group-title">
-                                <span><i class="fa-solid fa-phone"></i> MINED PHONES</span>
-                                <span class="chip-count" id="cnt-phone">2 Found</span>
-                            </div>
-                            <div class="chips-flex" id="box-phone-chips">
-                                <!-- Dynamic Chips -->
-                            </div>
-                        </div>
-
-                        <!-- Mined Dates -->
-                        <div class="chip-group">
-                            <div class="chip-group-title">
-                                <span><i class="fa-regular fa-calendar"></i> MINED DATES</span>
-                                <span class="chip-count" id="cnt-date">1 Found</span>
-                            </div>
-                            <div class="chips-flex" id="box-date-chips">
-                                <!-- Dynamic Chips -->
-                            </div>
-                        </div>
+                    <!-- Raw Text Area -->
+                    <div class="input-card flex-grow">
+                        <label for="paragraph-input">Raw Text Data Payload</label>
+                        <textarea id="paragraph-input" rows="4" placeholder="Paste data payload text here...">Contact team at support@supabase.io or dev@domain.com. Call +91 9876543210 or 022-25901234 before 15/08/2026 for system clearance access.</textarea>
                     </div>
                 </div>
             </section>
 
-            <!-- COLUMN 3: DATA VISUALIZATION CHARTS (30% width) -->
-            <section class="ide-pane pane-charts">
-                <div class="pane-header">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    <span>WORD LENGTH BREAKDOWN</span>
+            <!-- BOTTOM HALF: MINED DATA CHIPS & WORD STATS -->
+            <section class="supabase-panel panel-bottom">
+                <div class="panel-head">
+                    <i class="fa-solid fa-database"></i>
+                    <h2>Parsed Telemetry Chips &amp; Analytics</h2>
                 </div>
 
-                <div class="charts-container">
-                    <!-- Short Words Bar -->
-                    <div class="chart-box">
-                        <div class="chart-info">
-                            <span>Short Words (1-3)</span>
-                            <span class="val-num" id="cnt-short">0</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill fill-cyan" id="bar-short" style="width: 0%;"></div>
+                <div class="bottom-results-grid">
+                    
+                    <!-- Mined Data Chips Box -->
+                    <div class="results-card chips-card">
+                        <div class="card-subtitle">Extracted Entity Chips</div>
+                        
+                        <div class="chips-scroll-viewport">
+                            <!-- Emails -->
+                            <div class="chip-section">
+                                <div class="chip-sec-title">
+                                    <span><i class="fa-regular fa-envelope"></i> Mined Emails</span>
+                                    <span class="count-badge" id="cnt-email">0 Found</span>
+                                </div>
+                                <div class="chips-flex" id="box-email-chips"></div>
+                            </div>
+
+                            <!-- Phones -->
+                            <div class="chip-section">
+                                <div class="chip-sec-title">
+                                    <span><i class="fa-solid fa-phone"></i> Mined Phone Numbers</span>
+                                    <span class="count-badge" id="cnt-phone">0 Found</span>
+                                </div>
+                                <div class="chips-flex" id="box-phone-chips"></div>
+                            </div>
+
+                            <!-- Dates -->
+                            <div class="chip-section">
+                                <div class="chip-sec-title">
+                                    <span><i class="fa-regular fa-calendar"></i> Mined Dates</span>
+                                    <span class="count-badge" id="cnt-date">0 Found</span>
+                                </div>
+                                <div class="chips-flex" id="box-date-chips"></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Medium Words Bar -->
-                    <div class="chart-box">
-                        <div class="chart-info">
-                            <span>Medium Words (4-6)</span>
-                            <span class="val-num" id="cnt-medium">0</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill fill-green" id="bar-medium" style="width: 0%;"></div>
+                    <!-- Word Length Breakdown Bar Charts -->
+                    <div class="results-card stats-card">
+                        <div class="card-subtitle">Word Length Distribution</div>
+
+                        <div class="bars-container">
+                            <div class="bar-box">
+                                <div class="bar-info">
+                                    <span>Short Words (1 - 3 chars)</span>
+                                    <span class="val mono" id="cnt-short">0</span>
+                                </div>
+                                <div class="bar-track"><div class="bar-fill fill-blue" id="bar-short" style="width: 0%;"></div></div>
+                            </div>
+
+                            <div class="bar-box">
+                                <div class="bar-info">
+                                    <span>Medium Words (4 - 6 chars)</span>
+                                    <span class="val mono" id="cnt-medium">0</span>
+                                </div>
+                                <div class="bar-track"><div class="bar-fill fill-emerald" id="bar-medium" style="width: 0%;"></div></div>
+                            </div>
+
+                            <div class="bar-box">
+                                <div class="bar-info">
+                                    <span>Long Words (7+ chars)</span>
+                                    <span class="val mono" id="cnt-long">0</span>
+                                </div>
+                                <div class="bar-track"><div class="bar-fill fill-purple" id="bar-long" style="width: 0%;"></div></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Long Words Bar -->
-                    <div class="chart-box">
-                        <div class="chart-info">
-                            <span>Long Words (7+)</span>
-                            <span class="val-num" id="cnt-long">0</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill fill-pink" id="bar-long" style="width: 0%;"></div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
         </main>
 
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
-        <footer class="ide-footer">
-            <div class="footer-ide-bar">
-                <i class="fa-solid fa-terminal"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Cyber Security Threat Scanner Console
+        <footer class="supabase-footer">
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>

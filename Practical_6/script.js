@@ -1,12 +1,12 @@
 /**
- * Practical 6: Cyber Threat Regex Command Center Console
+ * Practical 6: Supabase SaaS Data Extractor Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const emailInput = document.getElementById('email-input');
-    const scanBadge = document.getElementById('scan-badge');
-    const scannerStatus = document.getElementById('scanner-status');
+    const verifyBadge = document.getElementById('verify-badge');
+    const emailStatusTag = document.getElementById('email-status-tag');
 
     const paragraphInput = document.getElementById('paragraph-input');
 
@@ -38,25 +38,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
         if (val === "") {
-            scanBadge.textContent = "EMPTY";
-            scanBadge.style.backgroundColor = "rgba(156, 163, 175, 0.2)";
-            scanBadge.style.color = "#9CA3AF";
-            scannerStatus.textContent = "Status: Awaiting input target...";
+            verifyBadge.textContent = "EMPTY";
+            verifyBadge.style.backgroundColor = "rgba(148, 163, 184, 0.15)";
+            verifyBadge.style.color = "#94A3B8";
+
+            emailStatusTag.className = "status-tag";
+            emailStatusTag.textContent = "Awaiting Email Target";
+            emailStatusTag.style.backgroundColor = "#334155";
+            emailStatusTag.style.color = "#94A3B8";
             return;
         }
 
         const isValid = emailRegex.test(val);
 
         if (isValid) {
-            scanBadge.textContent = "VALID";
-            scanBadge.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
-            scanBadge.style.color = "#10B981";
-            scannerStatus.textContent = "Status: Valid Email Layout Confirmed.";
+            verifyBadge.textContent = "VALID";
+            verifyBadge.style.backgroundColor = "rgba(16, 185, 129, 0.15)";
+            verifyBadge.style.color = "#10B981";
+
+            emailStatusTag.className = "status-tag tag-emerald";
+            emailStatusTag.textContent = "Email Format Valid";
         } else {
-            scanBadge.textContent = "INVALID";
-            scanBadge.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
-            scanBadge.style.color = "#EF4444";
-            scannerStatus.textContent = "Status: Malformed email structure.";
+            verifyBadge.textContent = "INVALID";
+            verifyBadge.style.backgroundColor = "rgba(239, 68, 68, 0.15)";
+            verifyBadge.style.color = "#EF4444";
+
+            emailStatusTag.className = "status-tag tag-red";
+            emailStatusTag.textContent = "Malformed Email Format";
         }
     }
 
@@ -76,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderChips(boxPhoneChips, cntPhone, foundPhones);
         renderChips(boxDateChips, cntDate, foundDates);
 
-        // Word Length Distribution
+        // Word Length Breakdown
         const words = text.trim().split(/\s+/).map(w => w.replace(/[^a-zA-Z0-9]/g, '')).filter(w => w.length > 0);
 
         let shortCount = 0;
@@ -110,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counter.textContent = `${items.length} Found`;
 
         if (items.length === 0) {
-            container.innerHTML = '<span style="color:#6B7280; font-size:0.68rem;">None detected</span>';
+            container.innerHTML = '<span style="color:#64748B; font-size:0.7rem;">None detected</span>';
             return;
         }
 
@@ -118,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uniqueItems.forEach(item => {
             const chip = document.createElement('span');
-            chip.className = 'chip';
+            chip.className = 'pastel-chip';
             chip.textContent = item;
             container.appendChild(chip);
         });
