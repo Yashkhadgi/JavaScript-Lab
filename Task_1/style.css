@@ -3,7 +3,7 @@
    ============================================================ */
 :root {
     --bg-dark: #0A0C12;
-    --card-bg: rgba(18, 22, 32, 0.90);
+    --card-bg: rgba(18, 22, 32, 0.92);
     --card-solid: #121622;
     --border-color: #2D354A;
     --border-hover: #434F6E;
@@ -11,6 +11,7 @@
     --accent-blue: #3B82F6;
     --accent-blue-hover: #2563EB;
     --accent-emerald: #10B981;
+    --accent-amber: #F59E0B;
     --accent-rose: #F43F5E;
     
     --text-primary: #F8FAFC;
@@ -60,6 +61,33 @@ body {
 }
 
 /* ============================================================
+   TOAST BANNER
+   ============================================================ */
+.toast-banner {
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--card-solid);
+    border: 1px solid var(--accent-emerald);
+    color: var(--text-primary);
+    padding: 0.65rem 1.25rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    transition: top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.toast-banner.show {
+    top: 20px;
+}
+
+/* ============================================================
    AUTH VIEWPORT CONTAINER
    ============================================================ */
 .auth-viewport {
@@ -86,7 +114,7 @@ body {
     padding: 1.75rem 1.85rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.15rem;
     position: relative;
     overflow: hidden;
 }
@@ -100,7 +128,7 @@ body {
 }
 
 .auth-stage.hidden {
-    display: none;
+    display: none !important;
     opacity: 0;
     transform: translateY(10px);
 }
@@ -214,6 +242,10 @@ body {
     display: none;
 }
 
+.status-icon.active {
+    display: block;
+}
+
 .error-text {
     font-size: 0.68rem;
     color: var(--accent-rose);
@@ -226,6 +258,38 @@ body {
 
 .form-group.has-error .error-text {
     display: block;
+}
+
+/* PASSWORD STRENGTH BAR */
+.pwd-strength-box {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.strength-bar-bg {
+    flex-grow: 1;
+    height: 5px;
+    background-color: var(--card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.strength-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--accent-rose);
+    border-radius: 3px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-lbl {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    width: 100px;
+    text-align: right;
 }
 
 .btn-submit-auth {

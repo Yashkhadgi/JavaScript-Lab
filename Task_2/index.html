@@ -30,10 +30,16 @@
                         <p class="subtitle">State &bull; City &bull; Live Climate Inspection</p>
                     </div>
                 </div>
-                <div class="time-pill mono" id="live-clock">12:06 PM</div>
+                <div class="header-right-group">
+                    <div class="unit-toggle-group">
+                        <button class="unit-btn active" id="btn-unit-c">°C</button>
+                        <button class="unit-btn" id="btn-unit-f">°F</button>
+                    </div>
+                    <div class="time-pill mono" id="live-clock">12:12 PM</div>
+                </div>
             </header>
 
-            <!-- CASCADING DROPDOWNS SECTION -->
+            <!-- CASCADING DROPDOWNS PANEL -->
             <div class="dropdowns-panel">
                 <!-- State Selector -->
                 <div class="select-group">
@@ -52,10 +58,10 @@
                 </div>
             </div>
 
-            <!-- WEATHER DETAILS DISPLAY CARD -->
+            <!-- WEATHER DETAILS DISPLAY STAGE -->
             <div class="weather-display-stage" id="weather-display-stage">
                 
-                <!-- PROMINENT HERO CARD -->
+                <!-- HERO CLIMATE CARD -->
                 <div class="hero-climate-card">
                     <div class="climate-top-row">
                         <div>
@@ -67,7 +73,7 @@
 
                     <div class="temp-huge-row">
                         <span class="temp-num mono" id="disp-temp">27</span>
-                        <span class="temp-unit">°C</span>
+                        <span class="temp-unit" id="disp-unit-symbol">°C</span>
                     </div>
 
                     <div class="temp-sub-row">
@@ -75,6 +81,12 @@
                         <span class="dot-sep">&bull;</span>
                         <span>High <strong id="disp-high">30°C</strong> / Low <strong id="disp-low">23°C</strong></span>
                     </div>
+                </div>
+
+                <!-- 5-DAY FORECAST ROW -->
+                <div class="forecast-section">
+                    <div class="sec-title"><i class="fa-regular fa-calendar-days"></i> 5-DAY CLIMATE FORECAST</div>
+                    <div class="forecast-grid-5" id="forecast-grid-5"></div>
                 </div>
 
                 <!-- TELEMETRY METRICS GRID (6 TILES) -->

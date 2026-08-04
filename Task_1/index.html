@@ -17,53 +17,67 @@
     <!-- Background Image with Blur Overlay -->
     <div class="blurred-auth-overlay"></div>
 
+    <!-- TOAST NOTIFICATION BANNER -->
+    <div class="toast-banner" id="toast-banner">
+        <i class="fa-solid fa-circle-check text-emerald" id="toast-icon"></i>
+        <span id="toast-msg">Login Successful! Welcome back.</span>
+    </div>
+
     <div class="auth-viewport">
-        <!-- ===== MAIN AUTHENTICATION CONTAINER CARD ===== -->
-        <main class="auth-card" id="auth-card">
+        <!-- ===== MAIN AUTHENTICATION CARD CONTAINER ===== -->
+        <main class="auth-card">
             
             <!-- STAGE 1: LOGIN FORM VIEW -->
             <div class="auth-stage" id="login-stage">
                 <header class="auth-header">
                     <div class="shield-badge"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h2>Secure Portal Sign In</h2>
-                    <p class="subtitle">Enter your registered email and account password</p>
+                    <h2>Secure Portal Login</h2>
+                    <p class="subtitle">Enter your registered email and password to authenticate</p>
                 </header>
 
-                <form id="login-form" class="auth-form" novalidate>
+                <form id="login-form" class="auth-form" onsubmit="return false;">
                     <!-- Email Field -->
-                    <div class="form-group">
+                    <div class="form-group" id="group-email">
                         <label for="input-email">Email Address</label>
                         <div class="input-wrap">
                             <i class="fa-solid fa-envelope field-icon"></i>
                             <input type="email" id="input-email" value="yash.khadge@symbiosis.edu" placeholder="name@domain.com" autocomplete="off">
                             <span class="status-icon" id="email-status-icon"><i class="fa-solid fa-circle-check text-emerald"></i></span>
                         </div>
-                        <span class="error-text" id="email-error-msg">Please enter a valid email address.</span>
+                        <span class="error-text" id="email-error-msg">Please enter a valid email address (e.g. user@domain.com).</span>
                     </div>
 
                     <!-- Password Field -->
-                    <div class="form-group">
+                    <div class="form-group" id="group-password">
                         <div class="label-row">
                             <label for="input-password">Account Password</label>
                             <button type="button" class="btn-toggle-pwd" id="btn-toggle-pwd">Show</button>
                         </div>
                         <div class="input-wrap">
                             <i class="fa-solid fa-lock field-icon"></i>
-                            <input type="password" id="input-password" value="symbiosis2026" placeholder="Min. 6 characters..." autocomplete="off">
+                            <input type="password" id="input-password" value="symbiosis2026" placeholder="Min 6 characters..." autocomplete="off">
                             <span class="status-icon" id="pwd-status-icon"><i class="fa-solid fa-circle-check text-emerald"></i></span>
                         </div>
-                        <span class="error-text" id="pwd-error-msg">Password must be at least 6 characters.</span>
+                        <span class="error-text" id="pwd-error-msg">Password must be at least 6 characters long.</span>
                     </div>
 
-                    <button type="submit" class="btn-submit-auth" id="btn-login-submit">
+                    <!-- Password Strength Meter -->
+                    <div class="pwd-strength-box">
+                        <div class="strength-bar-bg">
+                            <div class="strength-bar-fill" id="pwd-strength-fill" style="width: 100%;"></div>
+                        </div>
+                        <span class="strength-lbl" id="pwd-strength-lbl">Strength: Strong</span>
+                    </div>
+
+                    <button type="button" class="btn-submit-auth" id="btn-login-submit">
                         <span>Authenticate Account</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </form>
 
                 <div class="quick-demo-box">
-                    <span class="demo-lbl">DEMO CREDS:</span>
-                    <button class="chip-demo" data-email="yash.khadge@symbiosis.edu" data-pwd="symbiosis2026">Fill Demo Account</button>
+                    <span class="demo-lbl">PRESET CREDS:</span>
+                    <button class="chip-demo" id="btn-demo-creds" data-email="yash.khadge@symbiosis.edu" data-pwd="symbiosis2026">Autofill Demo Account</button>
                 </div>
             </div>
 
@@ -72,7 +86,7 @@
                 <div class="success-header">
                     <div class="success-icon-badge"><i class="fa-solid fa-circle-check"></i></div>
                     <h2>Authentication Successful!</h2>
-                    <p class="subtitle">Access Granted &bull; Session Active</p>
+                    <p class="subtitle">Access Granted &bull; Active Encrypted Session</p>
                 </div>
 
                 <div class="user-profile-box">
@@ -80,24 +94,24 @@
                         <i class="fa-solid fa-user-shield"></i>
                     </div>
                     <div class="user-info-col">
-                        <span class="profile-lbl">AUTHENTICATED USER EMAIL</span>
+                        <span class="profile-lbl">AUTHENTICATED EMAIL ACCOUNT</span>
                         <h3 class="profile-email mono" id="display-user-email">yash.khadge@symbiosis.edu</h3>
-                        <span class="session-badge mono"><i class="fa-solid fa-lock text-emerald"></i> 256-BIT ENCRYPTED SESSION</span>
+                        <span class="session-badge mono"><i class="fa-solid fa-lock text-emerald"></i> 256-BIT SECURE SESSION</span>
                     </div>
                 </div>
 
                 <div class="session-telemetry-grid">
                     <div class="tele-box">
                         <span class="lbl">LOGIN TIMESTAMP</span>
-                        <span class="val mono" id="display-login-time">04 AUG 2026 &bull; 12:05 PM</span>
+                        <span class="val mono" id="display-login-time">--</span>
                     </div>
                     <div class="tele-box">
-                        <span class="lbl">SECURITY TOKEN</span>
-                        <span class="val mono truncate" id="display-sec-token">AUTH-98042-X7812</span>
+                        <span class="lbl">SESSION ID TOKEN</span>
+                        <span class="val mono truncate" id="display-sec-token">--</span>
                     </div>
                 </div>
 
-                <button class="btn-sign-out" id="btn-sign-out">
+                <button type="button" class="btn-sign-out" id="btn-sign-out">
                     <i class="fa-solid fa-right-from-bracket"></i> Sign Out of Session
                 </button>
             </div>
