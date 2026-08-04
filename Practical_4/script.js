@@ -1,73 +1,63 @@
 /**
- * Practical 4: Cybernetic Palindrome HUD Engine
+ * Practical 4: Raycast Utility - Palindrome Analyzer Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const palindromeInput = document.getElementById('palindrome-input');
-    const btnAnalyze = document.getElementById('btn-analyze');
-    const hudPresets = document.querySelectorAll('.hud-preset');
+    const presetChips = document.querySelectorAll('.preset-chip');
 
-    const forwardNodesBox = document.getElementById('forward-nodes-box');
-    const reverseNodesBox = document.getElementById('reverse-nodes-box');
-    const nodesBridgesBox = document.getElementById('nodes-bridges-box');
+    const forwardBoxContainer = document.getElementById('forward-box-container');
+    const reverseBoxContainer = document.getElementById('reverse-box-container');
+    const connectorRowContainer = document.getElementById('connector-row-container');
 
-    const hologramBanner = document.getElementById('hologram-banner');
-    const holoIcon = document.getElementById('holo-icon');
-    const holoTitle = document.getElementById('holo-title');
-    const holoSub = document.getElementById('holo-sub');
+    const statusBanner = document.getElementById('status-banner');
+    const statusIcon = document.getElementById('status-icon');
+    const statusTitle = document.getElementById('status-title');
+    const statusSub = document.getElementById('status-sub');
+    const symmetryPct = document.getElementById('symmetry-pct');
 
     const valRawLen = document.getElementById('val-raw-len');
     const valCleanLen = document.getElementById('val-clean-len');
-    const valSymmetry = document.getElementById('val-symmetry');
-    const valClosure = document.getElementById('val-closure');
+    const valCleanStr = document.getElementById('val-clean-str');
 
-    const strClean = document.getElementById('str-clean');
-    const strReverse = document.getElementById('str-reverse');
+    // Run initial analysis
+    analyzeString();
 
-    // Run initial scan
-    analyzeMatrix();
+    palindromeInput.addEventListener('input', analyzeString);
 
-    btnAnalyze.addEventListener('click', analyzeMatrix);
-    palindromeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') analyzeMatrix();
-    });
-
-    hudPresets.forEach(preset => {
-        preset.addEventListener('click', () => {
-            palindromeInput.value = preset.getAttribute('data-text');
-            analyzeMatrix();
+    presetChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            palindromeInput.value = chip.getAttribute('data-text');
+            analyzeString();
         });
     });
 
-    function analyzeMatrix() {
+    function analyzeString() {
         const rawText = palindromeInput.value;
         const cleaned = rawText.toLowerCase().replace(/[^a-z0-9]/g, '');
         const reversed = cleaned.split('').reverse().join('');
 
         valRawLen.textContent = rawText.length;
         valCleanLen.textContent = cleaned.length;
-        strClean.textContent = cleaned || "(empty)";
-        strReverse.textContent = reversed || "(empty)";
+        valCleanStr.textContent = cleaned || "(empty)";
 
         if (cleaned.length === 0) {
-            forwardNodesBox.innerHTML = '<span class="text-muted">AWAITING SEQUENCE...</span>';
-            reverseNodesBox.innerHTML = '';
-            nodesBridgesBox.innerHTML = '';
+            forwardBoxContainer.innerHTML = '<span style="color:#888; font-size:0.75rem;">Type text above...</span>';
+            reverseBoxContainer.innerHTML = '';
+            connectorRowContainer.innerHTML = '';
 
-            hologramBanner.className = 'hologram-banner';
-            holoIcon.className = 'fa-solid fa-triangle-exclamation hologram-icon';
-            holoTitle.textContent = 'AWAITING SEQUENCE';
-            holoSub.textContent = 'Input text above to initiate quantum node analysis.';
-
-            valSymmetry.textContent = '0%';
-            valClosure.textContent = 'FALSE';
+            statusBanner.className = "status-banner";
+            statusIcon.className = "fa-solid fa-circle-info status-icon";
+            statusTitle.textContent = "Awaiting Input";
+            statusSub.textContent = "Enter a string sequence above to initiate character symmetry analysis.";
+            symmetryPct.textContent = "0%";
             return;
         }
 
-        forwardNodesBox.innerHTML = "";
-        reverseNodesBox.innerHTML = "";
-        nodesBridgesBox.innerHTML = "";
+        forwardBoxContainer.innerHTML = "";
+        reverseBoxContainer.innerHTML = "";
+        connectorRowContainer.innerHTML = "";
 
         let matchCount = 0;
         const total = cleaned.length;
@@ -79,41 +69,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isMatch) matchCount++;
 
-            // Forward Node
-            const nodeF = document.createElement('div');
-            nodeF.className = `cyber-node ${isMatch ? 'node-match' : 'node-mismatch'}`;
-            nodeF.textContent = charF.toUpperCase();
-            forwardNodesBox.appendChild(nodeF);
+            // Forward Box
+            const boxF = document.createElement('div');
+            boxF.className = `char-card-node ${isMatch ? 'match' : 'mismatch'}`;
+            boxF.textContent = charF.toUpperCase();
+            forwardBoxContainer.appendChild(boxF);
 
-            // Vector Bridge Slot
-            const bridge = document.createElement('div');
-            bridge.className = `laser-slot-bridge ${isMatch ? 'match' : 'mismatch'}`;
-            bridge.innerHTML = isMatch ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>';
-            nodesBridgesBox.appendChild(bridge);
+            // Connector Slot
+            const conn = document.createElement('div');
+            conn.className = `connector-slot ${isMatch ? 'match' : 'mismatch'}`;
+            conn.innerHTML = isMatch ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>';
+            connectorRowContainer.appendChild(conn);
 
-            // Reverse Node
-            const nodeR = document.createElement('div');
-            nodeR.className = `cyber-node ${isMatch ? 'node-match' : 'node-mismatch'}`;
-            nodeR.textContent = charR.toUpperCase();
-            reverseNodesBox.appendChild(nodeR);
+            // Reverse Box
+            const boxR = document.createElement('div');
+            boxR.className = `char-card-node ${isMatch ? 'match' : 'mismatch'}`;
+            boxR.textContent = charR.toUpperCase();
+            reverseBoxContainer.appendChild(boxR);
         }
 
-        const symmetryPct = Math.round((matchCount / total) * 100);
+        const pct = Math.round((matchCount / total) * 100);
         const isPalindrome = (cleaned === reversed);
 
-        valSymmetry.textContent = `${symmetryPct}%`;
-        valClosure.textContent = isPalindrome ? 'TRUE' : 'FALSE';
+        symmetryPct.textContent = `${pct}%`;
 
         if (isPalindrome) {
-            hologramBanner.className = 'hologram-banner is-palindrome';
-            holoIcon.className = 'fa-solid fa-shield-halved hologram-icon';
-            holoTitle.textContent = 'PALINDROME CONFIRMED';
-            holoSub.textContent = 'Forward and reversed quantum node sequences exhibit 100% closure.';
+            statusBanner.className = "status-banner is-palindrome";
+            statusIcon.className = "fa-solid fa-circle-check status-icon";
+            statusTitle.textContent = "Palindrome Confirmed";
+            statusSub.textContent = "Forward and reversed alphanumeric sequences are 100% symmetrical.";
         } else {
-            hologramBanner.className = 'hologram-banner not-palindrome';
-            holoIcon.className = 'fa-solid fa-triangle-exclamation hologram-icon';
-            holoTitle.textContent = 'PALINDROME MISMATCH';
-            holoSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s).`;
+            statusBanner.className = "status-banner not-palindrome";
+            statusIcon.className = "fa-solid fa-circle-xmark status-icon";
+            statusTitle.textContent = "Not a Palindrome";
+            statusSub.textContent = `Asymmetry detected across ${total - matchCount} character position(s).`;
         }
     }
 });

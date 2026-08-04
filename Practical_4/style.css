@@ -1,23 +1,22 @@
 /* ============================================================
-   RETRO-FUTURISTIC SCI-FI CYBERPUNK HUD - PRACTICAL 4
+   RAYCAST / WARP TERMINAL UTILITY TOOL - PRACTICAL 4
    ============================================================ */
 :root {
-    --bg-dark: #07090E;
-    --hud-panel: #0E131F;
-    --hud-card: #141B2D;
-    --hud-border: #1E2A45;
+    --bg-dark: #121212;
+    --card-bg: #1E1E1E;
+    --card-secondary: #181818;
+    --border-color: #2A2A2A;
+    --border-hover: #383838;
     
-    --neon-green: #00FF88;
-    --neon-cyan: #00E5FF;
-    --neon-magenta: #FF007F;
-    --neon-yellow: #FFE600;
+    --text-primary: #FFFFFF;
+    --text-muted: #888888;
     
-    --text-color: #E2E8F0;
-    --text-muted: #8492A6;
+    --accent-emerald: #10b981;
+    --accent-red: #ef4444;
     
-    --font-title: 'Orbitron', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
-    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition: all 0.2s ease;
 }
 
 * {
@@ -27,495 +26,321 @@
 }
 
 body {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     background-color: var(--bg-dark);
-    color: var(--text-color);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     overflow: hidden; /* Avoid page scrolls */
-    position: relative;
 }
+
+.mono { font-family: var(--font-mono); }
 
 /* ============================================================
-   SCANLINES & HEX OVERLAY
+   RAYCAST VIEWPORT CONTAINER
    ============================================================ */
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
+.raycast-viewport {
     width: 100%;
-    height: 100%;
-    z-index: 10;
-    pointer-events: none;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    background-size: 100% 3px, 6px 100%;
-    opacity: 0.6;
-}
-
-.hex-grid-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.15;
-    background-image: 
-        radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.1) 0%, transparent 60%),
-        linear-gradient(var(--hud-border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--hud-border) 1px, transparent 1px);
-    background-size: 100% 100%, 30px 30px, 30px 30px;
-}
-
-/* ============================================================
-   HUD VIEWPORT CONTAINER
-   ============================================================ */
-.hud-viewport {
-    width: 100%;
-    max-width: 1100px;
+    max-width: 900px;
     height: 96vh;
-    max-height: 700px;
+    max-height: 680px;
     padding: 0.85rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    z-index: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ============================================================
-   CYBER HUD TOPBAR
+   RAYCAST MODAL CONTAINER
    ============================================================ */
-.hud-topbar {
-    background: var(--hud-panel);
-    border: 1px solid var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
-    border-radius: 10px;
-    padding: 0.75rem 1.25rem;
+.raycast-modal {
+    width: 100%;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 650px;
 }
 
-.hud-brand {
+/* SEARCH INPUT HEADER */
+.search-input-header {
     display: flex;
     align-items: center;
     gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--card-secondary);
 }
 
-.hud-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: rgba(0, 229, 255, 0.1);
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
-}
-
-.glitch-title {
-    font-family: var(--font-title);
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #FFFFFF;
-    letter-spacing: 1px;
-}
-
-.hud-subtitle {
-    font-size: 0.72rem;
+.search-icon {
+    font-size: 1.1rem;
     color: var(--text-muted);
 }
 
-.hud-radar-group {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-}
-
-.radar-pulse {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--neon-green);
-    box-shadow: 0 0 10px var(--neon-green);
-    animation: radarPulse 1.5s infinite;
-}
-
-.hud-tag {
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: rgba(0, 229, 255, 0.1);
-    border: 1px solid var(--neon-cyan);
-    padding: 0.25rem 0.65rem;
-    border-radius: 6px;
-}
-
-.text-cyan { color: var(--neon-cyan); }
-.text-green { color: var(--neon-green); }
-.text-magenta { color: var(--neon-magenta); }
-
-/* ============================================================
-   HUD WORKSPACE
-   ============================================================ */
-.hud-workspace {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    flex-grow: 1;
-    min-height: 0;
-}
-
-/* PLASMA BEAM SCANNER CARD */
-.plasma-scanner-card {
-    background: var(--hud-panel);
-    border: 1px solid var(--hud-border);
-    border-radius: 12px;
-    padding: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    flex-shrink: 0;
-}
-
-.plasma-beam-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #04060A;
-    border: 1.5px solid var(--neon-green);
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
-    border-radius: 8px;
-    padding: 0.25rem 0.5rem 0.25rem 0.85rem;
-    gap: 0.5rem;
-    overflow: hidden;
-}
-
-.plasma-glow-line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--neon-green);
-    box-shadow: 0 0 15px var(--neon-green);
-    left: -10px;
-    animation: plasmaPulse 3s infinite linear;
-}
-
-.prompt-symbol {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--neon-green);
-}
-
-.plasma-beam-wrapper input {
+.search-input-header input {
     flex-grow: 1;
     background: transparent;
     border: none;
     outline: none;
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.cmd-shortcut {
     font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: #FFFFFF;
+    font-size: 0.72rem;
+    background-color: #262626;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+}
+
+/* PRESETS ROW */
+.presets-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    background-color: var(--card-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.presets-lbl {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-.btn-plasma {
-    background: var(--neon-green);
-    color: #000000;
-    border: none;
-    padding: 0.5rem 1.1rem;
-    font-family: var(--font-title);
-    font-size: 0.78rem;
-    font-weight: 800;
+.preset-chip {
+    background-color: #262626;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.65rem;
     border-radius: 6px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
     transition: var(--transition);
 }
 
-.btn-plasma:hover {
-    background: #33FF9E;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+.preset-chip:hover {
+    border-color: var(--border-hover);
+    background-color: #333333;
 }
 
-.preset-pill-row {
+/* RAYCAST BODY */
+.raycast-body {
+    padding: 1rem 1.25rem;
     display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.85rem;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
-.preset-lbl {
-    font-size: 0.65rem;
-    color: var(--text-muted);
+/* STATUS BANNER */
+.status-banner {
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-banner.is-palindrome {
+    border-color: rgba(16, 185, 129, 0.4);
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+.status-banner.not-palindrome {
+    border-color: rgba(239, 68, 68, 0.4);
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.flex-align { display: flex; align-items: center; }
+.gap-2 { gap: 0.75rem; }
+
+.status-icon {
+    font-size: 1.5rem;
+    color: var(--accent-emerald);
+}
+
+.status-banner.not-palindrome .status-icon {
+    color: var(--accent-red);
+}
+
+.status-title {
+    font-size: 0.95rem;
     font-weight: 700;
 }
 
-.hud-preset {
-    background: var(--hud-card);
-    border: 1px solid var(--hud-border);
-    color: var(--neon-cyan);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    padding: 0.2rem 0.55rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition);
+.status-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
-.hud-preset:hover {
-    border-color: var(--neon-cyan);
-    background: rgba(0, 229, 255, 0.15);
+.badge-pct {
+    font-size: 0.9rem;
+    font-weight: 800;
+    background-color: #262626;
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
 }
 
-/* 2-COLUMN LOWER HUD SECTION */
-.hud-grid-row {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 0.85rem;
-    flex-grow: 1;
-    min-height: 0;
-}
-
-.hud-panel {
-    background: var(--hud-panel);
-    border: 1px solid var(--hud-border);
-    border-radius: 12px;
+/* MATRIX CARD */
+.matrix-card {
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     padding: 0.85rem;
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
-    min-height: 0;
 }
 
-.panel-header-hud {
-    font-family: var(--font-title);
-    font-size: 0.78rem;
+.matrix-head {
+    font-size: 0.72rem;
     font-weight: 700;
-    color: var(--neon-cyan);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-bottom: 1px solid var(--hud-border);
-    padding-bottom: 0.35rem;
-    flex-shrink: 0;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* CIRCULAR CYBER NODES GRID */
-.nodes-scroll-viewport {
-    flex-grow: 1;
+.matrix-scroll-wrapper {
     overflow-x: auto;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    background: #04060A;
-    border: 1px solid var(--hud-border);
-    border-radius: 8px;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
 }
 
-.nodes-sequence-row {
+.char-row-wrap {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
-    width: 100%;
+    gap: 0.75rem;
 }
 
-.sequence-lbl {
-    font-size: 0.6rem;
-    font-weight: 700;
-    padding: 0.15rem 0.45rem;
-    border-radius: 4px;
+.row-tag {
+    font-size: 0.62rem;
+    font-weight: 800;
+    color: var(--text-muted);
     width: 70px;
-    text-align: center;
     flex-shrink: 0;
 }
 
-.lbl-forward { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border: 1px solid var(--neon-green); }
-.lbl-reverse { background: rgba(0, 229, 255, 0.15); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); }
-
-.nodes-flex-container {
+.char-boxes-flex {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.35rem;
 }
 
-/* Circular Node Badge */
-.cyber-node {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--hud-card);
-    border: 2px solid var(--hud-border);
+.char-card-node {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background-color: #262626;
+    border: 1px solid var(--border-color);
     font-family: var(--font-mono);
-    font-size: 0.88rem;
-    font-weight: 800;
+    font-size: 0.85rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFFFFF;
-    transition: var(--transition);
 }
 
-.cyber-node.node-match {
-    border-color: var(--neon-green);
-    color: var(--neon-green);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+.char-card-node.match {
+    border-color: var(--accent-emerald);
+    color: var(--accent-emerald);
+    background-color: rgba(16, 185, 129, 0.1);
 }
 
-.cyber-node.node-mismatch {
-    border-color: var(--neon-magenta);
-    color: var(--neon-magenta);
-    box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+.char-card-node.mismatch {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    background-color: rgba(239, 68, 68, 0.1);
 }
 
-.nodes-bridges-row {
+.connector-row {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.35rem;
     margin-left: 82px;
 }
 
-.laser-slot-bridge {
-    width: 36px;
+.connector-slot {
+    width: 32px;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
 }
 
-.laser-slot-bridge.match { color: var(--neon-green); }
-.laser-slot-bridge.mismatch { color: var(--neon-magenta); }
+.connector-slot.match { color: var(--accent-emerald); }
+.connector-slot.mismatch { color: var(--accent-red); }
 
-/* RIGHT PANEL STATUS & HOLOGRAM */
-.hologram-banner {
-    background: #04060A;
-    border: 2px solid var(--neon-green);
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
+/* TELEMETRY GRID */
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 0.65rem;
+}
+
+.tele-box {
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-    transition: var(--transition);
+    gap: 0.15rem;
 }
 
-.hologram-banner.is-palindrome {
-    border-color: var(--neon-green);
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
-}
-
-.hologram-banner.not-palindrome {
-    border-color: var(--neon-magenta);
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.25);
-}
-
-.hologram-icon {
-    font-size: 2rem;
-    color: var(--neon-green);
-}
-
-.hologram-banner.not-palindrome .hologram-icon {
-    color: var(--neon-magenta);
-}
-
-.holo-title {
-    font-family: var(--font-title);
-    font-size: 0.9rem;
-    font-weight: 800;
-}
-
-.holo-sub {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
-
-.cyber-metrics-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-}
-
-.metric-hud-box {
-    background: #04060A;
-    border: 1px solid var(--hud-border);
-    border-radius: 6px;
-    padding: 0.45rem;
-    text-align: center;
-}
-
-.metric-hud-box .lbl {
-    font-size: 0.58rem;
+.tele-lbl {
+    font-size: 0.6rem;
     color: var(--text-muted);
     font-weight: 700;
-    display: block;
+    text-transform: uppercase;
 }
 
-.metric-hud-box .val {
-    font-size: 0.95rem;
-    font-weight: 800;
+.tele-val {
+    font-size: 0.82rem;
+    font-weight: 700;
 }
 
-.sanity-string-display {
-    background: #04060A;
-    border: 1px solid var(--hud-border);
-    border-radius: 6px;
-    padding: 0.5rem;
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* RAYCAST FOOTER */
+.raycast-footer {
+    background-color: var(--card-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 0.6rem 1.25rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.7rem;
-}
-
-.string-line .lbl { color: var(--text-muted); font-weight: 700; }
-.string-line .val { color: var(--neon-cyan); word-break: break-all; }
-
-/* ============================================================
-   PROMINENT AUTHOR FOOTER
-   ============================================================ */
-.hud-footer {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
-.footer-hud-bar {
-    background: var(--hud-panel);
-    border: 1px solid var(--neon-cyan);
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
-    border-radius: 20px;
-    padding: 0.45rem 1.5rem;
-    font-size: 0.8rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+.footer-left strong { color: var(--text-primary); }
 
-.footer-hud-bar i {
-    color: var(--neon-cyan);
-    font-size: 0.9rem;
-}
-
-@keyframes plasmaPulse {
-    0% { left: -10px; }
-    50% { left: 100%; }
-    100% { left: -10px; }
-}
-
-@keyframes radarPulse {
-    0% { transform: scale(0.9); opacity: 0.6; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.9); opacity: 0.6; }
+kbd {
+    background-color: #262626;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-primary);
 }
