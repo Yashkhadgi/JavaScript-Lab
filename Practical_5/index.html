@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Checkout &amp; Array Telemetry - Practical 5</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="shop-viewport">
+        <!-- ===== BOUTIQUE TOPBAR NAVBAR ===== -->
+        <header class="shop-topbar">
+            <div class="brand-group">
+                <div class="brand-logo"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div>
+                    <h1>LA BOUTIQUE DE PARIS</h1>
+                    <p class="subtitle">E-Commerce Array Pipeline &bull; Interactive Shopping Cart Engine</p>
+                </div>
+            </div>
+            <div class="cart-pill-badge">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="nav-cart-count">0 Items</span>
+            </div>
+        </header>
+
+        <!-- ===== MAIN WORKSPACE DASHBOARD ===== -->
+        <main class="shop-dashboard">
+            
+            <!-- MIDDLE ROW: CATALOG GRID (LEFT) & RECEIPT INVOICE (RIGHT) -->
+            <div class="shop-main-row">
+                
+                <!-- Left: Catalog Product Cards Grid -->
+                <section class="shop-panel catalog-panel">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-store"></i>
+                        <span>STOREFRONT CATALOG</span>
+                    </div>
+
+                    <div class="catalog-scroll-wrapper">
+                        <div class="catalog-grid" id="catalog-container">
+                            <!-- Injected Product Cards -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right: Jagged Thermal Paper Receipt -->
+                <section class="shop-panel receipt-panel">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-receipt"></i>
+                        <span>PURCHASE RECEIPT</span>
+                    </div>
+
+                    <div class="receipt-paper">
+                        <div class="receipt-header">
+                            <h2>LA BOUTIQUE</h2>
+                            <p class="receipt-date" id="receipt-date-str">AUG 04, 2026</p>
+                            <div class="dashed-divider"></div>
+                        </div>
+
+                        <!-- Scrollable Items list -->
+                        <div class="receipt-items-wrapper" id="receipt-items-container">
+                            <div class="receipt-empty" id="receipt-empty">
+                                <i class="fa-solid fa-basket-shopping"></i>
+                                <p>Your shopping bag is empty.</p>
+                            </div>
+                        </div>
+
+                        <!-- Calculations -->
+                        <div class="receipt-summary">
+                            <div class="dashed-divider"></div>
+                            <div class="sum-row">
+                                <span>SUBTOTAL</span>
+                                <span id="rec-subtotal">₹0.00</span>
+                            </div>
+                            <div class="sum-row">
+                                <span>GST TAX (18%)</span>
+                                <span id="rec-tax">₹0.00</span>
+                            </div>
+                            <div class="dashed-divider"></div>
+                            <div class="sum-row total-row">
+                                <span>GRAND TOTAL</span>
+                                <span id="rec-grandtotal">₹0.00</span>
+                            </div>
+                            <div class="dashed-divider"></div>
+                        </div>
+
+                        <!-- Barcode stamp -->
+                        <div class="receipt-footer">
+                            <div class="barcode-graphic"></div>
+                            <span class="barcode-num">INV-8902410-2026</span>
+                            <button id="btn-checkout" class="btn-checkout" disabled>
+                                <i class="fa-solid fa-credit-card"></i> COMPLETE PURCHASE
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- BOTTOM ROW: JAVASCRIPT ARRAY TELEMETRY CONSOLE -->
+            <section class="telemetry-panel">
+                <div class="telemetry-header">
+                    <i class="fa-solid fa-code"></i>
+                    <span>JAVASCRIPT ARRAY PIPELINE TELEMETRY</span>
+                </div>
+                <div class="telemetry-body">
+                    <div class="tele-item">
+                        <span class="tele-lbl">Array.push():</span>
+                        <span class="tele-code" id="tele-push">cart.push({ id, name, price, qty })</span>
+                    </div>
+                    <div class="tele-item">
+                        <span class="tele-lbl">Array.map():</span>
+                        <span class="tele-code" id="tele-map">cart.map(item => item.price * item.qty)</span>
+                    </div>
+                    <div class="tele-item">
+                        <span class="tele-lbl">Array.reduce():</span>
+                        <span class="tele-code" id="tele-reduce">subtotal = cart.reduce((acc, i) => acc + i.total, 0) = ₹0</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="shop-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-store"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
