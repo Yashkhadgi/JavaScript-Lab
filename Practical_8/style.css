@@ -1,22 +1,24 @@
 /* ============================================================
-   ATHLETIC VOLT DARK & 3D BADGE - PRACTICAL 8
+   INDUSTRIAL ATHLETIC GYM PASS HUD - PRACTICAL 8
    ============================================================ */
 :root {
-    --bg-color: #0C0C0E;
-    --panel-bg: rgba(22, 22, 26, 0.88);
-    --card-bg: #1A1C23;
-    --border-color: rgba(255, 255, 255, 0.1);
+    --bg-dark: #07090C;
+    --panel-bg: rgba(14, 16, 21, 0.9);
+    --card-bg: #151821;
+    --border-color: rgba(207, 255, 4, 0.25);
     
-    --volt-color: #C6FF00;
-    --volt-glow: rgba(198, 255, 0, 0.25);
-    --error-color: #FF4444;
+    --volt-color: #CFFF04;
+    --volt-glow: rgba(207, 255, 4, 0.3);
+    --amber-color: #FF9900;
+    --error-color: #FF334B;
     --success-color: #00E676;
     
-    --text-color: #ECECEF;
-    --text-muted: #8E929B;
+    --text-color: #F1F3F9;
+    --text-muted: #838A9B;
     
-    --font-family: 'Poppins', sans-serif;
+    --font-impact: 'Montserrat', sans-serif;
     --font-mono: 'Share Tech Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
     --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -27,8 +29,9 @@
 }
 
 body {
-    font-family: var(--font-family);
-    background-image: linear-gradient(rgba(12, 12, 14, 0.85), rgba(12, 12, 14, 0.85)), url('assets/gym-bg.jpg');
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    background-image: linear-gradient(rgba(7, 9, 12, 0.85), rgba(7, 9, 12, 0.85)), url('assets/gym-bg.jpg');
     background-size: cover;
     background-position: center;
     color: var(--text-color);
@@ -37,12 +40,24 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow: hidden; /* Avoid page scrolls */
+    position: relative;
+}
+
+.carbon-bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+    background: repeating-linear-gradient(45deg, #151821 0, #151821 2px, transparent 0, transparent 8px);
 }
 
 /* ============================================================
-   GYM VIEWPORT CONTAINER
+   ATHLETIC VIEWPORT CONTAINER
    ============================================================ */
-.gym-viewport {
+.athletic-viewport {
     width: 100%;
     max-width: 1100px;
     height: 96vh;
@@ -56,53 +71,55 @@ body {
 /* ============================================================
    TOPBAR HEADER
    ============================================================ */
-.gym-topbar {
-    background-color: var(--panel-bg);
-    backdrop-filter: blur(12px);
+.athletic-topbar {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
-    border-bottom: 2px solid var(--volt-color);
+    border-bottom: 3px solid var(--volt-color);
     border-radius: 12px;
     padding: 0.75rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.topbar-left {
+.brand-athletic {
     display: flex;
     align-items: center;
     gap: 0.85rem;
 }
 
-.gym-icon-badge {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: rgba(198, 255, 0, 0.15);
-    border: 1px solid var(--volt-color);
+.volt-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(207, 255, 4, 0.15);
+    border: 2px solid var(--volt-color);
     color: var(--volt-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 0 10px var(--volt-glow);
+    font-size: 1.3rem;
+    box-shadow: 0 0 15px var(--volt-glow);
 }
 
-.gym-topbar h1 {
-    font-size: 1.1rem;
-    font-weight: 800;
+.bold-impact-title {
+    font-family: var(--font-impact);
+    font-size: 1.15rem;
+    font-weight: 900;
     letter-spacing: 1px;
     color: #FFFFFF;
 }
 
-.gym-topbar .subtitle {
-    font-size: 0.72rem;
+.sub-athletic {
+    font-size: 0.7rem;
     color: var(--text-muted);
 }
 
-.gym-pill {
-    background-color: rgba(198, 255, 0, 0.15);
+.volt-status-pill {
+    background: rgba(207, 255, 4, 0.15);
     border: 1px solid var(--volt-color);
     border-radius: 20px;
     padding: 0.35rem 0.85rem;
@@ -116,21 +133,21 @@ body {
 }
 
 /* ============================================================
-   MAIN DASHBOARD WORKSPACE (2-COLUMN GRID)
+   TWO-COLUMN ATHLETIC WORKSPACE
    ============================================================ */
-.gym-dashboard {
+.athletic-workspace {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: 0.85rem;
     flex-grow: 1;
     min-height: 0;
 }
 
-.gym-panel {
-    background-color: var(--panel-bg);
-    backdrop-filter: blur(12px);
+.athletic-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -138,24 +155,24 @@ body {
     min-height: 0;
 }
 
-.panel-header {
-    font-size: 0.8rem;
+.panel-header-volt {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--volt-color);
-    font-family: var(--font-mono);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.35rem;
     flex-shrink: 0;
 }
 
-/* Form Styles */
-.form-body {
+/* Form Styling */
+.athletic-form {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.6rem;
     flex-grow: 1;
     overflow-y: auto;
 }
@@ -163,137 +180,136 @@ body {
 .form-row-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 0.65rem;
 }
 
-.input-group {
+.field-group-volt {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
 }
 
-.input-group label {
-    font-size: 0.68rem;
-    font-weight: 700;
+.field-group-volt label {
+    font-size: 0.65rem;
+    font-weight: 800;
     color: var(--text-muted);
     text-transform: uppercase;
 }
 
-.field-wrapper {
+.input-wrap-volt {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.field-wrapper input,
-.input-group select {
+.input-wrap-volt input,
+.field-group-volt select {
     width: 100%;
     padding: 0.5rem 1.8rem 0.5rem 0.75rem;
-    font-family: var(--font-family);
-    font-size: 0.82rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
     border: 1.5px solid var(--border-color);
     border-radius: 6px;
+    background: rgba(0, 0, 0, 0.5);
     color: #FFFFFF;
-    background-color: rgba(0, 0, 0, 0.4);
     outline: none;
     transition: var(--transition);
 }
 
-.input-group select {
+.field-group-volt select {
     padding-right: 0.75rem;
     appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='grey'><path d='M0 3l5 5 5-5z'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23CFFF04'><path d='M0 3l5 5 5-5z'/></svg>");
     background-repeat: no-repeat;
     background-position: right 10px center;
 }
 
-.field-wrapper input:focus,
-.input-group select:focus {
+.input-wrap-volt input:focus,
+.field-group-volt select:focus {
     border-color: var(--volt-color);
-    box-shadow: 0 0 8px var(--volt-glow);
+    box-shadow: 0 0 10px var(--volt-glow);
 }
 
-.status-indicator {
+.indicator-icon {
     position: absolute;
     right: 0.5rem;
     font-size: 0.85rem;
 }
 
-.status-indicator .neutral { color: #4B4F56; }
-.status-indicator .valid { color: var(--success-color); }
-.status-indicator .invalid { color: var(--error-color); }
+.indicator-icon .neutral { color: #4A5060; }
+.indicator-icon .valid { color: var(--success-color); }
+.indicator-icon .invalid { color: var(--error-color); }
 
-/* Perks checklist */
-.perks-checklist {
-    background-color: rgba(0, 0, 0, 0.3);
+/* Perks Panel */
+.perks-panel-volt {
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 0.65rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
 }
 
-.perks-checklist h3 {
-    font-size: 0.68rem;
+.perks-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
     font-weight: 700;
     color: var(--text-muted);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.2rem;
 }
 
-.perks-grid {
+.perks-flex-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
+    gap: 0.35rem;
 }
 
-.perk-row {
-    font-size: 0.72rem;
+.perk-item {
+    font-size: 0.7rem;
+    color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    color: var(--text-muted);
+    gap: 0.35rem;
 }
 
-.perk-row.active { color: #FFFFFF; }
-.perk-row i.checked { color: var(--success-color); }
-.perk-row i.unchecked { color: var(--error-color); opacity: 0.35; }
-.perk-row.active i.checked { color: var(--volt-color); }
+.perk-item.active { color: #FFFFFF; font-weight: 600; }
+.perk-item i.checked { color: var(--success-color); }
+.perk-item i.unchecked { color: var(--error-color); opacity: 0.35; }
+.perk-item.active i.checked { color: var(--volt-color); }
 
-.btn-submit {
-    background-color: var(--volt-color);
+.btn-volt-submit {
+    background: var(--volt-color);
     color: #000000;
     border: none;
     padding: 0.65rem;
-    font-family: var(--font-family);
+    font-family: var(--font-impact);
     font-size: 0.85rem;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: 1px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    transition: var(--transition);
     box-shadow: 0 4px 15px var(--volt-glow);
+    transition: var(--transition);
 }
 
-.btn-submit:hover:not(:disabled) {
-    background-color: #D6FF33;
+.btn-volt-submit:hover:not(:disabled) {
+    background: #E5FF54;
 }
 
-.btn-submit:disabled {
-    background-color: #242817;
-    color: #555A38;
+.btn-volt-submit:disabled {
+    background: #1F2411;
+    color: #586133;
     cursor: not-allowed;
     box-shadow: none;
 }
 
-/* 3D BADGE AREA */
-.badge-display-area {
+/* 3D PASS PREVIEW STAGE */
+.pass-stage {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -302,14 +318,14 @@ body {
     gap: 1rem;
 }
 
-.badge-flip-container {
+.pass-card-3d {
     perspective: 1000px;
-    width: 300px;
-    height: 180px;
+    width: 310px;
+    height: 185px;
     cursor: grab;
 }
 
-.badge-card-inner {
+.pass-inner {
     width: 100%;
     height: 100%;
     position: relative;
@@ -317,25 +333,25 @@ body {
     transition: transform 0.1s ease-out;
 }
 
-.badge-front {
+.pass-front {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #22252C;
+    background: #171A24;
     border: 2px solid var(--volt-color);
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
 }
 
-.badge-accent-bar {
+.pass-stripe {
     height: 6px;
-    background-color: var(--volt-color);
+    background: linear-gradient(90deg, var(--volt-color), var(--amber-color));
 }
 
-.badge-body {
+.pass-content {
     padding: 0.85rem;
     display: flex;
     flex-direction: column;
@@ -343,120 +359,132 @@ body {
     flex-grow: 1;
 }
 
-.badge-top-row {
+.pass-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.badge-top-row .logo {
-    font-weight: 800;
+.pass-brand {
+    font-family: var(--font-impact);
     font-size: 0.85rem;
+    font-weight: 900;
     color: #FFFFFF;
 }
 
-.level-badge {
-    background-color: var(--volt-color);
-    color: #000000;
+.pass-level {
     font-size: 0.6rem;
-    font-weight: 800;
-    padding: 0.05rem 0.4rem;
+    font-weight: 900;
+    background: var(--volt-color);
+    color: #000000;
+    padding: 0.1rem 0.45rem;
     border-radius: 4px;
 }
 
-.badge-center-row {
+.pass-body {
     display: flex;
     gap: 0.85rem;
     align-items: center;
 }
 
-.badge-photo-slot {
+.photo-container {
+    position: relative;
     width: 60px;
     height: 60px;
-    border-radius: 6px;
-    background-color: #17181C;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: #0E1015;
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
-.photo-placeholder {
+.placeholder-avatar {
     font-size: 2rem;
     color: var(--volt-color);
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
-.badge-details {
+.holo-watermark {
+    position: absolute;
+    bottom: 2px;
+    font-size: 0.45rem;
+    font-weight: 900;
+    color: var(--volt-color);
+    letter-spacing: 0.5px;
+}
+
+.pass-info-col {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
 }
 
-.badge-field {
+.pass-field {
     display: flex;
     gap: 0.35rem;
 }
 
-.badge-field .lbl { color: var(--text-muted); font-weight: 600; }
-.badge-field .val { color: #FFFFFF; font-weight: 700; }
-.text-volt { color: var(--volt-color); }
+.pass-field .lbl { color: var(--text-muted); font-weight: 600; }
+.pass-field .val { color: #FFFFFF; font-weight: 700; }
+.text-volt { color: var(--volt-color); font-family: var(--font-mono); }
 
-.badge-bottom-row {
+.pass-foot {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
 
-.barcode {
-    width: 110px;
+.qr-barcode-graphic {
+    width: 120px;
     height: 22px;
     background-image: repeating-linear-gradient(90deg, 
-        #FFFFFF 0px, #FFFFFF 1px, 
-        transparent 1px, transparent 3px, 
-        #FFFFFF 3px, #FFFFFF 4px
+        #FFFFFF 0px, #FFFFFF 2px, 
+        transparent 2px, transparent 4px, 
+        #FFFFFF 4px, #FFFFFF 6px
     );
     opacity: 0.7;
 }
 
-.prn-stamp {
+.author-prn-stamp {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: var(--text-muted);
 }
 
-.badge-hint {
-    font-size: 0.72rem;
-    color: var(--text-muted);
+.tilt-hint-text {
     font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
 }
 
 /* ============================================================
-   PROMINENT BRANDING FOOTER
+   PROMINENT AUTHOR FOOTER
    ============================================================ */
-.gym-footer {
+.athletic-footer {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 0.2rem;
 }
 
-.footer-badge {
-    background-color: var(--panel-bg);
+.footer-volt-bar {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-    padding: 0.45rem 1.25rem;
+    padding: 0.45rem 1.5rem;
     font-size: 0.8rem;
     color: var(--text-color);
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.footer-badge i {
+.footer-volt-bar i {
     color: var(--volt-color);
     font-size: 0.9rem;
 }

@@ -1,5 +1,5 @@
 /**
- * Practical 8: Gym Admission & 3D Member Badge Compiler
+ * Practical 8: Iron Forge Athletic Club - Pass Generator Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,19 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const planSelect = document.getElementById('gym-plan');
     const slotSelect = document.getElementById('gym-slot');
 
-    // Perks items
     const perkLocker = document.getElementById('perk-locker');
     const perkTrainer = document.getElementById('perk-trainer');
     const perkSpa = document.getElementById('perk-spa');
 
-    // Badge elements
     const recName = document.getElementById('rec-name');
     const recId = document.getElementById('rec-id');
     const recSlot = document.getElementById('rec-slot');
     const badgePlanTxt = document.getElementById('badge-plan-txt');
-    
-    const badgeCard = document.getElementById('badge-card');
-    const badgeInner = badgeCard.querySelector('.badge-card-inner');
+
+    const passCard = document.getElementById('pass-card');
+    const passInner = passCard.querySelector('.pass-inner');
 
     const validationStates = {
         name: false,
@@ -35,17 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
         email: false
     };
 
-    // -------------------------------------------------------------
-    // PERKS AUTO TOGGLE ROUTINE
-    // -------------------------------------------------------------
     function updatePerksList() {
         const plan = planSelect.value;
 
-        perkLocker.className = "perk-row";
+        perkLocker.className = "perk-item";
         perkLocker.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
-        perkTrainer.className = "perk-row";
+        perkTrainer.className = "perk-item";
         perkTrainer.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
-        perkSpa.className = "perk-row";
+        perkSpa.className = "perk-item";
         perkSpa.querySelector('i').className = "fa-solid fa-circle-xmark unchecked";
 
         if (plan === 'standard') {
@@ -62,11 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     planSelect.addEventListener('change', updatePerksList);
-    updatePerksList(); // Init
+    updatePerksList();
 
-    // -------------------------------------------------------------
-    // FORM VALIDATIONS
-    // -------------------------------------------------------------
     function updateStatusUI(statusId, isValid) {
         const statusSpan = document.getElementById(statusId);
         if (isValid) {
@@ -135,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allValid = validationStates.name && validationStates.age && validationStates.phone && validationStates.email;
         if (allValid) {
             submitBtn.removeAttribute('disabled');
-            submitBtn.innerHTML = '<i class="fa-solid fa-unlock"></i> COMPILE MEMBER BADGE';
+            submitBtn.innerHTML = '<i class="fa-solid fa-unlock"></i> COMPILE VIP ACCESS PASS';
         } else {
             submitBtn.setAttribute('disabled', 'true');
             submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Verification Pending';
@@ -147,9 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     phoneInput.addEventListener('input', validatePhone);
     emailInput.addEventListener('input', validateEmail);
 
-    // -------------------------------------------------------------
-    // COMPILE BADGE ON SUBMIT
-    // -------------------------------------------------------------
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -160,28 +149,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomNum = Math.floor(10000 + Math.random() * 90000);
         recId.textContent = `IF-${randomNum}`;
 
-        // Trigger flash highlight
-        badgeCard.style.boxShadow = '0 0 25px #C6FF00';
+        passCard.style.boxShadow = '0 0 25px #CFFF04';
         setTimeout(() => {
-            badgeCard.style.boxShadow = '';
+            passCard.style.boxShadow = '';
         }, 600);
     });
 
-    // -------------------------------------------------------------
-    // 3D HOVER TILT MATRIX
-    // -------------------------------------------------------------
-    badgeCard.addEventListener('mousemove', (e) => {
-        const rect = badgeCard.getBoundingClientRect();
+    passCard.addEventListener('mousemove', (e) => {
+        const rect = passCard.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
         const rotateY = ((x / rect.width) - 0.5) * 30;
         const rotateX = (0.5 - (y / rect.height)) * 30;
 
-        badgeInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        passInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
-    badgeCard.addEventListener('mouseleave', () => {
-        badgeInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    passCard.addEventListener('mouseleave', () => {
+        passInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
     });
 });
