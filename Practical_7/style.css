@@ -1,0 +1,497 @@
+/* ============================================================
+   MINIMALIST NOTION-STYLE DASHBOARD - PRACTICAL 7
+   ============================================================ */
+:root {
+    --bg-color: #FAF6F7;
+    --card-bg: #FFFFFF;
+    --sidebar-bg: #2F2A35;
+    
+    --primary-color: #C08497; /* Dusty Rose */
+    --primary-light: rgba(192, 132, 151, 0.1);
+    --text-color: #3A3540;
+    --text-muted: #9C8E93;
+    --border-color: #F0E6E8;
+    
+    --error-color: #E53935;
+    --warning-color: #FB8C00;
+    --success-color: #43A047;
+    
+    --font-family: 'Poppins', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Avoid page scrolls */
+}
+
+/* ============================================================
+   NOTION VIEWPORT CONTAINER
+   ============================================================ */
+.notion-viewport {
+    width: 100%;
+    max-width: 1100px;
+    height: 96vh;
+    max-height: 700px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ============================================================
+   MAIN FULL-PAGE WORKSPACE
+   ============================================================ */
+.notion-workspace {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(58, 53, 64, 0.08);
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ============================================================
+   LEFT SIDEBAR PANEL
+   ============================================================ */
+.notion-sidebar {
+    background-color: var(--sidebar-bg);
+    color: #F3EEF4;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.75rem;
+}
+
+.brand-icon {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+
+.sidebar-brand h2 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.nav-btn {
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0.6rem 0.85rem;
+    font-family: var(--font-family);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #A69EAA;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    transition: var(--transition);
+}
+
+.nav-btn:hover {
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-btn.active {
+    color: #FFFFFF;
+    background-color: var(--primary-color);
+}
+
+/* Sidebar progress box */
+.sidebar-progress-box {
+    margin-top: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.sidebar-progress-box h3 {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #A69EAA;
+}
+
+.circular-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: transparent;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 6;
+}
+
+.ring-fill {
+    fill: transparent;
+    stroke: var(--primary-color);
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.pct-val {
+    position: absolute;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.sidebar-progress-box p {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   RIGHT MAIN CONTENT BOARD
+   ============================================================ */
+.notion-main {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.main-header {
+    border-bottom: 1.5px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    flex-shrink: 0;
+}
+
+.main-header h1 {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.main-header .subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Input Bar */
+.task-input-bar {
+    flex-shrink: 0;
+}
+
+.input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input-row input,
+.input-row select {
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 0.8rem;
+    color: var(--text-color);
+    outline: none;
+    background-color: var(--bg-color);
+    transition: var(--transition);
+}
+
+.input-row input[type="text"] {
+    flex-grow: 1;
+}
+
+.input-row input:focus,
+.input-row select:focus {
+    border-color: var(--primary-color);
+    background-color: #FFFFFF;
+}
+
+.btn-add {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border: none;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-family);
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: var(--transition);
+}
+
+.btn-add:hover {
+    background-color: #AA7082;
+}
+
+/* Task Content Board */
+.task-content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.todo-item {
+    background-color: #FCFAF9;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition);
+}
+
+.todo-item.priority-low { border-left: 4px solid var(--text-muted); }
+.todo-item.priority-medium { border-left: 4px solid var(--warning-color); }
+.todo-item.priority-high { border-left: 4px solid var(--error-color); }
+
+.todo-item:hover {
+    background-color: #FFFFFF;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.todo-left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-grow: 1;
+}
+
+.todo-checkbox {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--text-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.todo-checkbox:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.todo-checkbox:checked::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.65rem;
+    color: #FFFFFF;
+}
+
+.todo-item.completed {
+    opacity: 0.65;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.todo-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.todo-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.todo-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.meta-tag {
+    padding: 0.05rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+}
+
+.meta-tag.tag-low { background-color: #ECEAEF; color: var(--text-color); }
+.meta-tag.tag-medium { background-color: rgba(251, 140, 0, 0.1); color: var(--warning-color); }
+.meta-tag.tag-high { background-color: rgba(229, 57, 53, 0.1); color: var(--error-color); }
+
+.meta-date {
+    color: var(--text-muted);
+}
+
+.todo-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.todo-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.btn-edit-item { color: var(--primary-color); }
+.btn-edit-item:hover { background-color: var(--primary-light); }
+
+.btn-delete-item { color: var(--error-color); }
+.btn-delete-item:hover { background-color: rgba(229, 57, 53, 0.1); }
+
+.empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    opacity: 0.7;
+}
+
+.empty-state p {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* DOM Traversal Console Monitor */
+.dom-traversal-console {
+    background-color: #232026;
+    color: #F0EDF2;
+    border-radius: 8px;
+    border: 1px solid #38323D;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.console-header {
+    background-color: #17151A;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--primary-color);
+    border-bottom: 1px solid #38323D;
+}
+
+.console-body {
+    padding: 0.45rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.68rem;
+}
+
+.console-lbl {
+    font-weight: 700;
+    color: #8D8794;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+}
+
+.console-path {
+    font-family: var(--font-mono);
+    color: #FDAFCE;
+    word-break: break-all;
+}
+
+/* ============================================================
+   PROMINENT BRANDING FOOTER
+   ============================================================ */
+.notion-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.2rem;
+}
+
+.footer-badge {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-badge i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}

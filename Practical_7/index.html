@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Task Workspace - Practical 7</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="notion-viewport">
+        
+        <!-- ===== MAIN FULL-PAGE WORKSPACE ===== -->
+        <div class="notion-workspace">
+            
+            <!-- LEFT SIDEBAR PANEL -->
+            <aside class="notion-sidebar">
+                <div class="sidebar-brand">
+                    <i class="fa-solid fa-compass brand-icon"></i>
+                    <h2>LIFESPACE PLANNER</h2>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="nav-btn active" data-filter="all">
+                        <i class="fa-solid fa-list-check"></i> All Tasks
+                    </button>
+                    <button class="nav-btn" data-filter="pending">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Pending
+                    </button>
+                    <button class="nav-btn" data-filter="high">
+                        <i class="fa-solid fa-triangle-exclamation"></i> High Priority
+                    </button>
+                    <button class="nav-btn" data-filter="completed">
+                        <i class="fa-solid fa-circle-check"></i> Completed
+                    </button>
+                </nav>
+
+                <!-- Completion Index Circular Ring -->
+                <div class="sidebar-progress-box">
+                    <h3>Completion Index</h3>
+                    <div class="circular-wrapper">
+                        <svg class="progress-ring" width="80" height="80">
+                            <circle class="ring-bg" r="32" cx="40" cy="40"/>
+                            <circle class="ring-fill" id="sidebar-ring-fill" r="32" cx="40" cy="40" stroke-dasharray="201.06" stroke-dashoffset="201.06"/>
+                        </svg>
+                        <span class="pct-val" id="sidebar-pct-val">0%</span>
+                    </div>
+                    <p id="remaining-count-txt">No tasks registered</p>
+                </div>
+            </aside>
+
+            <!-- RIGHT MAIN CONTENT BOARD -->
+            <section class="notion-main">
+                <!-- Header -->
+                <header class="main-header">
+                    <h1 id="active-category-title">All Tasks</h1>
+                    <p class="subtitle">Organize task boards utilizing strict JavaScript DOM Tree traversal algorithms.</p>
+                </header>
+
+                <!-- Add Task Row -->
+                <div class="task-input-bar">
+                    <div class="input-row">
+                        <input type="text" id="task-input" placeholder="Plan a new task..." autocomplete="off">
+                        
+                        <select id="task-priority-select">
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Priority</option>
+                        </select>
+
+                        <input type="date" id="task-date-select">
+
+                        <button id="btn-add-task" class="btn-add">
+                            <i class="fa-solid fa-plus"></i> Add Task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Task Items Board -->
+                <div class="task-content-area">
+                    <ul class="todo-list" id="todo-list-ul">
+                        <!-- Empty Placeholder -->
+                        <li class="empty-state" id="todo-empty-state">
+                            <i class="fa-solid fa-list-check empty-icon"></i>
+                            <p>No tasks found in this view. Enter items above to get started.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Live DOM Tree Traversal Path Monitor -->
+                <div class="dom-traversal-console">
+                    <div class="console-header">
+                        <i class="fa-solid fa-code-fork"></i> DOM TREE TRAVERSAL PATH MONITOR
+                    </div>
+                    <div class="console-body">
+                        <span class="console-lbl">ACTIVE TRAVERSAL PIPELINE:</span>
+                        <div class="console-path" id="console-dom-path">Awaiting element interaction...</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="notion-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-list-check"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
