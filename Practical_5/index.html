@@ -3,111 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Boutique De Paris - Luxury Editorial</title>
+    <title>La Boutique De Paris - Scandinavian Storefront</title>
     <!-- ===== GOOGLE FONTS (PLAYFAIR DISPLAY & INTER) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="vogue-viewport">
-        <!-- ===== LUXURY EDITORIAL NAVBAR ===== -->
-        <header class="vogue-navbar">
-            <div class="vogue-brand">
-                <span class="editorial-edition">HAUTE COUTURE &bull; PARIS</span>
-                <h1 class="vogue-logo">LA BOUTIQUE DE PARIS</h1>
-                <p class="vogue-sub">Collection Automne-Hiver &bull; Array Pipeline Engine</p>
+    <div class="shop-viewport">
+        <!-- ===== MINIMALIST HEADER NAVBAR ===== -->
+        <header class="shop-navbar">
+            <div class="brand-box">
+                <span class="edition-lbl">PARIS &bull; EST. 2026</span>
+                <h1 class="shop-logo">LA BOUTIQUE DE PARIS</h1>
             </div>
-            <div class="vogue-cart-counter">
-                <span class="lbl">BAG CONTENTS</span>
-                <span class="pill-count" id="vogue-bag-count">0 ITEMS</span>
-            </div>
+
+            <button class="cart-trigger-btn" id="btn-toggle-bag">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="bag-lbl">SHOPPING BAG</span>
+                <span class="bag-count-pill" id="bag-count-pill">0</span>
+            </button>
         </header>
 
-        <!-- ===== EDITORIAL GRID WORKSPACE ===== -->
-        <main class="vogue-workspace">
+        <!-- ===== MAIN STOREFRONT WORKSPACE ===== -->
+        <main class="shop-workspace">
             
-            <!-- LEFT COLUMN: LUXURY CATALOG GRID (65% width) -->
-            <section class="vogue-catalog-panel">
-                <div class="editorial-header-row">
+            <!-- LEFT 3-COLUMN PRODUCT CATALOG (68% width) -->
+            <section class="catalog-panel">
+                <div class="catalog-header">
                     <h2>SELECTED CREATIONS</h2>
-                    <span class="divider-line"></span>
-                    <span class="cat-tag">NEW ARRIVALS 2026</span>
+                    <span class="catalog-tag">AUTUMN / WINTER 2026</span>
                 </div>
 
-                <div class="catalog-scroll-viewport">
-                    <div class="luxury-cards-grid" id="luxury-catalog-grid">
-                        <!-- Dynamic Unsplash Luxury Product Cards -->
+                <div class="catalog-grid-scroll">
+                    <div class="product-grid-3col" id="product-grid-3col">
+                        <!-- Dynamic Scandinavian Product Cards -->
                     </div>
-                </div>
-            </section>
-
-            <!-- RIGHT COLUMN: STICKY BOUTIQUE RECEIPT DRAWER (35% width) -->
-            <section class="vogue-receipt-drawer">
-                <div class="physical-receipt-paper">
-                    <div class="receipt-top-header">
-                        <h3>LA BOUTIQUE DE PARIS</h3>
-                        <p class="receipt-address">21 RUE DU FAUBOURG SAINT-HONORÉ, PARIS</p>
-                        <p class="receipt-date" id="rec-date-str">AUGUST 04, 2026</p>
-                        <div class="dashed-divider"></div>
-                    </div>
-
-                    <!-- Itemized Cart Rows -->
-                    <div class="receipt-items-scroll" id="receipt-items-container">
-                        <div class="empty-receipt-msg" id="empty-receipt-msg">
-                            <i class="fa-solid fa-basket-shopping"></i>
-                            <p>YOUR SHOPPING BAG IS CURRENTLY EMPTY.</p>
-                        </div>
-                    </div>
-
-                    <!-- Calculations breakdown -->
-                    <div class="receipt-math-box">
-                        <div class="dashed-divider"></div>
-                        <div class="math-line">
-                            <span>SUBTOTAL</span>
-                            <span id="rec-subtotal">₹0.00</span>
-                        </div>
-                        <div class="math-line">
-                            <span>GST TAX (18%)</span>
-                            <span id="rec-tax">₹0.00</span>
-                        </div>
-                        <div class="dashed-divider"></div>
-                        <div class="math-line grand-total-line">
-                            <span>GRAND TOTAL</span>
-                            <span id="rec-grandtotal">₹0.00</span>
-                        </div>
-                        <div class="dashed-divider"></div>
-                    </div>
-
-                    <!-- Barcode Stamp -->
-                    <div class="receipt-footer-stamp">
-                        <div class="barcode-graphic"></div>
-                        <span class="barcode-code">PARIS-8902410-2026</span>
-                        <button id="btn-checkout" class="btn-vogue-checkout" disabled>
-                            PROCEED TO CHECKOUT
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Array Telemetry Block -->
-                <div class="array-telemetry-card">
-                    <div class="tele-title"><i class="fa-solid fa-code"></i> ARRAY PIPELINE LOG</div>
-                    <div class="tele-line"><span class="lbl">push():</span> <span class="val" id="tele-push">cart.push({ id, name, price })</span></div>
-                    <div class="tele-line"><span class="lbl">map():</span> <span class="val" id="tele-map">cart.map(i => i.price * i.qty)</span></div>
-                    <div class="tele-line"><span class="lbl">reduce():</span> <span class="val" id="tele-reduce">subtotal = cart.reduce(...) = ₹0</span></div>
                 </div>
             </section>
+
+            <!-- RIGHT CHECKOUT RECEIPT DRAWER (32% width) -->
+            <aside class="checkout-panel">
+                <div class="receipt-card">
+                    <div class="receipt-head">
+                        <h3>Order Summary</h3>
+                        <p class="receipt-date" id="receipt-date-str">AUGUST 04, 2026</p>
+                    </div>
+
+                    <!-- Cart Itemized List -->
+                    <div class="cart-items-scroll" id="cart-items-container">
+                        <div class="cart-empty-state" id="cart-empty-state">
+                            <i class="fa-solid fa-basket-shopping empty-cart-icon"></i>
+                            <p>Your shopping bag is currently empty.</p>
+                        </div>
+                    </div>
+
+                    <!-- Calculations Breakdown -->
+                    <div class="cart-summary-box">
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span class="val-price" id="val-subtotal">₹0.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>GST Tax (18%)</span>
+                            <span class="val-price" id="val-tax">₹0.00</span>
+                        </div>
+                        <div class="divider-thin"></div>
+                        <div class="summary-line total-line">
+                            <span>Total</span>
+                            <span class="val-price" id="val-total">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-checkout-submit" id="btn-checkout" disabled>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </aside>
 
         </main>
 
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
-        <footer class="vogue-footer">
-            <div class="footer-vogue-bar">
-                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Haute Couture Editorial Experience
+        <footer class="shop-footer">
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>
