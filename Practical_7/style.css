@@ -1,23 +1,23 @@
 /* ============================================================
-   GAMIFIED ARCANE BENTO GRID - PRACTICAL 7
+   APPLE-STYLE ASSESSMENT CARD - PRACTICAL 7
    ============================================================ */
 :root {
-    --bg-dark: #0F0C20;
-    --bento-card: rgba(26, 21, 51, 0.85);
-    --bento-border: rgba(139, 92, 246, 0.25);
+    --bg-light: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --border-color: #E2E8F0;
+    --border-hover: #CBD5E1;
     
-    --violet-accent: #8B5CF6;
-    --gold-accent: #F59E0B;
-    --pink-accent: #EC4899;
-    --success-color: #10B981;
-    --error-color: #EF4444;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
     
-    --text-color: #F3F4F6;
-    --text-muted: #9CA3AF;
+    --royal-blue: #2563EB;
+    --royal-blue-hover: #1D4ED8;
+    --emerald-green: #10B981;
+    --rose-red: #F43F5E;
     
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
-    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 * {
@@ -28,570 +28,339 @@
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--bg-dark);
-    color: var(--text-color);
+    background-color: var(--bg-light);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     overflow: hidden; /* Avoid page scrolls */
-    position: relative;
 }
+
+.mono { font-family: var(--font-mono); }
 
 /* ============================================================
-   BLURRED BACKGROUND ORBS
+   APPLE VIEWPORT CONTAINER
    ============================================================ */
-.bento-orbs-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
+.apple-viewport {
     width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.orb-bento {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.35;
-}
-
-.orb-violet { width: 450px; height: 450px; background: var(--violet-accent); top: -10%; left: -10%; }
-.orb-gold { width: 400px; height: 400px; background: var(--gold-accent); bottom: -10%; right: -10%; }
-
-/* ============================================================
-   ARCANE VIEWPORT CONTAINER
-   ============================================================ */
-.arcane-viewport {
-    width: 100%;
-    max-width: 1100px;
+    max-width: 850px;
     height: 96vh;
-    max-height: 700px;
+    max-height: 680px;
     padding: 0.85rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ============================================================
-   GAMIFIED NAVBAR
+   APPLE CARD CONTAINER
    ============================================================ */
-.arcane-navbar {
-    background: var(--bento-card);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--bento-border);
-    border-radius: 14px;
-    padding: 0.75rem 1.25rem;
+.apple-card {
+    width: 100%;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 650px;
+}
+
+/* TOP PROGRESS BAR */
+.card-progress-bar-wrap {
+    height: 4px;
+    background-color: #F1F5F9;
+    width: 100%;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--royal-blue);
+    transition: width 0.4s ease;
+}
+
+/* CARD HEADER */
+.apple-card-header {
+    padding: 1.25rem 1.5rem 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.brand-arcane {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-}
-
-.icon-orb-badge {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--violet-accent), var(--pink-accent));
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
-}
-
-.arcane-navbar h1 {
-    font-size: 1.1rem;
-    font-weight: 800;
+.step-indicator {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--royal-blue);
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.arcane-navbar .subtitle {
-    font-size: 0.72rem;
+.category-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    background-color: #F1F5F9;
+    color: var(--text-muted);
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.card-subtitle {
+    font-size: 0.78rem;
     color: var(--text-muted);
 }
 
-.xp-counter-badge {
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid var(--gold-accent);
-    border-radius: 20px;
-    padding: 0.35rem 0.95rem;
+/* CARD BODY */
+.apple-card-body {
+    padding: 1.25rem 1.5rem;
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 800;
-    font-size: 0.82rem;
-}
-
-.text-gold { color: var(--gold-accent); }
-
-.level-lbl {
-    font-size: 0.6rem;
-    background: var(--gold-accent);
-    color: #000000;
-    padding: 0.1rem 0.45rem;
-    border-radius: 10px;
-    font-weight: 900;
-}
-
-/* ============================================================
-   ASYMMETRIC BENTO GRID WORKSPACE
-   ============================================================ */
-.bento-grid-workspace {
-    display: grid;
-    grid-template-columns: 1.2fr 0.9fr 0.9fr;
-    grid-template-rows: auto 1fr auto;
+    flex-direction: column;
     gap: 0.85rem;
     flex-grow: 1;
     min-height: 0;
 }
 
-.bento-card {
-    background: var(--bento-card);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--bento-border);
-    border-radius: 16px;
-    padding: 1rem;
+/* TASK INPUT BAR */
+.task-input-bar {
     display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: var(--transition);
-}
-
-.bento-card:hover {
-    border-color: var(--violet-accent);
-    transform: translateY(-2px);
-}
-
-.card-title-bento {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--violet-accent);
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
-    border-bottom: 1px solid var(--bento-border);
-    padding-bottom: 0.35rem;
-    flex-shrink: 0;
 }
 
-.card-title-bento.justify-between {
-    justify-content: space-between;
-}
-
-/* BENTO CARD 1: INPUT QUEST CONSOLE */
-.card-quest-input {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-}
-
-.bento-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-}
-
-.bento-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
-.bento-field label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.bento-field input,
-.bento-field select {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
+.task-input-bar input {
+    flex-grow: 1;
+    padding: 0.55rem 0.85rem;
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    border: 1px solid var(--bento-border);
+    font-size: 0.82rem;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    background: rgba(15, 12, 32, 0.6);
-    color: #FFFFFF;
+    background-color: #F8FAFC;
+    color: var(--text-primary);
     outline: none;
     transition: var(--transition);
 }
 
-.bento-field input:focus,
-.bento-field select:focus {
-    border-color: var(--violet-accent);
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+.task-input-bar select {
+    padding: 0.55rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #F8FAFC;
+    color: var(--text-primary);
+    outline: none;
+    cursor: pointer;
 }
 
-.bento-row-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+.task-input-bar input:focus,
+.task-input-bar select:focus {
+    border-color: var(--royal-blue);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-.btn-bento-action {
-    background: linear-gradient(135deg, var(--violet-accent), var(--pink-accent));
+.btn-apple-primary {
+    background-color: var(--royal-blue);
     color: #FFFFFF;
     border: none;
-    padding: 0.55rem;
-    border-radius: 8px;
+    padding: 0.55rem 1rem;
     font-family: var(--font-sans);
     font-size: 0.8rem;
-    font-weight: 800;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+    gap: 0.35rem;
     transition: var(--transition);
 }
 
-.btn-bento-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+.btn-apple-primary:hover {
+    background-color: var(--royal-blue-hover);
 }
 
-/* BENTO CARD 2: PROGRESS RING METRICS */
-.card-quest-stats {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.ring-progress-wrapper {
-    position: relative;
-    width: 90px;
-    height: 90px;
+/* TABS BAR */
+.apple-tabs-bar {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ring-svg-bento {
-    transform: rotate(-90deg);
-}
-
-.ring-bg {
-    fill: transparent;
-    stroke: rgba(255, 255, 255, 0.08);
-    stroke-width: 7;
-}
-
-.ring-fill {
-    fill: transparent;
-    stroke: var(--gold-accent);
-    stroke-width: 7;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.ring-center-txt {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pct-num {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #FFFFFF;
-}
-
-.ring-lbl {
-    font-size: 0.55rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-}
-
-.quests-remaining-str {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--gold-accent);
-}
-
-/* BENTO CARD 3: FILTER SELECTOR */
-.card-filter-pills {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-}
-
-.filter-buttons-flex {
-    display: flex;
-    flex-direction: column;
     gap: 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.4rem;
 }
 
-.bento-filter-btn {
-    border: 1px solid var(--bento-border);
-    background: rgba(15, 12, 32, 0.4);
-    color: var(--text-muted);
-    padding: 0.4rem 0.65rem;
-    border-radius: 8px;
+.apple-tab {
+    background: none;
+    border: none;
+    padding: 0.35rem 0.75rem;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 600;
+    color: var(--text-muted);
+    border-radius: 6px;
     cursor: pointer;
-    text-align: left;
     transition: var(--transition);
 }
 
-.bento-filter-btn:hover {
-    color: #FFFFFF;
-    background: rgba(139, 92, 246, 0.15);
+.apple-tab.active {
+    background-color: #EFF6FF;
+    color: var(--royal-blue);
 }
 
-.bento-filter-btn.active {
-    background: var(--violet-accent);
-    border-color: var(--violet-accent);
-    color: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-/* BENTO CARD 4: QUEST BOARD LIST */
-.card-quest-board {
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-    min-height: 0;
-}
-
-.flex-align {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.bento-badge-count {
-    font-size: 0.7rem;
-    font-weight: 700;
-    background: rgba(139, 92, 246, 0.15);
-    color: var(--violet-accent);
-    padding: 0.15rem 0.6rem;
-    border-radius: 10px;
-}
-
-.quests-scroll-area {
+/* TASK LIST */
+.task-list-viewport {
     flex-grow: 1;
     overflow-y: auto;
     padding-right: 4px;
 }
 
-.todo-list {
+.apple-task-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
 }
 
-.todo-item {
-    background: rgba(15, 12, 32, 0.5);
-    border: 1px solid var(--bento-border);
+.apple-task-item {
+    background-color: #F8FAFC;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    padding: 0.55rem 0.85rem;
+    padding: 0.6rem 0.85rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: var(--transition);
 }
 
-.todo-item.priority-low { border-left: 4px solid var(--text-muted); }
-.todo-item.priority-medium { border-left: 4px solid var(--gold-accent); }
-.todo-item.priority-high { border-left: 4px solid var(--pink-accent); }
+.apple-task-item:hover {
+    border-color: var(--border-hover);
+}
 
-.todo-left {
+.apple-task-left {
     display: flex;
     align-items: center;
     gap: 0.65rem;
-    flex-grow: 1;
 }
 
-.todo-checkbox {
+.apple-checkbox {
     appearance: none;
     width: 18px;
     height: 18px;
-    border: 1.5px solid var(--text-muted);
+    border: 1.5px solid var(--border-hover);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    flex-shrink: 0;
 }
 
-.todo-checkbox:checked {
-    background: var(--violet-accent);
-    border-color: var(--violet-accent);
+.apple-checkbox:checked {
+    background-color: var(--royal-blue);
+    border-color: var(--royal-blue);
 }
 
-.todo-checkbox:checked::after {
+.apple-checkbox:checked::after {
     content: "\f00c";
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: #FFFFFF;
 }
 
-.todo-item.completed {
-    opacity: 0.5;
+.apple-task-item.completed {
+    opacity: 0.55;
 }
 
-.todo-item.completed .todo-text {
+.apple-task-item.completed .task-text-lbl {
     text-decoration: line-through;
     color: var(--text-muted);
 }
 
-.todo-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-}
-
-.todo-text {
+.task-text-lbl {
     font-size: 0.82rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-.todo-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.65rem;
-    font-weight: 700;
-}
-
-.meta-tag {
-    padding: 0.05rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.58rem;
-    text-transform: uppercase;
-}
-
-.meta-tag.tag-low { background: rgba(156, 163, 175, 0.15); color: var(--text-muted); }
-.meta-tag.tag-medium { background: rgba(245, 158, 11, 0.15); color: var(--gold-accent); }
-.meta-tag.tag-high { background: rgba(236, 72, 153, 0.15); color: var(--pink-accent); }
-
-.meta-date { color: var(--text-muted); }
-
-.todo-actions {
-    display: flex;
-    gap: 0.25rem;
-}
-
-.todo-btn {
-    border: none;
+.btn-delete-task {
     background: none;
+    border: none;
+    color: var(--rose-red);
     cursor: pointer;
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
     font-size: 0.78rem;
+    padding: 0.25rem;
+    border-radius: 4px;
     transition: var(--transition);
 }
 
-.btn-edit-item { color: var(--violet-accent); }
-.btn-edit-item:hover { background: rgba(139, 92, 246, 0.15); }
+.btn-delete-task:hover {
+    background-color: #FFE4E6;
+}
 
-.btn-delete-item { color: var(--error-color); }
-.btn-delete-item:hover { background: rgba(239, 68, 68, 0.15); }
-
-.empty-bento-state {
+.empty-apple-state {
     padding: 2.5rem 1rem;
     text-align: center;
     color: var(--text-muted);
 }
 
-.empty-arcane-icon {
-    font-size: 2rem;
-    color: var(--violet-accent);
+.empty-apple-icon {
+    font-size: 1.8rem;
     margin-bottom: 0.4rem;
-    opacity: 0.5;
+    color: var(--border-hover);
 }
 
-.empty-bento-state p {
+.empty-apple-state p {
     font-size: 0.78rem;
-    font-weight: 500;
 }
 
-/* BENTO CARD 5: DOM TELEMETRY */
-.card-dom-telemetry {
-    grid-column: 1 / 4;
-    grid-row: 3 / 4;
-    background: #090614;
-    border: 1px solid var(--bento-border);
+/* DOM TRAVERSAL DRAWER */
+.dom-traversal-box {
+    background-color: #0F172A;
+    border-radius: 8px;
     padding: 0.55rem 0.85rem;
-}
-
-.telemetry-header-bento {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--gold-accent);
-    margin-bottom: 0.2rem;
-}
-
-.telemetry-body-bento {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.68rem;
-}
-
-.lbl-path {
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    font-weight: 700;
+    flex-direction: column;
+    gap: 0.25rem;
     flex-shrink: 0;
 }
 
-.code-dom-output {
-    font-family: var(--font-mono);
-    color: #FDAFCE;
+.dom-box-head {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94A3B8;
+}
+
+.dom-code-line {
+    font-size: 0.7rem;
+    color: #38BDF8;
     word-break: break-all;
 }
 
-/* ============================================================
-   PROMINENT AUTHOR FOOTER
-   ============================================================ */
-.arcane-footer {
-    flex-shrink: 0;
+/* CARD FOOTER */
+.apple-card-footer {
+    background-color: #F8FAFC;
+    border-top: 1px solid var(--border-color);
+    padding: 0.65rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.footer-arcane-bar {
-    background: var(--bento-card);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--bento-border);
-    border-radius: 20px;
-    padding: 0.45rem 1.5rem;
-    font-size: 0.8rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+.footer-bar {
+    font-size: 0.78rem;
+    color: var(--text-muted);
 }
 
-.footer-arcane-bar i {
-    color: var(--violet-accent);
-    font-size: 0.9rem;
+.footer-bar strong {
+    color: var(--text-primary);
 }

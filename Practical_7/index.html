@@ -3,153 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcane Quest Engine - Gamified Bento Grid</title>
-    <!-- ===== GOOGLE FONTS (PLUS JAKARTA SANS & MONTSERRAT) ===== -->
+    <title>Apple Assessment Card - Practical 7</title>
+    <!-- ===== GOOGLE FONTS (INTER & SF PRO STYLE) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating Blurred Orbs -->
-    <div class="bento-orbs-bg">
-        <div class="orb-bento orb-violet"></div>
-        <div class="orb-bento orb-gold"></div>
-    </div>
-
-    <div class="arcane-viewport">
-        <!-- ===== GAMIFIED NAVBAR ===== -->
-        <header class="arcane-navbar">
-            <div class="brand-arcane">
-                <div class="icon-orb-badge"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                <div>
-                    <h1>ARCANE QUEST ENGINE</h1>
-                    <p class="subtitle">Gamified Task Matrix &bull; DOM Traversal Path Telemetry</p>
-                </div>
-            </div>
-            <!-- XP Counter Badge -->
-            <div class="xp-counter-badge">
-                <i class="fa-solid fa-trophy text-gold"></i>
-                <span class="xp-val" id="xp-val">350 XP</span>
-                <span class="level-lbl">LEVEL 4</span>
-            </div>
-        </header>
-
-        <!-- ===== ASYMMETRIC BENTO GRID WORKSPACE ===== -->
-        <main class="bento-grid-workspace">
+    <div class="apple-viewport">
+        <!-- ===== CENTERED APPLE ASSESSMENT CARD ===== -->
+        <main class="apple-card">
             
-            <!-- BENTO CARD 1: INPUT QUEST CONSOLE (Tall Card, Top Left) -->
-            <div class="bento-card card-quest-input">
-                <div class="card-title-bento">
-                    <i class="fa-solid fa-scroll"></i>
-                    <span>Forge New Quest</span>
+            <!-- TOP PROGRESS BAR -->
+            <div class="card-progress-bar-wrap">
+                <div class="progress-fill" id="apple-progress-fill" style="width: 25%;"></div>
+            </div>
+
+            <!-- CARD HEADER -->
+            <header class="apple-card-header">
+                <div class="header-top">
+                    <span class="step-indicator" id="step-indicator">Task &bull; 1 of 4</span>
+                    <span class="category-badge">JavaScript DOM Engine</span>
                 </div>
+                <h1 class="card-title">Interactive Task &amp; Assessment Portal</h1>
+                <p class="card-subtitle">Manage tasks seamlessly and observe real-time DOM tree traversal logs.</p>
+            </header>
 
-                <div class="bento-form">
-                    <div class="bento-field">
-                        <label for="task-input">Quest Title</label>
-                        <input type="text" id="task-input" placeholder="e.g. Master Array Pipeline..." autocomplete="off">
-                    </div>
-
-                    <div class="bento-row-2">
-                        <div class="bento-field">
-                            <label for="task-priority-select">Difficulty XP</label>
-                            <select id="task-priority-select">
-                                <option value="low">Low (+50 XP)</option>
-                                <option value="medium" selected>Medium (+100 XP)</option>
-                                <option value="high">High (+200 XP)</option>
-                            </select>
-                        </div>
-                        <div class="bento-field">
-                            <label for="task-date-select">Target Date</label>
-                            <input type="date" id="task-date-select">
-                        </div>
-                    </div>
-
-                    <button id="btn-add-task" class="btn-bento-action">
-                        <i class="fa-solid fa-bolt"></i> Launch Quest
+            <!-- CARD BODY CONTENT -->
+            <div class="apple-card-body">
+                
+                <!-- Task Creation Input Bar -->
+                <div class="task-input-bar">
+                    <input type="text" id="task-input" placeholder="Create a new task..." autocomplete="off">
+                    <select id="task-priority-select">
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
+                        <option value="low">Low Priority</option>
+                    </select>
+                    <button id="btn-add-task" class="btn-apple-primary">
+                        <i class="fa-solid fa-plus"></i> Add Task
                     </button>
                 </div>
-            </div>
 
-            <!-- BENTO CARD 2: PROGRESS RING METRICS (Square Card, Top Center) -->
-            <div class="bento-card card-quest-stats">
-                <div class="card-title-bento">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Mastery Progress</span>
+                <!-- Filter Tabs -->
+                <div class="apple-tabs-bar">
+                    <button class="apple-tab active" data-filter="all">All Tasks</button>
+                    <button class="apple-tab" data-filter="pending">Active</button>
+                    <button class="apple-tab" data-filter="completed">Completed</button>
                 </div>
 
-                <div class="ring-progress-wrapper">
-                    <svg class="ring-svg-bento" width="90" height="90">
-                        <circle class="ring-bg" r="36" cx="45" cy="45"/>
-                        <circle class="ring-fill" id="ring-fill-bento" r="36" cx="45" cy="45" stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
-                    </svg>
-                    <div class="ring-center-txt">
-                        <span class="pct-num" id="pct-num-bento">0%</span>
-                        <span class="ring-lbl">Complete</span>
-                    </div>
-                </div>
-
-                <span class="quests-remaining-str" id="quests-remaining-str">0 Quests Remaining</span>
-            </div>
-
-            <!-- BENTO CARD 3: FILTER SELECTOR (Small Card, Top Right) -->
-            <div class="bento-card card-filter-pills">
-                <div class="card-title-bento">
-                    <i class="fa-solid fa-filter"></i>
-                    <span>Quest Filter</span>
-                </div>
-
-                <div class="filter-buttons-flex">
-                    <button class="bento-filter-btn active" data-filter="all">All Quests</button>
-                    <button class="bento-filter-btn" data-filter="pending">Active</button>
-                    <button class="bento-filter-btn" data-filter="high">High XP</button>
-                    <button class="bento-filter-btn" data-filter="completed">Completed</button>
-                </div>
-            </div>
-
-            <!-- BENTO CARD 4: QUEST BOARD LIST (Wide Card, Middle Row) -->
-            <div class="bento-card card-quest-board">
-                <div class="card-title-bento justify-between">
-                    <div class="flex-align">
-                        <i class="fa-solid fa-dragon"></i>
-                        <span id="active-category-title">Active Quests</span>
-                    </div>
-                    <span class="bento-badge-count" id="active-count-badge">0 Listed</span>
-                </div>
-
-                <div class="quests-scroll-area">
-                    <ul class="todo-list" id="todo-list-ul">
-                        <li class="empty-bento-state" id="todo-empty-state">
-                            <i class="fa-solid fa-compass empty-arcane-icon"></i>
-                            <p>No quests found in this category. Create new quests to gain XP!</p>
+                <!-- Scrollable Task List -->
+                <div class="task-list-viewport">
+                    <ul class="apple-task-list" id="todo-list-ul">
+                        <li class="empty-apple-state" id="todo-empty-state">
+                            <i class="fa-solid fa-square-check empty-apple-icon"></i>
+                            <p>No tasks registered. Type a task above to begin.</p>
                         </li>
                     </ul>
                 </div>
+
+                <!-- DOM Traversal Monitor Drawer -->
+                <div class="dom-traversal-box">
+                    <div class="dom-box-head">
+                        <i class="fa-solid fa-code-branch"></i> DOM TREE TRAVERSAL MONITOR
+                    </div>
+                    <div class="dom-code-line mono" id="console-dom-path">Awaiting element interaction...</div>
+                </div>
+
             </div>
 
-            <!-- BENTO CARD 5: DOM TRAVERSAL PATH TELEMETRY (Full Width, Bottom Row) -->
-            <div class="bento-card card-dom-telemetry">
-                <div class="telemetry-header-bento">
-                    <i class="fa-solid fa-code-fork"></i> DOM TREE TRAVERSAL MONITOR CONSOLE
+            <!-- CARD FOOTER -->
+            <footer class="apple-card-footer">
+                <div class="footer-bar">
+                    Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
                 </div>
-                <div class="telemetry-body-bento">
-                    <span class="lbl-path">DOM PIPELINE EXECUTION:</span>
-                    <div class="code-dom-output" id="console-dom-path">Awaiting element interaction...</div>
-                </div>
-            </div>
+            </footer>
 
         </main>
-
-        <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
-        <footer class="arcane-footer">
-            <div class="footer-arcane-bar">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Arcane Bento Quest System
-            </div>
-        </footer>
     </div>
 
     <!-- ===== JAVASCRIPT ===== -->

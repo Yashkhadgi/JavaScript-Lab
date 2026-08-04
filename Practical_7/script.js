@@ -1,32 +1,21 @@
 /**
- * Practical 7: Arcane Quest Engine - Gamified Bento Grid & DOM Traversal
+ * Practical 7: Apple-Style Assessment Card & DOM Traversal Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const taskInput = document.getElementById('task-input');
     const taskPrioritySelect = document.getElementById('task-priority-select');
-    const taskDateSelect = document.getElementById('task-date-select');
-    const addTaskBtn = document.getElementById('btn-add-task');
+    const btnAddTask = document.getElementById('btn-add-task');
     const todoListUl = document.getElementById('todo-list-ul');
     const emptyState = document.getElementById('todo-empty-state');
 
-    const xpValDisplay = document.getElementById('xp-val');
-    const ringFillBento = document.getElementById('ring-fill-bento');
-    const pctNumBento = document.getElementById('pct-num-bento');
-    const questsRemainingStr = document.getElementById('quests-remaining-str');
-
-    const filterButtons = document.querySelectorAll('.bento-filter-btn');
-    const activeCategoryTitle = document.getElementById('active-category-title');
-    const activeCountBadge = document.getElementById('active-count-badge');
-
+    const appleProgressFill = document.getElementById('apple-progress-fill');
+    const stepIndicator = document.getElementById('step-indicator');
     const consoleDomPath = document.getElementById('console-dom-path');
-
-    const today = new Date().toISOString().split('T')[0];
-    taskDateSelect.value = today;
+    const tabs = document.querySelectorAll('.apple-tab');
 
     let currentFilter = 'all';
-    let userXP = 350;
 
     function logTraversal(pathStr) {
         consoleDomPath.textContent = pathStr;
@@ -36,210 +25,116 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    addTaskBtn.addEventListener('click', createQuest);
+    btnAddTask.addEventListener('click', createTask);
     taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') createQuest();
+        if (e.key === 'Enter') createTask();
     });
 
-    function createQuest() {
+    function createTask() {
         const text = taskInput.value.trim();
         const priority = taskPrioritySelect.value;
-        let dateVal = taskDateSelect.value;
 
         if (text === "") return;
-
-        if (dateVal) {
-            const d = new Date(dateVal);
-            dateVal = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        } else {
-            dateVal = "No Date";
-        }
 
         if (todoListUl.contains(emptyState)) {
             emptyState.remove();
         }
 
         const li = document.createElement('li');
-        li.className = `todo-item priority-${priority}`;
-        li.setAttribute('data-priority', priority);
+        li.className = 'apple-task-item';
 
         li.innerHTML = `
-            <div class="todo-left">
-                <input type="checkbox" class="todo-checkbox" title="Mark Quest Complete">
-                <div class="todo-details">
-                    <span class="todo-text"></span>
-                    <div class="todo-meta">
-                        <span class="meta-tag tag-${priority}">${priority}</span>
-                        <span class="meta-date"><i class="fa-regular fa-calendar"></i> ${dateVal}</span>
-                    </div>
-                </div>
+            <div class="apple-task-left">
+                <input type="checkbox" class="apple-checkbox" title="Mark Completed">
+                <span class="task-text-lbl"></span>
             </div>
-            <div class="todo-actions">
-                <button class="todo-btn btn-edit-item" title="Edit Quest">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button class="todo-btn btn-delete-item" title="Abandon Quest">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
-            </div>
+            <button class="btn-delete-task" title="Remove Task">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
         `;
 
-        li.querySelector('.todo-text').textContent = text;
+        li.querySelector('.task-text-lbl').textContent = text;
         todoListUl.appendChild(li);
 
-        bindItemEvents(li, priority);
+        bindItemEvents(li);
 
         taskInput.value = "";
         taskInput.focus();
 
-        syncBentoStats();
-        applyFilterView();
+        updateProgress();
+        applyFilter();
 
         logTraversal(`button#btn-add-task -> document.createElement('li') -> todoListUl.appendChild(li)`);
     }
 
-    function bindItemEvents(itemRow, priority) {
-        const todoLeft = itemRow.children[0];
-        const todoActions = itemRow.children[1];
-
-        const checkbox = todoLeft.children[0];
-        const editBtn = todoActions.children[0];
-        const deleteBtn = todoActions.children[1];
-
-        let xpReward = 100;
-        if (priority === 'low') xpReward = 50;
-        else if (priority === 'high') xpReward = 200;
+    function bindItemEvents(itemRow) {
+        const checkbox = itemRow.querySelector('.apple-checkbox');
+        const deleteBtn = itemRow.querySelector('.btn-delete-task');
 
         checkbox.addEventListener('change', function() {
-            const row = this.parentElement.parentElement;
             if (this.checked) {
-                row.classList.add('completed');
-                userXP += xpReward;
+                itemRow.classList.add('completed');
             } else {
-                row.classList.remove('completed');
-                userXP = Math.max(0, userXP - xpReward);
+                itemRow.classList.remove('completed');
             }
 
-            xpValDisplay.textContent = `${userXP} XP`;
-            syncBentoStats();
-            applyFilterView();
-
-            logTraversal(`checkbox -> this.parentElement.parentElement -> classList.toggle('completed')`);
+            updateProgress();
+            applyFilter();
+            logTraversal(`checkbox -> itemRow.classList.toggle('completed')`);
         });
 
         deleteBtn.addEventListener('click', function() {
-            const row = this.closest('.todo-item');
-            row.remove();
+            itemRow.remove();
 
-            const items = todoListUl.querySelectorAll('.todo-item');
+            const items = todoListUl.querySelectorAll('.apple-task-item');
             if (items.length === 0) {
                 todoListUl.appendChild(emptyState);
             }
 
-            syncBentoStats();
-            logTraversal(`button.btn-delete-item -> this.closest('.todo-item') -> .remove()`);
-        });
-
-        editBtn.addEventListener('click', function() {
-            const row = this.closest('.todo-item');
-            const detailsDiv = row.querySelector('.todo-details');
-            const textSpan = detailsDiv.querySelector('.todo-text');
-
-            const isEditing = row.classList.contains('editing');
-            const icon = this.querySelector('i');
-
-            if (isEditing) {
-                const inputField = detailsDiv.querySelector('.todo-edit-input');
-                const newText = inputField.value.trim();
-
-                if (newText !== "") {
-                    textSpan.textContent = newText;
-                    inputField.remove();
-                    textSpan.style.display = "";
-
-                    row.classList.remove('editing');
-                    icon.className = 'fa-solid fa-pen-to-square';
-                    logTraversal(`button.btn-edit -> detailsDiv.querySelector('.todo-edit-input') -> inputField.remove()`);
-                }
-            } else {
-                const currentText = textSpan.textContent;
-                const inputField = document.createElement('input');
-                inputField.type = 'text';
-                inputField.className = 'todo-edit-input';
-                inputField.value = currentText;
-
-                detailsDiv.insertBefore(inputField, textSpan);
-                textSpan.style.display = "none";
-                inputField.focus();
-
-                inputField.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') editBtn.click();
-                });
-
-                row.classList.add('editing');
-                icon.className = 'fa-solid fa-floppy-disk';
-                logTraversal(`button.btn-edit -> detailsDiv.insertBefore(inputField, textSpan)`);
-            }
+            updateProgress();
+            logTraversal(`button.btn-delete-task -> itemRow.remove()`);
         });
     }
 
-    function syncBentoStats() {
-        const items = todoListUl.querySelectorAll('.todo-item');
+    function updateProgress() {
+        const items = todoListUl.querySelectorAll('.apple-task-item');
         const total = items.length;
 
-        let pending = 0;
+        let completed = 0;
         items.forEach(item => {
-            if (!item.classList.contains('completed')) pending++;
+            if (item.classList.contains('completed')) completed++;
         });
 
-        const completed = total - pending;
-
-        if (total === 0) {
-            questsRemainingStr.textContent = "0 Quests Remaining";
-        } else {
-            questsRemainingStr.textContent = `${pending} Quest${pending !== 1 ? 's' : ''} Remaining`;
-        }
-
-        const circumference = 226.19; // 2 * PI * 36
         const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
-        const offset = circumference - (circumference * pct / 100);
+        appleProgressFill.style.width = `${Math.max(10, pct)}%`;
 
-        pctNumBento.textContent = `${pct}%`;
-        ringFillBento.style.strokeDashoffset = offset;
+        stepIndicator.textContent = `Tasks • ${completed} of ${total} Completed`;
     }
 
-    function applyFilterView() {
-        const items = todoListUl.querySelectorAll('.todo-item');
-        let visibleCount = 0;
+    function applyFilter() {
+        const items = todoListUl.querySelectorAll('.apple-task-item');
 
         items.forEach(item => {
             const isCompleted = item.classList.contains('completed');
-            const priority = item.getAttribute('data-priority');
 
             let visible = false;
             switch(currentFilter) {
                 case 'all': visible = true; break;
                 case 'pending': visible = !isCompleted; break;
-                case 'high': visible = (priority === 'high' && !isCompleted); break;
                 case 'completed': visible = isCompleted; break;
             }
 
-            if (visible) visibleCount++;
             item.style.display = visible ? "" : "none";
         });
-
-        activeCountBadge.textContent = `${visibleCount} Listed`;
     }
 
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
 
-            currentFilter = btn.getAttribute('data-filter');
-            activeCategoryTitle.textContent = btn.textContent.trim();
-
-            applyFilterView();
+            currentFilter = tab.getAttribute('data-filter');
+            applyFilter();
         });
     });
 });
