@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist API Database Dashboard - Practical 10</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & ROBOTO MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="brutal-viewport">
+        <!-- ===== BRUTALIST TOPBAR HEADER ===== -->
+        <header class="brutal-topbar">
+            <div class="topbar-brand">
+                <div class="brutal-badge"><i class="fa-solid fa-server"></i></div>
+                <div>
+                    <h1>BRUTALIST API TELEMETRY DASHBOARD</h1>
+                    <p class="subtitle">JSON Query Protocols &bull; Native Fetch API vs. jQuery $.getJSON()</p>
+                </div>
+            </div>
+            <div class="header-telemetry">
+                <div class="brutal-tag">
+                    <span class="lbl">LATENCY</span>
+                    <span class="val" id="tele-latency">-- ms</span>
+                </div>
+                <div class="brutal-tag">
+                    <span class="lbl">RECORDS</span>
+                    <span class="val" id="tele-count">00</span>
+                </div>
+                <div class="brutal-tag tag-method">
+                    <span class="lbl">METHOD</span>
+                    <span class="val" id="tele-method">NONE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== MAIN DASHBOARD WORKSPACE (2-COLUMN GRID) ===== -->
+        <main class="brutal-dashboard">
+            
+            <!-- LEFT COLUMN: DIRECTORY TABLE & CONTROLS -->
+            <section class="brutal-panel panel-left">
+                <!-- Unified Controls Row -->
+                <div class="control-row">
+                    <div class="search-field">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="search-filter" placeholder="Filter records by candidate name..." disabled autocomplete="off">
+                    </div>
+                    <div class="action-btn-group">
+                        <button class="btn btn-fetch" id="btn-load-fetch">
+                            <i class="fa-solid fa-bolt"></i> FETCH API
+                        </button>
+                        <button class="btn btn-jquery" id="btn-load-jquery">
+                            <i class="fa-solid fa-code"></i> $.getJSON()
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Brutalist Directory Table -->
+                <div class="table-card">
+                    <div class="table-scroll-container">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidate Name</th>
+                                    <th>Email Address</th>
+                                    <th>Location City</th>
+                                    <th>Corporate Entity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-tbody">
+                                <!-- Initial Placeholder -->
+                                <tr class="table-info-row" id="row-placeholder">
+                                    <td colspan="4">
+                                        <div class="info-content">
+                                            <i class="fa-solid fa-database placeholder-icon"></i>
+                                            <p>DATABASE INACTIVE. Click a protocol button above to fetch live JSON records.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Shimmering Skeleton Loader Rows -->
+                                <tr class="table-skeleton-row hidden" id="skeleton-row-1">
+                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
+                                </tr>
+                                <tr class="table-skeleton-row hidden" id="skeleton-row-2">
+                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
+                                </tr>
+                                <tr class="table-skeleton-row hidden" id="skeleton-row-3">
+                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
+                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
+                                </tr>
+
+                                <!-- Error Row -->
+                                <tr class="table-info-row hidden" id="row-error">
+                                    <td colspan="4">
+                                        <div class="info-content">
+                                            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                                            <p id="error-message-text">Transmission failure. Failed connection to endpoint.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: ACTIVE SYNTAX LOGGER -->
+            <section class="brutal-panel panel-right">
+                <div class="syntax-window">
+                    <div class="window-header">
+                        <span class="window-title" id="code-tab-title">syntax_logger.js</span>
+                    </div>
+                    <div class="window-body">
+                        <div class="line-numbers">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                            <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                        </div>
+                        <pre class="code-pre" id="code-display-pre">// Awaiting query trigger to display executed request syntax...
+function queryEndpoint() {
+    // Click one of the buttons
+    // to visualize execution logic.
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="brutal-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-server"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JQUERY INTEGRATION (CDN) ===== -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
