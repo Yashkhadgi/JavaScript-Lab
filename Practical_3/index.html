@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphic Academic Portal - Practical 3</title>
+    <!-- ===== GOOGLE FONTS (POPPINS) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-viewport">
+        <!-- ===== TOPBAR HEADER ===== -->
+        <header class="neu-topbar">
+            <div class="topbar-brand">
+                <div class="neu-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>
+                    <h1>Academic Marks &amp; Grade Portal</h1>
+                    <p class="subtitle">Neumorphic Soft UI &bull; Dynamic Student Evaluation Engine</p>
+                </div>
+            </div>
+            <div class="neu-pill">
+                <i class="fa-solid fa-layer-group"></i> Soft UI Architecture
+            </div>
+        </header>
+
+        <!-- ===== DASHBOARD WORKSPACE (2-ROW LAYOUT) ===== -->
+        <main class="neu-dashboard">
+            
+            <!-- ROW 1: CONTROLS & INPUT FORM -->
+            <section class="neu-row row-inputs">
+                <!-- Student Info Card -->
+                <div class="neu-card card-student">
+                    <div class="card-title">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <span>Student Profile</span>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="neu-input-group">
+                            <label for="student-name"><i class="fa-solid fa-id-badge"></i> Student Name</label>
+                            <input type="text" id="student-name" placeholder="e.g. Yash Khadge" value="Yash Khadge" autocomplete="off">
+                        </div>
+                        <div class="neu-input-group">
+                            <label for="student-roll"><i class="fa-solid fa-hashtag"></i> Roll Number / PRN</label>
+                            <input type="text" id="student-roll" placeholder="e.g. 24070521137" value="24070521137" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Subject Card -->
+                <div class="neu-card card-add-subject">
+                    <div class="card-title">
+                        <i class="fa-solid fa-book-medical"></i>
+                        <span>Add Subject Mark</span>
+                    </div>
+                    <div class="form-grid-3">
+                        <div class="neu-input-group">
+                            <label for="subject-name"><i class="fa-solid fa-book"></i> Subject Name</label>
+                            <input type="text" id="subject-name" placeholder="e.g. Mathematics" autocomplete="off">
+                        </div>
+                        <div class="neu-input-group small">
+                            <label for="subject-marks"><i class="fa-solid fa-percent"></i> Marks (0-100)</label>
+                            <input type="number" id="subject-marks" placeholder="85" min="0" max="100" autocomplete="off">
+                        </div>
+                        <button id="btn-add-subject" class="neu-btn neu-btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Entry
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROW 2: SUBJECTS LIST & EVALUATION SUMMARY -->
+            <section class="neu-row row-results">
+                <!-- Left: Registered Subjects Grid -->
+                <div class="neu-card card-subjects-list">
+                    <div class="card-title justify-between">
+                        <div>
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Enrolled Subjects List</span>
+                        </div>
+                        <span class="badge-count" id="subject-count">0 Subjects</span>
+                    </div>
+                    <div class="subjects-scroll-container">
+                        <div class="subjects-grid" id="subjects-container">
+                            <!-- Empty State -->
+                            <div class="neu-empty-state" id="empty-state">
+                                <i class="fa-solid fa-folder-open empty-icon"></i>
+                                <p>No subjects added yet. Enter details above to calculate scores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Evaluation & Grade Summary Card -->
+                <div class="neu-card card-evaluation">
+                    <div class="card-title">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Aggregate Evaluation</span>
+                    </div>
+
+                    <div class="eval-content">
+                        <!-- Neumorphic Radial Progress Ring -->
+                        <div class="radial-ring-wrapper">
+                            <svg class="ring-svg" width="130" height="130">
+                                <circle class="ring-bg" r="52" cx="65" cy="65"/>
+                                <circle class="ring-progress" id="score-ring-progress" r="52" cx="65" cy="65" stroke-dasharray="326.72" stroke-dashoffset="326.72"/>
+                            </svg>
+                            <div class="ring-center">
+                                <span class="ring-pct" id="avg-pct-text">0%</span>
+                                <span class="ring-lbl">Average Score</span>
+                            </div>
+                        </div>
+
+                        <!-- Numerical Breakdown -->
+                        <div class="eval-stats-grid">
+                            <div class="neu-stat-box">
+                                <span class="stat-lbl">Total Score</span>
+                                <span class="stat-val" id="total-score-val">0 / 0</span>
+                            </div>
+                            <div class="neu-stat-box">
+                                <span class="stat-lbl">Grade Rank</span>
+                                <span class="stat-val text-violet" id="grade-rank-val">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Result Rubber Stamp Badge -->
+                        <div class="rubber-stamp-container">
+                            <div class="rubber-stamp stamp-pending" id="result-stamp">
+                                PENDING
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="neu-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-award"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>

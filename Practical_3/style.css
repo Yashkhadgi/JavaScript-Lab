@@ -1,0 +1,488 @@
+/* ============================================================
+   NEUMORPHIC (SOFT UI) DESIGN SYSTEM - PRACTICAL 3
+   ============================================================ */
+:root {
+    --bg-color: #E0E5EC;
+    --text-color: #2D3436;
+    --text-muted: #636E72;
+    --primary-color: #6C5CE7;
+    --primary-light: rgba(108, 92, 231, 0.12);
+    --success-color: #00B894;
+    --error-color: #D63031;
+    --warning-color: #FDCB6E;
+    
+    /* Neumorphic Shadows */
+    --neu-shadow-flat: 6px 6px 14px #b8b9be, -6px -6px 14px #ffffff;
+    --neu-shadow-hover: 9px 9px 18px #b8b9be, -9px -9px 18px #ffffff;
+    --neu-shadow-pressed: inset 4px 4px 8px #b8b9be, inset -4px -4px 8px #ffffff;
+    
+    --font-family: 'Poppins', sans-serif;
+    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Avoid page-level scrolls */
+}
+
+/* ============================================================
+   APP VIEWPORT CONTAINER
+   ============================================================ */
+.app-viewport {
+    width: 100%;
+    max-width: 1100px;
+    height: 96vh;
+    max-height: 700px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ============================================================
+   NEUMORPHIC TOPBAR HEADER
+   ============================================================ */
+.neu-topbar {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 16px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.neu-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.topbar-brand h1 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.topbar-brand .subtitle {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.neu-pill {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 20px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* ============================================================
+   DASHBOARD 2-ROW GRID WORKSPACE
+   ============================================================ */
+.neu-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.neu-row {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.row-inputs {
+    grid-template-columns: 1fr 1.3fr;
+    flex-shrink: 0;
+}
+
+.row-results {
+    grid-template-columns: 1.4fr 1fr;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+/* Neumorphic Card Base */
+.neu-card {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid rgba(163, 177, 198, 0.2);
+    padding-bottom: 0.4rem;
+}
+
+.card-title.justify-between {
+    justify-content: space-between;
+}
+
+.card-title i {
+    color: var(--primary-color);
+}
+
+.badge-count {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--bg-color);
+    box-shadow: var(--neu-shadow-pressed);
+    padding: 0.15rem 0.6rem;
+    border-radius: 10px;
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   FORM INPUTS & BUTTONS
+   ============================================================ */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr auto;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.neu-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.neu-input-group label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.neu-input-group input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-family);
+    font-size: 0.82rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-pressed);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    transition: var(--transition);
+}
+
+.neu-btn {
+    border: none;
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 10px;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-family);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: var(--transition);
+}
+
+.neu-btn:hover {
+    box-shadow: var(--neu-shadow-hover);
+    transform: translateY(-1px);
+}
+
+.neu-btn:active {
+    box-shadow: var(--neu-shadow-pressed);
+    transform: translateY(0);
+}
+
+.neu-btn-primary {
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   SUBJECTS GRID LIST
+   ============================================================ */
+.subjects-scroll-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+}
+
+.neu-subject-card {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.subject-info h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.subject-info p {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.btn-del-subject {
+    background: none;
+    border: none;
+    color: var(--error-color);
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    box-shadow: var(--neu-shadow-flat);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: var(--transition);
+}
+
+.btn-del-subject:hover {
+    box-shadow: var(--neu-shadow-pressed);
+}
+
+.neu-empty-state {
+    grid-column: span 2;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    opacity: 0.6;
+}
+
+.neu-empty-state p {
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+/* ============================================================
+   EVALUATION SUMMARY & RADIAL PROGRESS RING
+   ============================================================ */
+.card-evaluation {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.eval-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+}
+
+.radial-ring-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: var(--neu-shadow-flat);
+}
+
+.ring-svg {
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: transparent;
+    stroke: rgba(163, 177, 198, 0.2);
+    stroke-width: 8;
+}
+
+.ring-progress {
+    fill: transparent;
+    stroke: var(--primary-color);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ring-center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ring-pct {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.ring-lbl {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.eval-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.neu-stat-box {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-pressed);
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.stat-lbl {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: block;
+}
+
+.stat-val {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.text-violet { color: var(--primary-color); }
+
+/* Rubber Stamp Effect */
+.rubber-stamp-container {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rubber-stamp {
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 0.25rem 1rem;
+    border: 3px solid currentColor;
+    border-radius: 8px;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stamp-pending { color: var(--text-muted); border-style: dashed; }
+.stamp-pass { color: var(--success-color); border-color: var(--success-color); animation: stampBounce 0.4s ease-out; }
+.stamp-fail { color: var(--error-color); border-color: var(--error-color); animation: stampBounce 0.4s ease-out; }
+
+/* ============================================================
+   PROMINENT BRANDING FOOTER
+   ============================================================ */
+.neu-footer {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.25rem;
+}
+
+.footer-badge {
+    background-color: var(--bg-color);
+    box-shadow: var(--neu-shadow-flat);
+    border-radius: 20px;
+    padding: 0.45rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.footer-badge i {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes stampBounce {
+    0% { transform: scale(2) rotate(15deg); opacity: 0; }
+    100% { transform: scale(1) rotate(-4deg); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
