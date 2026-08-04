@@ -1,5 +1,5 @@
 /**
- * Practical 7: Notion-Style Task Workspace & DOM Traversal
+ * Practical 7: Arcane Quest Engine - Gamified Bento Grid & DOM Traversal
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,19 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoListUl = document.getElementById('todo-list-ul');
     const emptyState = document.getElementById('todo-empty-state');
 
-    const navButtons = document.querySelectorAll('.nav-btn');
+    const xpValDisplay = document.getElementById('xp-val');
+    const ringFillBento = document.getElementById('ring-fill-bento');
+    const pctNumBento = document.getElementById('pct-num-bento');
+    const questsRemainingStr = document.getElementById('quests-remaining-str');
+
+    const filterButtons = document.querySelectorAll('.bento-filter-btn');
     const activeCategoryTitle = document.getElementById('active-category-title');
-    const remainingCountTxt = document.getElementById('remaining-count-txt');
-    const sidebarRingFill = document.getElementById('sidebar-ring-fill');
-    const sidebarPctVal = document.getElementById('sidebar-pct-val');
+    const activeCountBadge = document.getElementById('active-count-badge');
 
     const consoleDomPath = document.getElementById('console-dom-path');
 
-    // Default today date
     const today = new Date().toISOString().split('T')[0];
     taskDateSelect.value = today;
 
     let currentFilter = 'all';
+    let userXP = 350;
 
     function logTraversal(pathStr) {
         consoleDomPath.textContent = pathStr;
@@ -33,12 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    addTaskBtn.addEventListener('click', createTask);
+    addTaskBtn.addEventListener('click', createQuest);
     taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') createTask();
+        if (e.key === 'Enter') createQuest();
     });
 
-    function createTask() {
+    function createQuest() {
         const text = taskInput.value.trim();
         const priority = taskPrioritySelect.value;
         let dateVal = taskDateSelect.value;
@@ -62,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         li.innerHTML = `
             <div class="todo-left">
-                <input type="checkbox" class="todo-checkbox" title="Toggle Complete">
+                <input type="checkbox" class="todo-checkbox" title="Mark Quest Complete">
                 <div class="todo-details">
                     <span class="todo-text"></span>
                     <div class="todo-meta">
@@ -72,10 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
             <div class="todo-actions">
-                <button class="todo-btn btn-edit-item" title="Edit Task">
+                <button class="todo-btn btn-edit-item" title="Edit Quest">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="todo-btn btn-delete-item" title="Delete Task">
+                <button class="todo-btn btn-delete-item" title="Abandon Quest">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
@@ -84,18 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
         li.querySelector('.todo-text').textContent = text;
         todoListUl.appendChild(li);
 
-        bindItemEvents(li);
+        bindItemEvents(li, priority);
 
         taskInput.value = "";
         taskInput.focus();
 
-        syncSidebarStats();
+        syncBentoStats();
         applyFilterView();
 
         logTraversal(`button#btn-add-task -> document.createElement('li') -> todoListUl.appendChild(li)`);
     }
 
-    function bindItemEvents(itemRow) {
+    function bindItemEvents(itemRow, priority) {
         const todoLeft = itemRow.children[0];
         const todoActions = itemRow.children[1];
 
@@ -103,21 +106,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const editBtn = todoActions.children[0];
         const deleteBtn = todoActions.children[1];
 
-        // Checkbox Toggle
+        let xpReward = 100;
+        if (priority === 'low') xpReward = 50;
+        else if (priority === 'high') xpReward = 200;
+
         checkbox.addEventListener('change', function() {
             const row = this.parentElement.parentElement;
             if (this.checked) {
                 row.classList.add('completed');
+                userXP += xpReward;
             } else {
                 row.classList.remove('completed');
+                userXP = Math.max(0, userXP - xpReward);
             }
 
-            syncSidebarStats();
+            xpValDisplay.textContent = `${userXP} XP`;
+            syncBentoStats();
             applyFilterView();
+
             logTraversal(`checkbox -> this.parentElement.parentElement -> classList.toggle('completed')`);
         });
 
-        // Delete Button
         deleteBtn.addEventListener('click', function() {
             const row = this.closest('.todo-item');
             row.remove();
@@ -127,11 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 todoListUl.appendChild(emptyState);
             }
 
-            syncSidebarStats();
+            syncBentoStats();
             logTraversal(`button.btn-delete-item -> this.closest('.todo-item') -> .remove()`);
         });
 
-        // Edit Button
         editBtn.addEventListener('click', function() {
             const row = this.closest('.todo-item');
             const detailsDiv = row.querySelector('.todo-details');
@@ -175,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function syncSidebarStats() {
+    function syncBentoStats() {
         const items = todoListUl.querySelectorAll('.todo-item');
         const total = items.length;
 
@@ -187,21 +195,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const completed = total - pending;
 
         if (total === 0) {
-            remainingCountTxt.textContent = "No tasks registered";
+            questsRemainingStr.textContent = "0 Quests Remaining";
         } else {
-            remainingCountTxt.textContent = `${pending} task${pending !== 1 ? 's' : ''} remaining`;
+            questsRemainingStr.textContent = `${pending} Quest${pending !== 1 ? 's' : ''} Remaining`;
         }
 
-        const circumference = 201.06; // 2 * PI * 32
+        const circumference = 226.19; // 2 * PI * 36
         const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
         const offset = circumference - (circumference * pct / 100);
 
-        sidebarPctVal.textContent = `${pct}%`;
-        sidebarRingFill.style.strokeDashoffset = offset;
+        pctNumBento.textContent = `${pct}%`;
+        ringFillBento.style.strokeDashoffset = offset;
     }
 
     function applyFilterView() {
         const items = todoListUl.querySelectorAll('.todo-item');
+        let visibleCount = 0;
 
         items.forEach(item => {
             const isCompleted = item.classList.contains('completed');
@@ -215,13 +224,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'completed': visible = isCompleted; break;
             }
 
+            if (visible) visibleCount++;
             item.style.display = visible ? "" : "none";
         });
+
+        activeCountBadge.textContent = `${visibleCount} Listed`;
     }
 
-    navButtons.forEach(btn => {
+    filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            navButtons.forEach(b => b.classList.remove('active'));
+            filterButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             currentFilter = btn.getAttribute('data-filter');
