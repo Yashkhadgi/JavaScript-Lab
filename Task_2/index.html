@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascading Weather Engine - Task 2</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Image with Blur Overlay -->
+    <div class="blurred-weather-overlay"></div>
+
+    <div class="weather-viewport">
+        <!-- ===== MAIN WEATHER DASHBOARD CARD ===== -->
+        <main class="weather-card">
+            
+            <!-- HEADER -->
+            <header class="weather-header">
+                <div class="header-brand">
+                    <div class="cloud-icon-badge"><i class="fa-solid fa-cloud-sun-rain"></i></div>
+                    <div>
+                        <h2>Cascading Weather Telemetry</h2>
+                        <p class="subtitle">State &bull; City &bull; Live Climate Inspection</p>
+                    </div>
+                </div>
+                <div class="time-pill mono" id="live-clock">12:06 PM</div>
+            </header>
+
+            <!-- CASCADING DROPDOWNS SECTION -->
+            <div class="dropdowns-panel">
+                <!-- State Selector -->
+                <div class="select-group">
+                    <label for="select-state"><i class="fa-solid fa-map-location-dot"></i> Select State / Region</label>
+                    <select id="select-state">
+                        <option value="" disabled selected>-- Choose State --</option>
+                    </select>
+                </div>
+
+                <!-- City Selector (Cascading) -->
+                <div class="select-group">
+                    <label for="select-city"><i class="fa-solid fa-city"></i> Select City</label>
+                    <select id="select-city" disabled>
+                        <option value="" disabled selected>-- Select State First --</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- WEATHER DETAILS DISPLAY CARD -->
+            <div class="weather-display-stage" id="weather-display-stage">
+                
+                <!-- PROMINENT HERO CARD -->
+                <div class="hero-climate-card">
+                    <div class="climate-top-row">
+                        <div>
+                            <span class="location-tag" id="disp-location">PUNE &bull; MAHARASHTRA</span>
+                            <h3 class="condition-title" id="disp-condition">Monsoon Light Showers</h3>
+                        </div>
+                        <div class="weather-big-icon" id="disp-icon"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                    </div>
+
+                    <div class="temp-huge-row">
+                        <span class="temp-num mono" id="disp-temp">27</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+
+                    <div class="temp-sub-row">
+                        <span>Feels like <strong id="disp-feels">29°C</strong></span>
+                        <span class="dot-sep">&bull;</span>
+                        <span>High <strong id="disp-high">30°C</strong> / Low <strong id="disp-low">23°C</strong></span>
+                    </div>
+                </div>
+
+                <!-- TELEMETRY METRICS GRID (6 TILES) -->
+                <div class="weather-metrics-grid">
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-droplet tile-icon text-blue"></i>
+                        <div>
+                            <span class="lbl">Humidity</span>
+                            <span class="val mono" id="disp-humidity">82%</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-wind tile-icon text-cyan"></i>
+                        <div>
+                            <span class="lbl">Wind Speed</span>
+                            <span class="val mono" id="disp-wind">18 km/h</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-sun tile-icon text-amber"></i>
+                        <div>
+                            <span class="lbl">UV Index</span>
+                            <span class="val mono" id="disp-uv">4 (Moderate)</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-smog tile-icon text-emerald"></i>
+                        <div>
+                            <span class="lbl">Air Quality</span>
+                            <span class="val mono" id="disp-aqi">38 (Good)</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-gauge-high tile-icon text-purple"></i>
+                        <div>
+                            <span class="lbl">Pressure</span>
+                            <span class="val mono" id="disp-pressure">1012 hPa</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-tile">
+                        <i class="fa-solid fa-eye tile-icon text-rose"></i>
+                        <div>
+                            <span class="lbl">Visibility</span>
+                            <span class="val mono" id="disp-visibility">9.5 km</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PROMINENT AUTHOR FOOTER -->
+            <footer class="weather-footer">
+                <div class="footer-bar">
+                    Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
