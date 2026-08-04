@@ -1,5 +1,5 @@
 /**
- * Practical 10: Brutalist API Database Dashboard
+ * Practical 10: Executive Developer Portfolio & API Telemetry Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,68 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const teleCount = document.getElementById('tele-count');
     const teleMethod = document.getElementById('tele-method');
 
-    const userTbody = document.getElementById('user-tbody');
-    const rowPlaceholder = document.getElementById('row-placeholder');
-    const rowError = document.getElementById('row-error');
-    const errorMessageText = document.getElementById('error-message-text');
+    const developerGridContainer = document.getElementById('developer-grid-container');
+    const emptyState = document.getElementById('empty-state');
 
     const codeTabTitle = document.getElementById('code-tab-title');
     const codeDisplayPre = document.getElementById('code-display-pre');
 
-    const skeletonRows = [
-        document.getElementById('skeleton-row-1'),
-        document.getElementById('skeleton-row-2'),
-        document.getElementById('skeleton-row-3')
-    ];
-
     let fetchedUsers = [];
 
-    const fetchCodeSnippet = `// Native Fetch API Promise chain
+    const fetchCodeSnippet = `// Native Fetch API Pipeline
 fetch("https://jsonplaceholder.typicode.com/users")
-  .then(res => {
-    if (!res.ok) throw new Error("HTTP: " + res.status);
-    return res.json();
-  })
-  .then(users => {
-    renderTable(users);
-  })
-  .catch(err => {
-    showError(err.message);
-  });`;
+  .then(res => res.json())
+  .then(users => renderDeveloperGrid(users));`;
 
-    const jqueryCodeSnippet = `// jQuery $.getJSON Deferred call
+    const jqueryCodeSnippet = `// jQuery $.getJSON Pipeline
 $.getJSON("https://jsonplaceholder.typicode.com/users")
-  .done(users => {
-    renderTable(users);
-  })
-  .fail((jqXHR, status, err) => {
-    showError(err || jqXHR.statusText);
-  });`;
-
-    function toggleLoader(show) {
-        if (show) {
-            searchFilter.disabled = true;
-            searchFilter.value = "";
-
-            rowPlaceholder.classList.add('hidden');
-            rowError.classList.add('hidden');
-
-            document.querySelectorAll('.user-row').forEach(r => r.remove());
-            skeletonRows.forEach(r => r.classList.remove('hidden'));
-        } else {
-            skeletonRows.forEach(r => r.classList.add('hidden'));
-        }
-    }
-
-    function showError(msg) {
-        toggleLoader(false);
-        errorMessageText.textContent = msg;
-        rowError.classList.remove('hidden');
-
-        teleLatency.textContent = "-- ms";
-        teleCount.textContent = "00";
-        teleMethod.textContent = "ERROR";
-    }
+  .done(users => renderDeveloperGrid(users));`;
 
     function getInitials(name) {
         const parts = name.split(/\s+/);
@@ -85,96 +39,88 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
         return initials.toUpperCase();
     }
 
-    function generateAvatarColor() {
-        const colors = ['#00E676', '#00E5FF', '#FF3366', '#FFB800', '#9C27B0'];
+    function getRandomColor() {
+        const colors = ['#00E5FF', '#818CF8', '#10B981', '#F59E0B', '#EC4899'];
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    function renderUserTable() {
-        document.querySelectorAll('.user-row').forEach(r => r.remove());
+    function renderGrid() {
+        developerGridContainer.innerHTML = "";
 
         const query = searchFilter.value.trim().toLowerCase();
 
-        fetchedUsers.forEach(user => {
-            const name = user.name;
-            const email = user.email;
-            const city = user.address ? user.address.city : "N/A";
-            const company = user.company ? user.company.name : "N/A";
-
-            if (query !== "" && !name.toLowerCase().includes(query) && !email.toLowerCase().includes(query) && !city.toLowerCase().includes(query)) {
-                return;
-            }
-
-            const tr = document.createElement('tr');
-            tr.className = 'user-row';
-
-            const initials = getInitials(name);
-            const color = generateAvatarColor();
-
-            tr.innerHTML = `
-                <td>
-                    <div class="candidate-cell">
-                        <div class="avatar-circle" style="background-color: ${color}">${initials}</div>
-                        <span class="candidate-name">${highlight(name, query)}</span>
-                    </div>
-                </td>
-                <td>${highlight(email, query)}</td>
-                <td>${highlight(city, query)}</td>
-                <td>${company}</td>
-            `;
-
-            userTbody.appendChild(tr);
+        const filtered = fetchedUsers.filter(user => {
+            if (query === "") return true;
+            return user.name.toLowerCase().includes(query) ||
+                   user.email.toLowerCase().includes(query) ||
+                   (user.address && user.address.city.toLowerCase().includes(query));
         });
 
-        const visibleCount = userTbody.querySelectorAll('.user-row').length;
-        teleCount.textContent = visibleCount < 10 ? `0${visibleCount}` : visibleCount;
+        if (filtered.length === 0) {
+            developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#94A3B8; font-size:0.8rem;">No developers match query.</div>';
+            teleCount.textContent = "00";
+            return;
+        }
+
+        teleCount.textContent = filtered.length < 10 ? `0${filtered.length}` : filtered.length;
+
+        filtered.forEach(user => {
+            const card = document.createElement('div');
+            card.className = 'developer-card';
+
+            const initials = getInitials(user.name);
+            const avatarBg = getRandomColor();
+            const city = user.address ? user.address.city : "Remote";
+            const company = user.company ? user.company.name : "Tech Corp";
+
+            card.innerHTML = `
+                <div class="dev-card-head">
+                    <div class="dev-avatar" style="background-color: ${avatarBg}">${initials}</div>
+                    <span class="dev-name">${user.name}</span>
+                </div>
+                <div class="dev-meta-line"><i class="fa-regular fa-envelope"></i> ${user.email}</div>
+                <div class="dev-meta-line"><i class="fa-solid fa-location-dot"></i> ${city} &bull; ${company}</div>
+            `;
+
+            developerGridContainer.appendChild(card);
+        });
     }
 
-    function highlight(sourceText, query) {
-        if (query === "") return sourceText;
-        const escaped = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const regex = new RegExp(escaped, 'gi');
-        return sourceText.replace(regex, match => `<span class="highlight">${match}</span>`);
-    }
-
-    searchFilter.addEventListener('input', renderUserTable);
+    searchFilter.addEventListener('input', renderGrid);
 
     // FETCH API PIPELINE
     btnFetch.addEventListener('click', () => {
-        toggleLoader(true);
+        developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#00E5FF;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;"></i><p style="font-size:0.75rem; margin-top:0.5rem;">Fetching Telemetry Data...</p></div>';
+        
         const t0 = performance.now();
 
         fetch(API_URL)
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP: ${res.status}`);
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 const latency = Math.round(performance.now() - t0);
 
                 teleLatency.textContent = `${latency} ms`;
                 teleMethod.textContent = "FETCH";
+                teleMethod.style.color = "#00E5FF";
 
                 fetchedUsers = data;
-                toggleLoader(false);
-                renderUserTable();
+                renderGrid();
 
                 searchFilter.disabled = false;
                 searchFilter.focus();
 
-                codeTabTitle.textContent = "fetch_data.js";
+                codeTabTitle.textContent = "fetch_pipeline.js";
                 codeDisplayPre.textContent = fetchCodeSnippet;
             })
             .catch(err => {
-                showError(err.message);
-                codeTabTitle.textContent = "fetch_data.js";
-                codeDisplayPre.textContent = fetchCodeSnippet;
+                developerGridContainer.innerHTML = `<div style="grid-column:span 2; color:#EF4444; text-align:center;">Failed: ${err.message}</div>`;
             });
     });
 
     // JQUERY $.GETJSON PIPELINE
     btnJquery.addEventListener('click', () => {
-        toggleLoader(true);
+        developerGridContainer.innerHTML = '<div style="grid-column:span 2; padding:2rem; text-align:center; color:#818CF8;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;"></i><p style="font-size:0.75rem; margin-top:0.5rem;">Running $.getJSON Request...</p></div>';
+
         const t0 = performance.now();
 
         $.getJSON(API_URL)
@@ -183,21 +129,19 @@ $.getJSON("https://jsonplaceholder.typicode.com/users")
 
                 teleLatency.textContent = `${latency} ms`;
                 teleMethod.textContent = "JQUERY";
+                teleMethod.style.color = "#818CF8";
 
                 fetchedUsers = data;
-                toggleLoader(false);
-                renderUserTable();
+                renderGrid();
 
                 searchFilter.disabled = false;
                 searchFilter.focus();
 
-                codeTabTitle.textContent = "jquery_get_json.js";
+                codeTabTitle.textContent = "jquery_pipeline.js";
                 codeDisplayPre.textContent = jqueryCodeSnippet;
             })
             .fail((xhr, status, err) => {
-                showError(`jQuery: ${err || xhr.statusText}`);
-                codeTabTitle.textContent = "jquery_get_json.js";
-                codeDisplayPre.textContent = jqueryCodeSnippet;
+                developerGridContainer.innerHTML = `<div style="grid-column:span 2; color:#EF4444; text-align:center;">Failed: ${err || status}</div>`;
             });
     });
 });

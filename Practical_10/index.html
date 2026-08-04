@@ -3,154 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brutalist API Database Dashboard - Practical 10</title>
-    <!-- ===== GOOGLE FONTS (POPPINS & ROBOTO MONO) ===== -->
+    <title>Yash Khadge - Executive Developer Portfolio &amp; API Engine</title>
+    <!-- ===== GOOGLE FONTS (PLUS JAKARTA SANS & SHARE TECH MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="brutal-viewport">
-        <!-- ===== BRUTALIST TOPBAR HEADER ===== -->
-        <header class="brutal-topbar">
-            <div class="topbar-brand">
-                <div class="brutal-badge"><i class="fa-solid fa-server"></i></div>
+    <!-- Floating Mesh Gradient Backdrop -->
+    <div class="portfolio-mesh-bg">
+        <div class="hero-orb orb-indigo"></div>
+        <div class="hero-orb orb-cyan"></div>
+    </div>
+
+    <div class="portfolio-viewport">
+        <!-- ===== LUXURY HEADER ===== -->
+        <header class="portfolio-navbar">
+            <div class="author-badge-group">
+                <div class="author-avatar-badge">YK</div>
                 <div>
-                    <h1>BRUTALIST API TELEMETRY DASHBOARD</h1>
-                    <p class="subtitle">JSON Query Protocols &bull; Native Fetch API vs. jQuery $.getJSON()</p>
+                    <h1 class="author-name">Yash Khadge</h1>
+                    <p class="author-title">Executive Software Engineer &bull; PRN: 24070521137</p>
                 </div>
             </div>
-            <div class="header-telemetry">
-                <div class="brutal-tag">
-                    <span class="lbl">LATENCY</span>
-                    <span class="val" id="tele-latency">-- ms</span>
-                </div>
-                <div class="brutal-tag">
-                    <span class="lbl">RECORDS</span>
-                    <span class="val" id="tele-count">00</span>
-                </div>
-                <div class="brutal-tag tag-method">
-                    <span class="lbl">METHOD</span>
-                    <span class="val" id="tele-method">NONE</span>
-                </div>
+            <div class="portfolio-nav-links">
+                <span class="status-live-dot"><i class="fa-solid fa-circle"></i> AVAILABLE FOR ARCHITECTURE</span>
             </div>
         </header>
 
-        <!-- ===== MAIN DASHBOARD WORKSPACE (2-COLUMN GRID) ===== -->
-        <main class="brutal-dashboard">
+        <!-- ===== HERO LANDING & API SHOWCASE WORKSPACE ===== -->
+        <main class="portfolio-hero-workspace">
             
-            <!-- LEFT COLUMN: DIRECTORY TABLE & CONTROLS -->
-            <section class="brutal-panel panel-left">
-                <!-- Unified Controls Row -->
-                <div class="control-row">
-                    <div class="search-field">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="search-filter" placeholder="Filter records by candidate name..." disabled autocomplete="off">
+            <!-- LEFT COLUMN: HERO INTRO & SKILLS (40% width) -->
+            <section class="hero-intro-card">
+                <div class="hero-badge-tag"><i class="fa-solid fa-code"></i> FULL-STACK LAB ARCHITECTURE</div>
+                <h2 class="hero-headline">Building Award-Winning Web Experiences &amp; Telemetry Engines.</h2>
+                <p class="hero-bio">Specializing in asynchronous API data pipelines (Fetch API &amp; jQuery $.getJSON), high-performance UI state management, and responsive layout paradigms.</p>
+
+                <!-- Animated Skills Meters -->
+                <div class="skills-widget">
+                    <div class="skill-row">
+                        <div class="skill-info"><span>Async Data Pipelines</span> <span>98%</span></div>
+                        <div class="skill-track"><div class="skill-fill fill-cyan" style="width: 98%;"></div></div>
                     </div>
-                    <div class="action-btn-group">
-                        <button class="btn btn-fetch" id="btn-load-fetch">
+                    <div class="skill-row">
+                        <div class="skill-info"><span>UI/UX Architecture</span> <span>95%</span></div>
+                        <div class="skill-track"><div class="skill-fill fill-indigo" style="width: 95%;"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: INTERACTIVE API DIRECTORY SHOWCASE (60% width) -->
+            <section class="api-showcase-card">
+                <div class="showcase-header">
+                    <div class="showcase-title">
+                        <i class="fa-solid fa-database text-cyan"></i>
+                        <span>LIVE API DIRECTORY ENGINE</span>
+                    </div>
+
+                    <!-- Pipeline Action Buttons -->
+                    <div class="pipeline-btn-group">
+                        <button id="btn-load-fetch" class="btn-api btn-fetch">
                             <i class="fa-solid fa-bolt"></i> FETCH API
                         </button>
-                        <button class="btn btn-jquery" id="btn-load-jquery">
+                        <button id="btn-load-jquery" class="btn-api btn-jquery">
                             <i class="fa-solid fa-code"></i> $.getJSON()
                         </button>
                     </div>
                 </div>
 
-                <!-- Brutalist Directory Table -->
-                <div class="table-card">
-                    <div class="table-scroll-container">
-                        <table class="user-table">
-                            <thead>
-                                <tr>
-                                    <th>Candidate Name</th>
-                                    <th>Email Address</th>
-                                    <th>Location City</th>
-                                    <th>Corporate Entity</th>
-                                </tr>
-                            </thead>
-                            <tbody id="user-tbody">
-                                <!-- Initial Placeholder -->
-                                <tr class="table-info-row" id="row-placeholder">
-                                    <td colspan="4">
-                                        <div class="info-content">
-                                            <i class="fa-solid fa-database placeholder-icon"></i>
-                                            <p>DATABASE INACTIVE. Click a protocol button above to fetch live JSON records.</p>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Shimmering Skeleton Loader Rows -->
-                                <tr class="table-skeleton-row hidden" id="skeleton-row-1">
-                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
-                                </tr>
-                                <tr class="table-skeleton-row hidden" id="skeleton-row-2">
-                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
-                                </tr>
-                                <tr class="table-skeleton-row hidden" id="skeleton-row-3">
-                                    <td><div class="skeleton-shimmer name-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer mail-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer city-shimmer"></div></td>
-                                    <td><div class="skeleton-shimmer comp-shimmer"></div></td>
-                                </tr>
-
-                                <!-- Error Row -->
-                                <tr class="table-info-row hidden" id="row-error">
-                                    <td colspan="4">
-                                        <div class="info-content">
-                                            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
-                                            <p id="error-message-text">Transmission failure. Failed connection to endpoint.</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Query Filters & Telemetry Bar -->
+                <div class="telemetry-filter-bar">
+                    <div class="search-input-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-filter" placeholder="Search developers by name..." disabled autocomplete="off">
+                    </div>
+                    <div class="telemetry-pills">
+                        <span class="tele-pill">LATENCY: <strong id="tele-latency">-- ms</strong></span>
+                        <span class="tele-pill">TOTAL: <strong id="tele-count">00</strong></span>
+                        <span class="tele-pill pill-method" id="tele-method">IDLE</span>
                     </div>
                 </div>
-            </section>
 
-            <!-- RIGHT COLUMN: ACTIVE SYNTAX LOGGER -->
-            <section class="brutal-panel panel-right">
-                <div class="syntax-window">
-                    <div class="window-header">
-                        <span class="window-title" id="code-tab-title">syntax_logger.js</span>
-                    </div>
-                    <div class="window-body">
-                        <div class="line-numbers">
-                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-                            <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                <!-- Directory Grid / Table -->
+                <div class="directory-scroll-wrapper">
+                    <div class="developer-grid" id="developer-grid-container">
+                        <!-- Initial Placeholder -->
+                        <div class="empty-portfolio-state" id="empty-state">
+                            <i class="fa-solid fa-server empty-icon"></i>
+                            <p>DATABASE IDLE. Click Fetch API or $.getJSON() above to execute data transmission.</p>
                         </div>
-                        <pre class="code-pre" id="code-display-pre">// Awaiting query trigger to display executed request syntax...
-function queryEndpoint() {
-    // Click one of the buttons
-    // to visualize execution logic.
-}</pre>
                     </div>
+                </div>
+
+                <!-- Terminal Syntax Inspector Output -->
+                <div class="code-syntax-drawer">
+                    <div class="drawer-header">
+                        <span class="drawer-title" id="code-tab-title">execution_log.js</span>
+                    </div>
+                    <pre class="drawer-code" id="code-display-pre">// Click a query trigger to view live asynchronous execution syntax...</pre>
                 </div>
             </section>
 
         </main>
 
-        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
-        <footer class="brutal-footer">
-            <div class="footer-badge">
-                <i class="fa-solid fa-server"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+        <!-- ===== EXECUTIVE AUTHOR FOOTER ===== -->
+        <footer class="portfolio-footer">
+            <div class="footer-portfolio-bar">
+                <i class="fa-solid fa-award text-cyan"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Awwwards Creative Developer Web Engine
             </div>
         </footer>
     </div>
 
-    <!-- ===== JQUERY INTEGRATION (CDN) ===== -->
+    <!-- ===== JQUERY CDN ===== -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- ===== JAVASCRIPT ===== -->
     <script src="script.js"></script>
