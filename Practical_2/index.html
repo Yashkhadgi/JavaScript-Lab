@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Billing Calculator | var, let, const</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ===== EXTERNAL JAVASCRIPT ===== -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ===== SLIM TOP BAR (instead of a tall hero, saves vertical space) ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo-badge"><i class="fa-solid fa-receipt"></i></div>
+      <div>
+        <h1>Smart Billing Calculator</h1>
+        <p>var, let, const &nbsp;•&nbsp; Template Literals &nbsp;•&nbsp; Destructuring</p>
+      </div>
+    </div>
+    <div class="pill-row">
+      <span class="pill">var</span>
+      <span class="pill">let</span>
+      <span class="pill">const</span>
+    </div>
+  </header>
+
+  <!-- ===== DASHBOARD GRID: everything fits in one screen ===== -->
+  <div class="dashboard">
+
+    <!-- ===== LEFT COLUMN: Add Item + Bill Table ===== -->
+    <section class="panel left-panel">
+
+      <div class="panel-header">
+        <i class="fa-solid fa-cart-plus"></i>
+        <div>
+          <h2>Add Item to Bill</h2>
+          <p>Each item is pushed into a `const` array</p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="itemName"><i class="fa-solid fa-tag"></i> Item Name</label>
+          <input type="text" id="itemName" placeholder="e.g. Notebook" />
+        </div>
+
+        <div class="form-group small">
+          <label for="itemQty"><i class="fa-solid fa-hashtag"></i> Qty</label>
+          <input type="number" id="itemQty" placeholder="1" min="1" />
+        </div>
+
+        <div class="form-group small">
+          <label for="itemPrice"><i class="fa-solid fa-indian-rupee-sign"></i> Price</label>
+          <input type="number" id="itemPrice" placeholder="0" min="0" />
+        </div>
+
+        <button class="btn btn-primary" onclick="addItem()">
+          <i class="fa-solid fa-plus"></i> Add
+        </button>
+      </div>
+
+      <!-- ===== BILL TABLE ===== -->
+      <div class="table-wrap">
+        <table id="billTable">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="billBody">
+            <!-- Rows injected dynamically via template literals in script.js -->
+            <tr id="emptyRow">
+              <td colspan="5" class="empty-msg">No items added yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn btn-outline full" onclick="runScopeDemo()">
+        <i class="fa-solid fa-terminal"></i> Run var vs let Scope Demo (Open Console)
+      </button>
+
+    </section>
+
+    <!-- ===== RIGHT COLUMN: Bill Summary ===== -->
+    <section class="panel right-panel">
+
+      <div class="panel-header">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <div>
+          <h2>Bill Summary</h2>
+          <p>Calculated using destructuring</p>
+        </div>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="subtotalVal">₹0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax (5%)</span>
+          <span id="taxVal">₹0.00</span>
+        </div>
+        <div class="summary-row discount-row">
+          <span>Discount</span>
+          <span id="discountVal">- ₹0.00</span>
+        </div>
+        <p class="discount-note" id="discountNote">Add items above ₹1000 to unlock discount</p>
+
+        <div class="total-row">
+          <span>Total Payable</span>
+          <span id="totalVal">₹0.00</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <i class="fa-solid fa-circle-info"></i>
+        <p><strong>const</strong> is used for the bill array &amp; tax rules (never reassigned). <strong>let</strong> is used for totals (recalculated every time). <strong>var</strong> is shown only in the scope demo to compare against <strong>let</strong>.</p>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    Designed by <span class="highlight">Yash Khadge</span> | PRN: 24070521137
+  </footer>
+
+</body>
+</html>
