@@ -1,14 +1,13 @@
 /**
- * Practical 9: Apple macOS Settings Engine - Web Storage API
+ * Practical 9: Native macOS System Settings Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     const htmlEl = document.documentElement;
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    const toggleIcon = document.getElementById('toggle-icon');
+    const themeCheckbox = document.getElementById('theme-toggle-checkbox');
 
-    const segButtons = document.querySelectorAll('.neu-seg-btn');
+    const segButtons = document.querySelectorAll('.seg-btn');
     const localInspector = document.getElementById('local-inspector');
     const sessionInspector = document.getElementById('session-inspector');
 
@@ -34,14 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyTheme(theme) {
         const isDark = (theme === 'dark');
         htmlEl.classList.toggle('dark', isDark);
-        themeToggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
-        toggleIcon.className = `fa-solid ${isDark ? 'fa-moon' : 'fa-sun'}`;
+        themeCheckbox.checked = isDark;
     }
 
-    themeToggleBtn.addEventListener('click', () => {
-        const isDark = themeToggleBtn.getAttribute('aria-checked') === 'true';
-        const newTheme = isDark ? 'light' : 'dark';
-
+    themeCheckbox.addEventListener('change', () => {
+        const newTheme = themeCheckbox.checked ? 'dark' : 'light';
         applyTheme(newTheme);
         localStorage.setItem(KEY_THEME, newTheme);
         updateInspector();
@@ -71,14 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const k = localStorage.key(i);
             localObj[k] = localStorage.getItem(k);
         }
-        localInspector.textContent = Object.keys(localObj).length > 0 ? JSON.stringify(localObj, null, 2) : '(empty)';
+        localInspector.textContent = Object.keys(localObj).length > 0 ? JSON.stringify(localObj, null, 2) : '{}';
 
         const sessionObj = {};
         for (let i = 0; i < sessionStorage.length; i++) {
             const k = sessionStorage.key(i);
             sessionObj[k] = sessionStorage.getItem(k);
         }
-        sessionInspector.textContent = Object.keys(sessionObj).length > 0 ? JSON.stringify(sessionObj, null, 2) : '(empty)';
+        sessionInspector.textContent = Object.keys(sessionObj).length > 0 ? JSON.stringify(sessionObj, null, 2) : '{}';
     }
 
     let toastTimer = null;
@@ -90,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFontSize('medium');
         updateInspector();
 
-        showToast('Preferences cleared. Defaults restored.');
+        showToast('Preferences reset to default.');
     });
 
     function showToast(msg) {

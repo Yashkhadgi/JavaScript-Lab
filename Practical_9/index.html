@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>macOS System Preferences - Practical 9</title>
-    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <title>System Preferences - Practical 9</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
@@ -28,22 +28,22 @@
         <!-- ===== MACOS WINDOW FRAME ===== -->
         <main class="macos-window">
             
-            <!-- LEFT SIDEBAR PANEL -->
+            <!-- LEFT SIDEBAR -->
             <aside class="macos-sidebar">
-                <div class="window-controls">
-                    <span class="dot-win close"></span>
-                    <span class="dot-win min"></span>
-                    <span class="dot-win max"></span>
+                <div class="window-dots">
+                    <span class="dot close"></span>
+                    <span class="dot min"></span>
+                    <span class="dot max"></span>
                 </div>
 
-                <div class="sidebar-title">Preferences</div>
+                <div class="sidebar-title">System Settings</div>
 
                 <nav class="macos-nav">
                     <button class="nav-item active" data-tab="appearance">
                         <i class="fa-solid fa-palette icon-appearance"></i> Appearance
                     </button>
                     <button class="nav-item" data-tab="textscale">
-                        <i class="fa-solid fa-text-height icon-font"></i> Text &amp; Scaling
+                        <i class="fa-solid fa-font icon-font"></i> Text &amp; Scaling
                     </button>
                     <button class="nav-item" data-tab="storage">
                         <i class="fa-solid fa-database icon-storage"></i> Web Storage
@@ -54,28 +54,26 @@
                 </nav>
             </aside>
 
-            <!-- RIGHT SETTINGS PANE -->
+            <!-- RIGHT CONTENT PANE -->
             <section class="macos-pane">
-                <header class="pane-header-mac">
+                <header class="pane-header">
                     <h1 id="tab-title">Appearance &amp; State Settings</h1>
-                    <p class="sub-mac">Web Storage API &bull; localStorage vs. sessionStorage Engine</p>
+                    <p class="pane-sub">Web Storage API &bull; localStorage vs. sessionStorage Engine</p>
                 </header>
 
-                <div class="pane-content-scroll">
+                <div class="pane-scroll-body">
+                    
                     <!-- SECTION 1: APPEARANCE -->
                     <div class="setting-group-card">
                         <div class="setting-row">
                             <div class="setting-info">
                                 <span class="setting-lbl">Dark Mode Theme</span>
-                                <span class="setting-desc">Persists permanently via <code>localStorage</code></span>
+                                <span class="setting-desc">Persists permanently across browser sessions via <code>localStorage</code></span>
                             </div>
-                            <div class="neu-switch-wrapper">
-                                <button class="neu-switch" id="theme-toggle-btn" role="switch" aria-checked="false">
-                                    <span class="neu-thumb">
-                                        <i class="fa-solid fa-sun" id="toggle-icon"></i>
-                                    </span>
-                                </button>
-                            </div>
+                            <label class="flat-switch">
+                                <input type="checkbox" id="theme-toggle-checkbox">
+                                <span class="flat-slider"></span>
+                            </label>
                         </div>
                     </div>
 
@@ -86,10 +84,10 @@
                                 <span class="setting-lbl">Font Scale Level</span>
                                 <span class="setting-desc">Persists temporarily for active tab via <code>sessionStorage</code></span>
                             </div>
-                            <div class="neu-segmented-control">
-                                <button class="neu-seg-btn" data-size="small" id="seg-small">Small</button>
-                                <button class="neu-seg-btn active" data-size="medium" id="seg-medium">Medium</button>
-                                <button class="neu-seg-btn" data-size="large" id="seg-large">Large</button>
+                            <div class="flat-segmented-control">
+                                <button class="seg-btn" data-size="small" id="seg-small">Small</button>
+                                <button class="seg-btn active" data-size="medium" id="seg-medium">Medium</button>
+                                <button class="seg-btn" data-size="large" id="seg-large">Large</button>
                             </div>
                         </div>
                     </div>
@@ -97,26 +95,27 @@
                     <!-- SECTION 3: STORAGE INSPECTOR -->
                     <div class="setting-group-card">
                         <div class="card-head-simple">
-                            <i class="fa-solid fa-microchip"></i> Live Web Memory Monitor
+                            <i class="fa-solid fa-code"></i> Live Web Memory Monitor
                         </div>
-                        <div class="storage-monitors-grid">
+                        <div class="monitors-grid">
                             <div class="monitor-box">
                                 <div class="monitor-tag tag-local">localStorage</div>
-                                <pre class="code-block" id="local-inspector">{}</pre>
+                                <pre class="code-block mono" id="local-inspector">{}</pre>
                             </div>
                             <div class="monitor-box">
                                 <div class="monitor-tag tag-session">sessionStorage</div>
-                                <pre class="code-block" id="session-inspector">{}</pre>
+                                <pre class="code-block mono" id="session-inspector">{}</pre>
                             </div>
                         </div>
                     </div>
 
                     <!-- SECTION 4: RESET BUTTON -->
-                    <div class="reset-action-row">
-                        <button class="btn-neu-reset" id="btn-clear">
+                    <div class="action-row">
+                        <button class="btn-flat-reset" id="btn-clear">
                             <i class="fa-regular fa-trash-can"></i> Clear All Stored Preferences
                         </button>
                     </div>
+
                 </div>
             </section>
 
@@ -130,8 +129,8 @@
 
         <!-- PROMINENT AUTHOR FOOTER -->
         <footer class="macos-footer">
-            <div class="footer-mac-bar">
-                <i class="fa-solid fa-sliders"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Apple macOS Settings Engine
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>
