@@ -1,15 +1,12 @@
 /* ============================================================
-   CASCADING WEATHER INFORMATION ENGINE - TASK 2
+   VERCEL / LINEAR DEVELOPER WEATHER CONSOLE - TASK 2
    ============================================================ */
 :root {
-    --bg-dark: #0C101A;
-    --card-bg: rgba(18, 24, 38, 0.92);
-    --card-solid: #121826;
-    --border-color: #2D374E;
-    --border-hover: #455375;
-    
-    --text-primary: #F8FAFC;
-    --text-muted: #94A3B8;
+    --bg-canvas: #09090B;
+    --card-bg: #18181B;
+    --card-secondary: #27272A;
+    --border-color: #3F3F46;
+    --border-subtle: #27272A;
     
     --accent-blue: #3B82F6;
     --accent-cyan: #06B6D4;
@@ -18,9 +15,12 @@
     --accent-purple: #8B5CF6;
     --accent-rose: #F43F5E;
     
+    --text-primary: #FAFAFA;
+    --text-muted: #A1A1AA;
+    
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition: all 0.2s ease;
 }
 
 * {
@@ -31,14 +31,13 @@
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--bg-dark);
+    background-color: var(--bg-canvas);
     color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; /* Avoid page scrolls */
-    position: relative;
+    overflow: hidden;
 }
 
 .mono { font-family: var(--font-mono); }
@@ -50,9 +49,7 @@ body {
 .text-purple { color: var(--accent-purple); }
 .text-rose { color: var(--accent-rose); }
 
-/* ============================================================
-   BLURRED WEATHER SKY BACKGROUND
-   ============================================================ */
+/* BLURRED BACKGROUND OVERLAY */
 .blurred-weather-overlay {
     position: fixed;
     top: 0;
@@ -60,16 +57,14 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: linear-gradient(rgba(12, 16, 26, 0.82), rgba(12, 16, 26, 0.82)), url('assets/weather-sky-bg.jpg');
+    background-image: linear-gradient(rgba(9, 9, 11, 0.85), rgba(9, 9, 11, 0.85)), url('assets/weather-sky-bg.jpg');
     background-size: cover;
     background-position: center;
     filter: blur(4px);
     transform: scale(1.05);
 }
 
-/* ============================================================
-   WEATHER VIEWPORT CONTAINER
-   ============================================================ */
+/* WEATHER VIEWPORT CONTAINER */
 .weather-viewport {
     width: 100%;
     max-width: 720px;
@@ -81,16 +76,13 @@ body {
     align-items: center;
 }
 
-/* ============================================================
-   MAIN WEATHER DASHBOARD CARD
-   ============================================================ */
+/* MAIN WEATHER CARD */
 .weather-card {
     width: 100%;
-    background: var(--card-bg);
-    backdrop-filter: blur(16px);
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     padding: 1.25rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -104,8 +96,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.65rem;
     flex-shrink: 0;
 }
 
@@ -116,20 +108,20 @@ body {
 }
 
 .cloud-icon-badge {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background-color: rgba(6, 182, 212, 0.15);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: rgba(6, 182, 212, 0.12);
     border: 1px solid var(--accent-cyan);
     color: var(--accent-cyan);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .weather-header h2 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     letter-spacing: -0.3px;
 }
@@ -147,9 +139,9 @@ body {
 
 .unit-toggle-group {
     display: flex;
-    background-color: var(--card-solid);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
     padding: 0.15rem;
 }
 
@@ -160,8 +152,8 @@ body {
     font-family: var(--font-sans);
     font-size: 0.72rem;
     font-weight: 800;
-    padding: 0.25rem 0.55rem;
-    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -174,11 +166,11 @@ body {
 .time-pill {
     font-size: 0.72rem;
     font-weight: 700;
-    background-color: var(--card-solid);
-    border: 1px solid var(--border-color);
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-subtle);
     color: var(--accent-cyan);
-    padding: 0.3rem 0.65rem;
-    border-radius: 20px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
 }
 
 /* DROPDOWNS PANEL */
@@ -196,7 +188,7 @@ body {
 }
 
 .select-group label {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 700;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -210,11 +202,11 @@ body {
     width: 100%;
     padding: 0.55rem 0.75rem;
     font-family: var(--font-sans);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    border: 1.5px solid var(--border-color);
-    border-radius: 10px;
-    background-color: var(--card-solid);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    background-color: var(--card-secondary);
     color: var(--text-primary);
     outline: none;
     cursor: pointer;
@@ -223,7 +215,6 @@ body {
 
 .select-group select:focus:not(:disabled) {
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
 }
 
 .select-group select:disabled {
@@ -242,10 +233,10 @@ body {
 
 /* HERO CLIMATE CARD */
 .hero-climate-card {
-    background-color: var(--card-solid);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    padding: 1rem 1.15rem;
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 0.95rem 1.15rem;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -262,7 +253,7 @@ body {
 
 .location-tag {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 800;
     color: var(--accent-cyan);
     letter-spacing: 1px;
@@ -308,7 +299,7 @@ body {
     color: var(--text-primary);
 }
 
-.dot-sep { color: var(--border-color); }
+.dot-sep { color: var(--border-subtle); }
 
 /* 5-DAY FORECAST */
 .forecast-section {
@@ -332,8 +323,8 @@ body {
 }
 
 .forecast-card {
-    background-color: var(--card-solid);
-    border: 1px solid var(--border-color);
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: 0.45rem 0.35rem;
     display: flex;
@@ -367,9 +358,9 @@ body {
 }
 
 .metric-tile {
-    background-color: var(--card-solid);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+    background-color: var(--card-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
     padding: 0.55rem 0.75rem;
     display: flex;
     align-items: center;
@@ -394,9 +385,9 @@ body {
     font-weight: 800;
 }
 
-/* PROMINENT AUTHOR FOOTER */
+/* AUTHOR FOOTER */
 .weather-footer {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-subtle);
     padding-top: 0.55rem;
     display: flex;
     justify-content: center;
