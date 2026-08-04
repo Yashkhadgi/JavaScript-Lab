@@ -1,5 +1,5 @@
 /**
- * Practical 6: Regex Analytics Console
+ * Practical 6: Cyber Threat Regex Command Center Console
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,16 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const paragraphInput = document.getElementById('paragraph-input');
 
-    // Extracted Chips Box
-    const chipEmailBox = document.getElementById('chip-email-box');
-    const chipPhoneBox = document.getElementById('chip-phone-box');
-    const chipDateBox = document.getElementById('chip-date-box');
+    const boxEmailChips = document.getElementById('box-email-chips');
+    const boxPhoneChips = document.getElementById('box-phone-chips');
+    const boxDateChips = document.getElementById('box-date-chips');
 
-    const tagEmailCount = document.getElementById('tag-email-count');
-    const tagPhoneCount = document.getElementById('tag-phone-count');
-    const tagDateCount = document.getElementById('tag-date-count');
+    const cntEmail = document.getElementById('cnt-email');
+    const cntPhone = document.getElementById('cnt-phone');
+    const cntDate = document.getElementById('cnt-date');
 
-    // Chart elements
     const cntShort = document.getElementById('cnt-short');
     const cntMedium = document.getElementById('cnt-medium');
     const cntLong = document.getElementById('cnt-long');
@@ -28,16 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const barMedium = document.getElementById('bar-medium');
     const barLong = document.getElementById('bar-long');
 
-    // Init executions
+    // Run initial scans
     validateEmail();
     analyzeText();
 
     emailInput.addEventListener('input', validateEmail);
     paragraphInput.addEventListener('input', analyzeText);
 
-    // -------------------------------------------------------------
-    // REGEX EMAIL VALIDATION
-    // -------------------------------------------------------------
     function validateEmail() {
         const val = emailInput.value.trim();
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -46,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scanBadge.textContent = "EMPTY";
             scanBadge.style.backgroundColor = "rgba(156, 163, 175, 0.2)";
             scanBadge.style.color = "#9CA3AF";
-            scannerStatus.textContent = "Regex Verification: Awaiting input...";
+            scannerStatus.textContent = "Status: Awaiting input target...";
             return;
         }
 
@@ -56,22 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
             scanBadge.textContent = "VALID";
             scanBadge.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
             scanBadge.style.color = "#10B981";
-            scannerStatus.textContent = "Regex Verification: Email layout confirmed.";
+            scannerStatus.textContent = "Status: Valid Email Layout Confirmed.";
         } else {
             scanBadge.textContent = "INVALID";
             scanBadge.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
             scanBadge.style.color = "#EF4444";
-            scannerStatus.textContent = "Regex Verification: Malformed email structure.";
+            scannerStatus.textContent = "Status: Malformed email structure.";
         }
     }
 
-    // -------------------------------------------------------------
-    // TEXT MINING & WORD LENGTH DISTRIBUTION
-    // -------------------------------------------------------------
     function analyzeText() {
         const text = paragraphInput.value;
 
-        // 1. Regex Extractions
+        // Extractions
         const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
         const phoneRegex = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{10}\b|\b0\d{2,4}[-.\s]?\d{6,8}\b/g;
         const dateRegex = /\b\d{1,2}[\/\.-]\d{1,2}[\/\.-]\d{2,4}\b/g;
@@ -80,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const foundPhones = text.match(phoneRegex) || [];
         const foundDates = text.match(dateRegex) || [];
 
-        renderChips(chipEmailBox, tagEmailCount, foundEmails);
-        renderChips(chipPhoneBox, tagPhoneCount, foundPhones);
-        renderChips(chipDateBox, tagDateCount, foundDates);
+        renderChips(boxEmailChips, cntEmail, foundEmails);
+        renderChips(boxPhoneChips, cntPhone, foundPhones);
+        renderChips(boxDateChips, cntDate, foundDates);
 
-        // 2. Word Length Breakdown
+        // Word Length Distribution
         const words = text.trim().split(/\s+/).map(w => w.replace(/[^a-zA-Z0-9]/g, '')).filter(w => w.length > 0);
 
         let shortCount = 0;
@@ -113,16 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
         barLong.style.width = `${longPct}%`;
     }
 
-    function renderChips(container, badge, items) {
+    function renderChips(container, counter, items) {
         container.innerHTML = "";
-        badge.textContent = `${items.length} Found`;
+        counter.textContent = `${items.length} Found`;
 
         if (items.length === 0) {
-            container.innerHTML = '<span class="text-muted" style="font-size:0.7rem;">None detected</span>';
+            container.innerHTML = '<span style="color:#6B7280; font-size:0.68rem;">None detected</span>';
             return;
         }
 
-        // Deduplicate items
         const uniqueItems = [...new Set(items)];
 
         uniqueItems.forEach(item => {
