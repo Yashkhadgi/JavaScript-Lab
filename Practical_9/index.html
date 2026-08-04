@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preferences Manager - Practical 9</title>
-    <!-- ===== GOOGLE FONTS (POPPINS) ===== -->
+    <title>macOS System Preferences - Practical 9</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Anti-flash script loading theme early -->
+
+    <!-- Anti-flash script -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('preferredTheme');
@@ -24,99 +24,114 @@
     </script>
 </head>
 <body>
-    <div class="pref-viewport">
-        <!-- ===== TOPBAR HEADER ===== -->
-        <header class="pref-topbar">
-            <div class="topbar-brand">
-                <div class="brand-badge"><i class="fa-solid fa-sliders"></i></div>
-                <div>
-                    <h1>SYSTEM PREFERENCES CONSOLE</h1>
-                    <p class="subtitle">State Persistence &bull; localStorage vs. sessionStorage Engine</p>
-                </div>
-            </div>
-            <div class="pref-pill">
-                <i class="fa-solid fa-floppy-disk"></i> WEB STORAGE API
-            </div>
-        </header>
-
-        <!-- ===== MAIN WORKSPACE (2-ROW LAYOUT) ===== -->
-        <main class="pref-dashboard">
+    <div class="macos-viewport">
+        <!-- ===== MACOS WINDOW FRAME ===== -->
+        <main class="macos-window">
             
-            <!-- ROW 1: THEME TOGGLE & FONT SIZE CONTROLS -->
-            <section class="pref-row row-controls">
-                <!-- Theme Card -->
-                <div class="pref-card card-theme">
-                    <div class="card-title">
-                        <i class="fa-solid fa-circle-half-stroke"></i>
-                        <span>Appearance Theme</span>
-                    </div>
-                    <p class="card-desc">Persisted permanently across sessions via <code>localStorage</code>.</p>
-                    
-                    <div class="theme-toggle-wrapper">
-                        <span class="toggle-side-label"><i class="fa-solid fa-sun"></i></span>
-                        <button class="theme-toggle" id="theme-toggle-btn" role="switch" aria-checked="false" aria-label="Toggle Dark Mode">
-                            <span class="toggle-thumb">
-                                <i class="fa-solid fa-sun thumb-icon" id="toggle-icon"></i>
-                            </span>
-                        </button>
-                        <span class="toggle-side-label"><i class="fa-solid fa-moon"></i></span>
-                    </div>
+            <!-- LEFT SIDEBAR PANEL -->
+            <aside class="macos-sidebar">
+                <div class="window-controls">
+                    <span class="dot-win close"></span>
+                    <span class="dot-win min"></span>
+                    <span class="dot-win max"></span>
                 </div>
 
-                <!-- Font Size Card -->
-                <div class="pref-card card-font">
-                    <div class="card-title">
-                        <i class="fa-solid fa-text-height"></i>
-                        <span>Text Size Scaling</span>
-                    </div>
-                    <p class="card-desc">Persisted temporarily for active tab via <code>sessionStorage</code>.</p>
-                    
-                    <div class="segmented-control" role="group" aria-label="Font Size">
-                        <button class="seg-btn" data-size="small" id="seg-small">Small</button>
-                        <button class="seg-btn active" data-size="medium" id="seg-medium">Medium</button>
-                        <button class="seg-btn" data-size="large" id="seg-large">Large</button>
-                    </div>
-                </div>
-            </section>
+                <div class="sidebar-title">Preferences</div>
 
-            <!-- ROW 2: LIVE STORAGE INSPECTOR -->
-            <section class="pref-row row-inspector">
-                <div class="pref-card card-inspector">
-                    <div class="card-title justify-between">
-                        <div>
-                            <i class="fa-solid fa-database"></i>
-                            <span>Live Web Storage Inspector</span>
+                <nav class="macos-nav">
+                    <button class="nav-item active" data-tab="appearance">
+                        <i class="fa-solid fa-palette icon-appearance"></i> Appearance
+                    </button>
+                    <button class="nav-item" data-tab="textscale">
+                        <i class="fa-solid fa-text-height icon-font"></i> Text &amp; Scaling
+                    </button>
+                    <button class="nav-item" data-tab="storage">
+                        <i class="fa-solid fa-database icon-storage"></i> Web Storage
+                    </button>
+                    <button class="nav-item" data-tab="reset">
+                        <i class="fa-solid fa-arrow-rotate-left icon-reset"></i> Factory Reset
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- RIGHT SETTINGS PANE -->
+            <section class="macos-pane">
+                <header class="pane-header-mac">
+                    <h1 id="tab-title">Appearance &amp; State Settings</h1>
+                    <p class="sub-mac">Web Storage API &bull; localStorage vs. sessionStorage Engine</p>
+                </header>
+
+                <div class="pane-content-scroll">
+                    <!-- SECTION 1: APPEARANCE -->
+                    <div class="setting-group-card">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <span class="setting-lbl">Dark Mode Theme</span>
+                                <span class="setting-desc">Persists permanently via <code>localStorage</code></span>
+                            </div>
+                            <div class="neu-switch-wrapper">
+                                <button class="neu-switch" id="theme-toggle-btn" role="switch" aria-checked="false">
+                                    <span class="neu-thumb">
+                                        <i class="fa-solid fa-sun" id="toggle-icon"></i>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                        <button class="btn-clear" id="btn-clear" title="Clear all stored keys">
-                            <i class="fa-regular fa-trash-can"></i> Reset Storage
+                    </div>
+
+                    <!-- SECTION 2: TEXT SCALING -->
+                    <div class="setting-group-card">
+                        <div class="setting-row flex-column">
+                            <div class="setting-info">
+                                <span class="setting-lbl">Font Scale Level</span>
+                                <span class="setting-desc">Persists temporarily for active tab via <code>sessionStorage</code></span>
+                            </div>
+                            <div class="neu-segmented-control">
+                                <button class="neu-seg-btn" data-size="small" id="seg-small">Small</button>
+                                <button class="neu-seg-btn active" data-size="medium" id="seg-medium">Medium</button>
+                                <button class="neu-seg-btn" data-size="large" id="seg-large">Large</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: STORAGE INSPECTOR -->
+                    <div class="setting-group-card">
+                        <div class="card-head-simple">
+                            <i class="fa-solid fa-microchip"></i> Live Web Memory Monitor
+                        </div>
+                        <div class="storage-monitors-grid">
+                            <div class="monitor-box">
+                                <div class="monitor-tag tag-local">localStorage</div>
+                                <pre class="code-block" id="local-inspector">{}</pre>
+                            </div>
+                            <div class="monitor-box">
+                                <div class="monitor-tag tag-session">sessionStorage</div>
+                                <pre class="code-block" id="session-inspector">{}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: RESET BUTTON -->
+                    <div class="reset-action-row">
+                        <button class="btn-neu-reset" id="btn-clear">
+                            <i class="fa-regular fa-trash-can"></i> Clear All Stored Preferences
                         </button>
-                    </div>
-
-                    <div class="inspector-grid">
-                        <div class="inspector-box">
-                            <div class="inspector-badge local-badge">localStorage</div>
-                            <pre class="inspector-code" id="local-inspector">{}</pre>
-                        </div>
-                        <div class="inspector-box">
-                            <div class="inspector-badge session-badge">sessionStorage</div>
-                            <pre class="inspector-code" id="session-inspector">{}</pre>
-                        </div>
                     </div>
                 </div>
             </section>
 
         </main>
 
-        <!-- ===== TOAST NOTIFICATION ===== -->
-        <div class="toast" id="toast" aria-live="polite">
+        <!-- TOAST NOTIFICATION -->
+        <div class="mac-toast" id="toast" aria-live="polite">
             <i class="fa-solid fa-circle-check"></i>
             <span id="toast-text">Preferences reset to default.</span>
         </div>
 
-        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
-        <footer class="pref-footer">
-            <div class="footer-badge">
-                <i class="fa-solid fa-sliders"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+        <!-- PROMINENT AUTHOR FOOTER -->
+        <footer class="macos-footer">
+            <div class="footer-mac-bar">
+                <i class="fa-solid fa-sliders"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Apple macOS Settings Engine
             </div>
         </footer>
     </div>

@@ -1,5 +1,5 @@
 /**
- * Practical 9: Web Storage API (localStorage vs sessionStorage)
+ * Practical 9: Apple macOS Settings Engine - Web Storage API
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const toggleIcon = document.getElementById('toggle-icon');
 
-    const segButtons = document.querySelectorAll('.seg-btn');
+    const segButtons = document.querySelectorAll('.neu-seg-btn');
     const localInspector = document.getElementById('local-inspector');
     const sessionInspector = document.getElementById('session-inspector');
 
@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const KEY_THEME = 'preferredTheme';
     const KEY_FONTSIZE = 'fontSizePref';
 
-    // 1. INITIALIZE PREFERENCES
     initPreferences();
 
     function initPreferences() {
@@ -32,12 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateInspector();
     }
 
-    // 2. THEME CONTROLLER (localStorage)
     function applyTheme(theme) {
         const isDark = (theme === 'dark');
         htmlEl.classList.toggle('dark', isDark);
         themeToggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
-        toggleIcon.className = `fa-solid ${isDark ? 'fa-moon' : 'fa-sun'} thumb-icon`;
+        toggleIcon.className = `fa-solid ${isDark ? 'fa-moon' : 'fa-sun'}`;
     }
 
     themeToggleBtn.addEventListener('click', () => {
@@ -49,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateInspector();
     });
 
-    // 3. FONT SIZE CONTROLLER (sessionStorage)
     function applyFontSize(size) {
         document.body.classList.remove('font-small', 'font-medium', 'font-large');
         document.body.classList.add(`font-${size}`);
@@ -68,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. LIVE STORAGE INSPECTOR RENDERER
     function updateInspector() {
         const localObj = {};
         for (let i = 0; i < localStorage.length; i++) {
@@ -85,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionInspector.textContent = Object.keys(sessionObj).length > 0 ? JSON.stringify(sessionObj, null, 2) : '(empty)';
     }
 
-    // 5. CLEAR PREFERENCES & TOAST
     let toastTimer = null;
     btnClear.addEventListener('click', () => {
         localStorage.removeItem(KEY_THEME);
