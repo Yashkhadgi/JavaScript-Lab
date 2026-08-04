@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences Manager - Practical 9</title>
+    <!-- ===== GOOGLE FONTS (POPPINS) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Anti-flash script loading theme early -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('preferredTheme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="pref-viewport">
+        <!-- ===== TOPBAR HEADER ===== -->
+        <header class="pref-topbar">
+            <div class="topbar-brand">
+                <div class="brand-badge"><i class="fa-solid fa-sliders"></i></div>
+                <div>
+                    <h1>SYSTEM PREFERENCES CONSOLE</h1>
+                    <p class="subtitle">State Persistence &bull; localStorage vs. sessionStorage Engine</p>
+                </div>
+            </div>
+            <div class="pref-pill">
+                <i class="fa-solid fa-floppy-disk"></i> WEB STORAGE API
+            </div>
+        </header>
+
+        <!-- ===== MAIN WORKSPACE (2-ROW LAYOUT) ===== -->
+        <main class="pref-dashboard">
+            
+            <!-- ROW 1: THEME TOGGLE & FONT SIZE CONTROLS -->
+            <section class="pref-row row-controls">
+                <!-- Theme Card -->
+                <div class="pref-card card-theme">
+                    <div class="card-title">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                        <span>Appearance Theme</span>
+                    </div>
+                    <p class="card-desc">Persisted permanently across sessions via <code>localStorage</code>.</p>
+                    
+                    <div class="theme-toggle-wrapper">
+                        <span class="toggle-side-label"><i class="fa-solid fa-sun"></i></span>
+                        <button class="theme-toggle" id="theme-toggle-btn" role="switch" aria-checked="false" aria-label="Toggle Dark Mode">
+                            <span class="toggle-thumb">
+                                <i class="fa-solid fa-sun thumb-icon" id="toggle-icon"></i>
+                            </span>
+                        </button>
+                        <span class="toggle-side-label"><i class="fa-solid fa-moon"></i></span>
+                    </div>
+                </div>
+
+                <!-- Font Size Card -->
+                <div class="pref-card card-font">
+                    <div class="card-title">
+                        <i class="fa-solid fa-text-height"></i>
+                        <span>Text Size Scaling</span>
+                    </div>
+                    <p class="card-desc">Persisted temporarily for active tab via <code>sessionStorage</code>.</p>
+                    
+                    <div class="segmented-control" role="group" aria-label="Font Size">
+                        <button class="seg-btn" data-size="small" id="seg-small">Small</button>
+                        <button class="seg-btn active" data-size="medium" id="seg-medium">Medium</button>
+                        <button class="seg-btn" data-size="large" id="seg-large">Large</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROW 2: LIVE STORAGE INSPECTOR -->
+            <section class="pref-row row-inspector">
+                <div class="pref-card card-inspector">
+                    <div class="card-title justify-between">
+                        <div>
+                            <i class="fa-solid fa-database"></i>
+                            <span>Live Web Storage Inspector</span>
+                        </div>
+                        <button class="btn-clear" id="btn-clear" title="Clear all stored keys">
+                            <i class="fa-regular fa-trash-can"></i> Reset Storage
+                        </button>
+                    </div>
+
+                    <div class="inspector-grid">
+                        <div class="inspector-box">
+                            <div class="inspector-badge local-badge">localStorage</div>
+                            <pre class="inspector-code" id="local-inspector">{}</pre>
+                        </div>
+                        <div class="inspector-box">
+                            <div class="inspector-badge session-badge">sessionStorage</div>
+                            <pre class="inspector-code" id="session-inspector">{}</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== TOAST NOTIFICATION ===== -->
+        <div class="toast" id="toast" aria-live="polite">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="toast-text">Preferences reset to default.</span>
+        </div>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="pref-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-sliders"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
