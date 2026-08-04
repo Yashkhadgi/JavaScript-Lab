@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybernetic Palindrome Analyzer - Practical 4</title>
+    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- ===== CUSTOM CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cyber-viewport">
+        <!-- ===== CYBER TOPBAR HEADER ===== -->
+        <header class="cyber-topbar">
+            <div class="topbar-left">
+                <div class="cyber-icon-badge"><i class="fa-solid fa-terminal"></i></div>
+                <div>
+                    <h1>CYBERNETIC PALINDROME ANALYZER</h1>
+                    <p class="subtitle">Linguistic Closure Detection &bull; String Vector Alignment Protocol</p>
+                </div>
+            </div>
+            <div class="cyber-pill">
+                <i class="fa-solid fa-microchip"></i> MATRIX ENGINE ACTIVE
+            </div>
+        </header>
+
+        <!-- ===== MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT) ===== -->
+        <main class="cyber-dashboard">
+            
+            <!-- LEFT COLUMN: INPUT TERMINAL & CHARACTER MATRIX -->
+            <section class="cyber-panel panel-left">
+                <div class="panel-header">
+                    <i class="fa-solid fa-code"></i>
+                    <span>STRING INPUT TERMINAL</span>
+                </div>
+
+                <!-- Command input bar -->
+                <div class="input-terminal-box">
+                    <span class="cmd-prompt">&gt;</span>
+                    <input type="text" id="palindrome-input" placeholder="Type a phrase to inspect..." value="A man a plan a canal Panama" autocomplete="off">
+                    <button id="btn-analyze" class="cyber-btn cyber-btn-primary">
+                        <i class="fa-solid fa-bolt"></i> ANALYZE
+                    </button>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="preset-bar">
+                    <span class="preset-lbl">LOAD PRESETS:</span>
+                    <button class="btn-preset" data-text="racecar">racecar</button>
+                    <button class="btn-preset" data-text="A man a plan a canal Panama">canal Panama</button>
+                    <button class="btn-preset" data-text="never odd or even">never odd or even</button>
+                    <button class="btn-preset" data-text="javascript">javascript</button>
+                </div>
+
+                <!-- Vector Character Grid Mapping -->
+                <div class="matrix-grid-card">
+                    <div class="matrix-card-title">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <span>VECTOR CHARACTER MATCH GRID</span>
+                    </div>
+
+                    <div class="matrix-scroll-wrapper">
+                        <!-- Upper row: Forward characters -->
+                        <div class="vector-row-container">
+                            <span class="row-tag tag-forward">FORWARD</span>
+                            <div class="char-boxes-row" id="forward-char-row">
+                                <!-- Dynamic character boxes -->
+                            </div>
+                        </div>
+
+                        <!-- Vector Links Row -->
+                        <div class="vector-bridges-row" id="vector-bridges-row">
+                            <!-- Dynamic vector lines -->
+                        </div>
+
+                        <!-- Lower row: Reversed characters -->
+                        <div class="vector-row-container">
+                            <span class="row-tag tag-reverse">REVERSED</span>
+                            <div class="char-boxes-row" id="reverse-char-row">
+                                <!-- Dynamic character boxes -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: TELEMETRY & PALINDROME STATUS -->
+            <section class="cyber-panel panel-right">
+                <div class="panel-header">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>TELEMETRY &amp; RESULT</span>
+                </div>
+
+                <!-- Dynamic Status Hologram Badge -->
+                <div class="status-hologram-card" id="status-hologram">
+                    <i class="fa-solid fa-shield-halved status-icon" id="status-icon"></i>
+                    <h2 class="status-title" id="status-title">PALINDROME CONFIRMED</h2>
+                    <p class="status-sub" id="status-sub">Forward and reversed alphanumeric sequences are symmetrical.</p>
+                </div>
+
+                <!-- Analytics Breakdown -->
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <span class="metric-lbl">RAW LENGTH</span>
+                        <span class="metric-val text-cyan" id="metric-raw-len">30</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-lbl">CLEANED LENGTH</span>
+                        <span class="metric-val text-lime" id="metric-clean-len">21</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-lbl">SYMMETRY SCORE</span>
+                        <span class="metric-val text-pink" id="metric-symmetry">100%</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-lbl">CLOSURE STATUS</span>
+                        <span class="metric-val text-lime" id="metric-closure">TRUE</span>
+                    </div>
+                </div>
+
+                <!-- String Transformation Output -->
+                <div class="string-transform-box">
+                    <div class="transform-row">
+                        <span class="lbl">SANITY FORMAT:</span>
+                        <span class="val monospace" id="cleaned-string-val">amanaplanacanalpanama</span>
+                    </div>
+                    <div class="transform-row">
+                        <span class="lbl">REVERSED FORMAT:</span>
+                        <span class="val monospace" id="reversed-string-val">amanaplanacanalpanama</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
+        <footer class="cyber-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-code"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="script.js"></script>
+</body>
+</html>
