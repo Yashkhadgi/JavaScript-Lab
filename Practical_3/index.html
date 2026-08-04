@@ -3,140 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPulse SaaS - Academic Grade Portal</title>
-    <!-- ===== GOOGLE FONTS (PLUS JAKARTA SANS & INTER) ===== -->
+    <title>Academic Performance - Practical 3</title>
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated Mesh Gradient Background Orbs -->
-    <div class="mesh-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
-
-    <div class="saas-viewport">
-        <!-- ===== GLASS NAVBAR ===== -->
-        <header class="glass-navbar">
-            <div class="nav-brand">
-                <div class="brand-logo-glass"><i class="fa-solid fa-graduation-cap"></i></div>
+    <div class="linear-viewport">
+        <!-- ===== TOPBAR HEADER & SUMMARY METRICS ===== -->
+        <header class="linear-topbar">
+            <div class="brand-group">
+                <div class="brand-logo"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div>
-                    <h1>EduPulse <span class="badge-pro">PRO SaaS</span></h1>
-                    <p class="sub-text">Academic Assessment &amp; Analytics Engine</p>
+                    <h1>Academic Analytics</h1>
+                    <p class="subtitle">Student Performance Matrix</p>
                 </div>
             </div>
-            <div class="student-author-pill">
-                <i class="fa-solid fa-user-astronaut"></i>
-                <span>Yash Khadge &bull; <strong>PRN: 24070521137</strong></span>
+
+            <!-- Top Summary Metric Pills -->
+            <div class="top-summary-pills">
+                <div class="summary-pill">
+                    <span class="pill-lbl">Average Score</span>
+                    <span class="pill-val mono" id="top-avg-pct">0%</span>
+                </div>
+                <div class="summary-pill">
+                    <span class="pill-lbl">Grade Status</span>
+                    <span class="badge-status status-neutral" id="top-status-badge">Awaiting Data</span>
+                </div>
+                <div class="summary-pill">
+                    <span class="pill-lbl">Rank Grade</span>
+                    <span class="pill-val mono text-emerald" id="top-grade-rank">--</span>
+                </div>
             </div>
         </header>
 
-        <!-- ===== ASYMMETRIC SPLIT SCREEN DASHBOARD ===== -->
-        <main class="saas-workspace">
+        <!-- ===== MAIN 2-COLUMN DASHBOARD WORKSPACE ===== -->
+        <main class="linear-workspace">
             
-            <!-- LEFT COLUMN: FLOATING GLASS INPUT CARD (40% width) -->
-            <section class="glass-card card-input-panel">
-                <div class="card-header-row">
-                    <div class="icon-bubble"><i class="fa-solid fa-pen-ruler"></i></div>
-                    <div>
-                        <h2>Grade Entry Console</h2>
-                        <p>Register candidate subject marks below</p>
-                    </div>
+            <!-- LEFT COLUMN: MINIMAL FORM INPUTS (40% width) -->
+            <section class="linear-card panel-form">
+                <div class="card-head">
+                    <i class="fa-solid fa-sliders"></i>
+                    <h2>Grade Registry Input</h2>
                 </div>
 
-                <div class="form-wrapper">
-                    <div class="input-field-group">
-                        <label for="student-name"><i class="fa-solid fa-user"></i> Student Name</label>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label for="student-name">Student Full Name</label>
                         <input type="text" id="student-name" value="Yash Khadge" placeholder="Candidate Name" autocomplete="off">
                     </div>
 
-                    <div class="input-field-group">
-                        <label for="student-roll"><i class="fa-solid fa-id-badge"></i> Roll No / PRN</label>
+                    <div class="form-group">
+                        <label for="student-roll">PRN / Registration Code</label>
                         <input type="text" id="student-roll" value="24070521137" placeholder="PRN Code" autocomplete="off">
                     </div>
 
-                    <div class="divider-line"></div>
+                    <div class="divider"></div>
 
-                    <div class="input-row-2">
-                        <div class="input-field-group">
-                            <label for="subject-name"><i class="fa-solid fa-book"></i> Subject Name</label>
-                            <input type="text" id="subject-name" placeholder="e.g. Data Structures" autocomplete="off">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="subject-name">Subject Course</label>
+                            <input type="text" id="subject-name" placeholder="e.g. Mathematics" autocomplete="off">
                         </div>
-                        <div class="input-field-group small">
-                            <label for="subject-marks"><i class="fa-solid fa-chart-simple"></i> Marks (100)</label>
-                            <input type="number" id="subject-marks" placeholder="88" min="0" max="100" autocomplete="off">
+                        <div class="form-group small">
+                            <label for="subject-marks">Marks (100)</label>
+                            <input type="number" id="subject-marks" placeholder="85" min="0" max="100" autocomplete="off">
                         </div>
                     </div>
 
-                    <button id="btn-add-subject" class="btn-gradient-submit">
-                        <i class="fa-solid fa-plus-circle"></i> Add Subject Mark
+                    <button id="btn-add-subject" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> Add Course Mark
                     </button>
                 </div>
             </section>
 
-            <!-- RIGHT COLUMN: DYNAMIC ANALYTICS & SUBJECT CARDS (60% width) -->
-            <section class="saas-right-column">
-                
-                <!-- TOP ANALYTICS TILES -->
-                <div class="analytics-row">
-                    <!-- Score Meter Glass Card -->
-                    <div class="glass-card tile-metric">
-                        <span class="metric-lbl">Aggregate Score</span>
-                        <div class="metric-val-group">
-                            <span class="metric-num" id="avg-pct-num">0%</span>
-                            <span class="pill-status" id="status-pill">Awaiting Marks</span>
-                        </div>
-                        <div class="progress-bar-track">
-                            <div class="progress-fill" id="score-bar-fill" style="width: 0%;"></div>
-                        </div>
+            <!-- RIGHT COLUMN: BREAKDOWN LIST & PROGRESS (60% width) -->
+            <section class="linear-card panel-breakdown">
+                <div class="card-head justify-between">
+                    <div class="flex-center gap-2">
+                        <i class="fa-solid fa-list-check"></i>
+                        <h2>Enrolled Course Breakdown</h2>
                     </div>
+                    <span class="count-tag mono" id="subject-count-tag">0 Courses</span>
+                </div>
 
-                    <!-- Grade Rank Glass Card -->
-                    <div class="glass-card tile-metric">
-                        <span class="metric-lbl">Grade Rank</span>
-                        <div class="metric-val-group">
-                            <span class="metric-num text-purple" id="grade-rank-letter">--</span>
-                            <span class="rank-badge-tag" id="rank-badge">NO RANK</span>
-                        </div>
-                        <span class="stat-subtext" id="total-marks-str">0 / 0 Total Marks</span>
+                <!-- Progress Track -->
+                <div class="overall-progress-box">
+                    <div class="progress-info-line">
+                        <span class="info-lbl">Overall Performance Track</span>
+                        <span class="info-val mono" id="marks-ratio-str">0 / 0 Marks</span>
+                    </div>
+                    <div class="progress-track-bg">
+                        <div class="progress-fill-bar" id="progress-fill-bar" style="width: 0%;"></div>
                     </div>
                 </div>
 
-                <!-- ENROLLED SUBJECTS GRID CARD -->
-                <div class="glass-card card-enrolled-grid">
-                    <div class="card-header-row justify-between">
-                        <div class="flex-align">
-                            <i class="fa-solid fa-layer-group text-indigo"></i>
-                            <h3>Enrolled Academic Courses</h3>
-                        </div>
-                        <span class="count-chip" id="subject-count-chip">0 Subjects</span>
-                    </div>
-
-                    <div class="subjects-scroll-area">
-                        <div class="courses-grid" id="courses-container">
-                            <!-- Empty Placeholder -->
-                            <div class="empty-glass-state" id="empty-state">
-                                <i class="fa-solid fa-shapes empty-3d-icon"></i>
-                                <p>No course marks registered yet. Enter details on the left form to calculate your grade profile.</p>
-                            </div>
+                <!-- Scrollable Course List -->
+                <div class="courses-scroll-area">
+                    <div class="courses-list" id="courses-container">
+                        <!-- Empty State -->
+                        <div class="empty-state-box" id="empty-state">
+                            <i class="fa-solid fa-inbox empty-icon"></i>
+                            <p>No courses registered. Add subject marks using the registry form on the left.</p>
                         </div>
                     </div>
                 </div>
-
             </section>
 
         </main>
 
         <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
-        <footer class="saas-footer">
-            <div class="footer-glass-bar">
-                <i class="fa-solid fa-award"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; EdTech SaaS Assessment Engine
+        <footer class="linear-footer">
+            <div class="footer-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
             </div>
         </footer>
     </div>

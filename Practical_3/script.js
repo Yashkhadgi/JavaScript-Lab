@@ -1,5 +1,5 @@
 /**
- * Practical 3: EduPulse SaaS - Academic Grade Assessment Engine
+ * Practical 3: Vercel / Linear-Style Academic Analytics Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,16 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const coursesContainer = document.getElementById('courses-container');
     const emptyState = document.getElementById('empty-state');
-    const subjectCountChip = document.getElementById('subject-count-chip');
+    const subjectCountTag = document.getElementById('subject-count-tag');
 
     // Metrics outputs
-    const avgPctNum = document.getElementById('avg-pct-num');
-    const statusPill = document.getElementById('status-pill');
-    const scoreBarFill = document.getElementById('score-bar-fill');
-
-    const gradeRankLetter = document.getElementById('grade-rank-letter');
-    const rankBadge = document.getElementById('rank-badge');
-    const totalMarksStr = document.getElementById('total-marks-str');
+    const topAvgPct = document.getElementById('top-avg-pct');
+    const topStatusBadge = document.getElementById('top-status-badge');
+    const topGradeRank = document.getElementById('top-grade-rank');
+    const marksRatioStr = document.getElementById('marks-ratio-str');
+    const progressFillBar = document.getElementById('progress-fill-bar');
 
     let courses = [];
 
@@ -61,31 +59,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (courses.length === 0) {
             coursesContainer.appendChild(emptyState);
-            subjectCountChip.textContent = "0 Subjects";
+            subjectCountTag.textContent = "0 Courses";
             return;
         }
 
-        subjectCountChip.textContent = `${courses.length} Subject${courses.length > 1 ? 's' : ''}`;
+        subjectCountTag.textContent = `${courses.length} Course${courses.length > 1 ? 's' : ''}`;
 
         courses.forEach(c => {
-            const tile = document.createElement('div');
-            tile.className = 'course-tile';
+            const item = document.createElement('div');
+            item.className = 'course-item';
 
-            tile.innerHTML = `
-                <div class="course-info">
+            item.innerHTML = `
+                <div class="course-details">
                     <h4>${c.name}</h4>
-                    <p>Score: ${c.marks} / 100</p>
+                    <p class="mono">Marks: ${c.marks} / 100</p>
                 </div>
-                <button class="btn-del-course" data-id="${c.id}" title="Delete Course">
+                <button class="btn-delete-course" data-id="${c.id}" title="Remove Course">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             `;
 
-            tile.querySelector('.btn-del-course').addEventListener('click', () => {
+            item.querySelector('.btn-delete-course').addEventListener('click', () => {
                 deleteCourse(c.id);
             });
 
-            coursesContainer.appendChild(tile);
+            coursesContainer.appendChild(item);
         });
     }
 
@@ -97,14 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function evaluateAnalytics() {
         if (courses.length === 0) {
-            avgPctNum.textContent = "0%";
-            statusPill.className = "pill-status";
-            statusPill.textContent = "Awaiting Marks";
-            scoreBarFill.style.width = "0%";
-
-            gradeRankLetter.textContent = "--";
-            rankBadge.textContent = "NO RANK";
-            totalMarksStr.textContent = "0 / 0 Total Marks";
+            topAvgPct.textContent = "0%";
+            topStatusBadge.className = "badge-status status-neutral";
+            topStatusBadge.textContent = "Awaiting Data";
+            topGradeRank.textContent = "--";
+            marksRatioStr.textContent = "0 / 0 Marks";
+            progressFillBar.style.width = "0%";
             return;
         }
 
@@ -112,33 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxPossible = courses.length * 100;
         const avgPercentage = Math.round((totalObtained / maxPossible) * 100);
 
-        // Update score metric
-        avgPctNum.textContent = `${avgPercentage}%`;
-        scoreBarFill.style.width = `${avgPercentage}%`;
+        topAvgPct.textContent = `${avgPercentage}%`;
+        marksRatioStr.textContent = `${totalObtained} / ${maxPossible} Marks`;
+        progressFillBar.style.width = `${avgPercentage}%`;
 
         // Check pass/fail (Avg >= 40 & no subject < 35)
         const hasFailedSubject = courses.some(c => c.marks < 35);
         const isPassed = (avgPercentage >= 40) && !hasFailedSubject;
 
         if (isPassed) {
-            statusPill.className = "pill-status pass";
-            statusPill.textContent = "PASSED";
+            topStatusBadge.className = "badge-status status-pass";
+            topStatusBadge.textContent = "PASSED";
         } else {
-            statusPill.className = "pill-status fail";
-            statusPill.textContent = "FAILED";
+            topStatusBadge.className = "badge-status status-fail";
+            topStatusBadge.textContent = "FAILED";
         }
 
-        // Rank Grade Assignment
         let grade = "F";
-        let rankText = "UNSATISFACTORY";
+        if (avgPercentage >= 90) grade = "A+";
+        else if (avgPercentage >= 75) grade = "A";
+        else if (avgPercentage >= 60) grade = "B";
+        else if (avgPercentage >= 50) grade = "C";
 
-        if (avgPercentage >= 90) { grade = "A+"; rankText = "EXCELLENCE"; }
-        else if (avgPercentage >= 75) { grade = "A"; rankText = "DISTINCTION"; }
-        else if (avgPercentage >= 60) { grade = "B"; rankText = "FIRST CLASS"; }
-        else if (avgPercentage >= 50) { grade = "C"; rankText = "PASS CLASS"; }
-
-        gradeRankLetter.textContent = grade;
-        rankBadge.textContent = rankText;
-        totalMarksStr.textContent = `${totalObtained} / ${maxPossible} Total Marks`;
+        topGradeRank.textContent = grade;
     }
 });
