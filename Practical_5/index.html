@@ -3,134 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique Checkout &amp; Array Telemetry - Practical 5</title>
-    <!-- ===== GOOGLE FONTS (POPPINS & SHARE TECH MONO) ===== -->
+    <title>La Boutique De Paris - Luxury Editorial</title>
+    <!-- ===== GOOGLE FONTS (PLAYFAIR DISPLAY & INTER) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- ===== FONT AWESOME ICONS ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- ===== CUSTOM CSS ===== -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="shop-viewport">
-        <!-- ===== BOUTIQUE TOPBAR NAVBAR ===== -->
-        <header class="shop-topbar">
-            <div class="brand-group">
-                <div class="brand-logo"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div>
-                    <h1>LA BOUTIQUE DE PARIS</h1>
-                    <p class="subtitle">E-Commerce Array Pipeline &bull; Interactive Shopping Cart Engine</p>
-                </div>
+    <div class="vogue-viewport">
+        <!-- ===== LUXURY EDITORIAL NAVBAR ===== -->
+        <header class="vogue-navbar">
+            <div class="vogue-brand">
+                <span class="editorial-edition">HAUTE COUTURE &bull; PARIS</span>
+                <h1 class="vogue-logo">LA BOUTIQUE DE PARIS</h1>
+                <p class="vogue-sub">Collection Automne-Hiver &bull; Array Pipeline Engine</p>
             </div>
-            <div class="cart-pill-badge">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="nav-cart-count">0 Items</span>
+            <div class="vogue-cart-counter">
+                <span class="lbl">BAG CONTENTS</span>
+                <span class="pill-count" id="vogue-bag-count">0 ITEMS</span>
             </div>
         </header>
 
-        <!-- ===== MAIN WORKSPACE DASHBOARD ===== -->
-        <main class="shop-dashboard">
+        <!-- ===== EDITORIAL GRID WORKSPACE ===== -->
+        <main class="vogue-workspace">
             
-            <!-- MIDDLE ROW: CATALOG GRID (LEFT) & RECEIPT INVOICE (RIGHT) -->
-            <div class="shop-main-row">
-                
-                <!-- Left: Catalog Product Cards Grid -->
-                <section class="shop-panel catalog-panel">
-                    <div class="panel-header">
-                        <i class="fa-solid fa-store"></i>
-                        <span>STOREFRONT CATALOG</span>
-                    </div>
-
-                    <div class="catalog-scroll-wrapper">
-                        <div class="catalog-grid" id="catalog-container">
-                            <!-- Injected Product Cards -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Right: Jagged Thermal Paper Receipt -->
-                <section class="shop-panel receipt-panel">
-                    <div class="panel-header">
-                        <i class="fa-solid fa-receipt"></i>
-                        <span>PURCHASE RECEIPT</span>
-                    </div>
-
-                    <div class="receipt-paper">
-                        <div class="receipt-header">
-                            <h2>LA BOUTIQUE</h2>
-                            <p class="receipt-date" id="receipt-date-str">AUG 04, 2026</p>
-                            <div class="dashed-divider"></div>
-                        </div>
-
-                        <!-- Scrollable Items list -->
-                        <div class="receipt-items-wrapper" id="receipt-items-container">
-                            <div class="receipt-empty" id="receipt-empty">
-                                <i class="fa-solid fa-basket-shopping"></i>
-                                <p>Your shopping bag is empty.</p>
-                            </div>
-                        </div>
-
-                        <!-- Calculations -->
-                        <div class="receipt-summary">
-                            <div class="dashed-divider"></div>
-                            <div class="sum-row">
-                                <span>SUBTOTAL</span>
-                                <span id="rec-subtotal">₹0.00</span>
-                            </div>
-                            <div class="sum-row">
-                                <span>GST TAX (18%)</span>
-                                <span id="rec-tax">₹0.00</span>
-                            </div>
-                            <div class="dashed-divider"></div>
-                            <div class="sum-row total-row">
-                                <span>GRAND TOTAL</span>
-                                <span id="rec-grandtotal">₹0.00</span>
-                            </div>
-                            <div class="dashed-divider"></div>
-                        </div>
-
-                        <!-- Barcode stamp -->
-                        <div class="receipt-footer">
-                            <div class="barcode-graphic"></div>
-                            <span class="barcode-num">INV-8902410-2026</span>
-                            <button id="btn-checkout" class="btn-checkout" disabled>
-                                <i class="fa-solid fa-credit-card"></i> COMPLETE PURCHASE
-                            </button>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- BOTTOM ROW: JAVASCRIPT ARRAY TELEMETRY CONSOLE -->
-            <section class="telemetry-panel">
-                <div class="telemetry-header">
-                    <i class="fa-solid fa-code"></i>
-                    <span>JAVASCRIPT ARRAY PIPELINE TELEMETRY</span>
+            <!-- LEFT COLUMN: LUXURY CATALOG GRID (65% width) -->
+            <section class="vogue-catalog-panel">
+                <div class="editorial-header-row">
+                    <h2>SELECTED CREATIONS</h2>
+                    <span class="divider-line"></span>
+                    <span class="cat-tag">NEW ARRIVALS 2026</span>
                 </div>
-                <div class="telemetry-body">
-                    <div class="tele-item">
-                        <span class="tele-lbl">Array.push():</span>
-                        <span class="tele-code" id="tele-push">cart.push({ id, name, price, qty })</span>
+
+                <div class="catalog-scroll-viewport">
+                    <div class="luxury-cards-grid" id="luxury-catalog-grid">
+                        <!-- Dynamic Unsplash Luxury Product Cards -->
                     </div>
-                    <div class="tele-item">
-                        <span class="tele-lbl">Array.map():</span>
-                        <span class="tele-code" id="tele-map">cart.map(item => item.price * item.qty)</span>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: STICKY BOUTIQUE RECEIPT DRAWER (35% width) -->
+            <section class="vogue-receipt-drawer">
+                <div class="physical-receipt-paper">
+                    <div class="receipt-top-header">
+                        <h3>LA BOUTIQUE DE PARIS</h3>
+                        <p class="receipt-address">21 RUE DU FAUBOURG SAINT-HONORÉ, PARIS</p>
+                        <p class="receipt-date" id="rec-date-str">AUGUST 04, 2026</p>
+                        <div class="dashed-divider"></div>
                     </div>
-                    <div class="tele-item">
-                        <span class="tele-lbl">Array.reduce():</span>
-                        <span class="tele-code" id="tele-reduce">subtotal = cart.reduce((acc, i) => acc + i.total, 0) = ₹0</span>
+
+                    <!-- Itemized Cart Rows -->
+                    <div class="receipt-items-scroll" id="receipt-items-container">
+                        <div class="empty-receipt-msg" id="empty-receipt-msg">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            <p>YOUR SHOPPING BAG IS CURRENTLY EMPTY.</p>
+                        </div>
                     </div>
+
+                    <!-- Calculations breakdown -->
+                    <div class="receipt-math-box">
+                        <div class="dashed-divider"></div>
+                        <div class="math-line">
+                            <span>SUBTOTAL</span>
+                            <span id="rec-subtotal">₹0.00</span>
+                        </div>
+                        <div class="math-line">
+                            <span>GST TAX (18%)</span>
+                            <span id="rec-tax">₹0.00</span>
+                        </div>
+                        <div class="dashed-divider"></div>
+                        <div class="math-line grand-total-line">
+                            <span>GRAND TOTAL</span>
+                            <span id="rec-grandtotal">₹0.00</span>
+                        </div>
+                        <div class="dashed-divider"></div>
+                    </div>
+
+                    <!-- Barcode Stamp -->
+                    <div class="receipt-footer-stamp">
+                        <div class="barcode-graphic"></div>
+                        <span class="barcode-code">PARIS-8902410-2026</span>
+                        <button id="btn-checkout" class="btn-vogue-checkout" disabled>
+                            PROCEED TO CHECKOUT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Array Telemetry Block -->
+                <div class="array-telemetry-card">
+                    <div class="tele-title"><i class="fa-solid fa-code"></i> ARRAY PIPELINE LOG</div>
+                    <div class="tele-line"><span class="lbl">push():</span> <span class="val" id="tele-push">cart.push({ id, name, price })</span></div>
+                    <div class="tele-line"><span class="lbl">map():</span> <span class="val" id="tele-map">cart.map(i => i.price * i.qty)</span></div>
+                    <div class="tele-line"><span class="lbl">reduce():</span> <span class="val" id="tele-reduce">subtotal = cart.reduce(...) = ₹0</span></div>
                 </div>
             </section>
 
         </main>
 
-        <!-- ===== PROMINENT BRANDING FOOTER ===== -->
-        <footer class="shop-footer">
-            <div class="footer-badge">
-                <i class="fa-solid fa-store"></i> Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong>
+        <!-- ===== PROMINENT AUTHOR FOOTER ===== -->
+        <footer class="vogue-footer">
+            <div class="footer-vogue-bar">
+                Designed by <strong>Yash Khadge</strong> | PRN: <strong>24070521137</strong> &bull; Haute Couture Editorial Experience
             </div>
         </footer>
     </div>

@@ -1,22 +1,18 @@
 /* ============================================================
-   SKEUOMORPHIC BOUTIQUE STORE - PRACTICAL 5
+   VOGUE LUXURY EDITORIAL E-COMMERCE - PRACTICAL 5
    ============================================================ */
 :root {
-    --bg-color: #F5F2EB;
-    --panel-bg: #FFFFFF;
-    --header-bg: #2D2522;
-    --text-color: #2D2522;
-    --text-muted: #7A726D;
+    --bg-cream: #FBF9F5;
+    --card-bg: #FFFFFF;
+    --text-dark: #1A1918;
+    --text-muted: #706C66;
+    --gold-accent: #C5A059;
+    --border-light: #EBE6DC;
     
-    --rose-accent: #C08497;
-    --rose-light: rgba(192, 132, 151, 0.12);
-    --gold-accent: #D4AF37;
-    --success-color: #48BB78;
-    --border-color: #E2DDD5;
-    
-    --font-family: 'Poppins', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
     --font-mono: 'Share Tech Mono', monospace;
-    --transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 * {
@@ -26,9 +22,9 @@
 }
 
 body {
-    font-family: var(--font-family);
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: var(--font-sans);
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,9 +33,9 @@ body {
 }
 
 /* ============================================================
-   SHOP VIEWPORT CONTAINER
+   VOGUE VIEWPORT CONTAINER
    ============================================================ */
-.shop-viewport {
+.vogue-viewport {
     width: 100%;
     max-width: 1100px;
     height: 96vh;
@@ -51,294 +47,321 @@ body {
 }
 
 /* ============================================================
-   BOUTIQUE TOPBAR NAVBAR
+   EDITORIAL NAVBAR
    ============================================================ */
-.shop-topbar {
-    background-color: var(--header-bg);
-    color: #FFFFFF;
+.vogue-navbar {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 0.75rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(45, 37, 34, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
-.brand-group {
+.vogue-brand {
     display: flex;
-    align-items: center;
-    gap: 0.85rem;
+    flex-direction: column;
 }
 
-.brand-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: var(--rose-accent);
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.editorial-edition {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold-accent);
+}
+
+.vogue-logo {
+    font-family: var(--font-serif);
     font-size: 1.2rem;
-}
-
-.shop-topbar h1 {
-    font-size: 1.1rem;
     font-weight: 800;
     letter-spacing: 1px;
 }
 
-.shop-topbar .subtitle {
-    font-size: 0.72rem;
-    color: #B5ACA6;
+.vogue-sub {
+    font-size: 0.68rem;
+    color: var(--text-muted);
 }
 
-.cart-pill-badge {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.vogue-cart-counter {
+    background-color: var(--text-dark);
+    color: #FFFFFF;
+    padding: 0.45rem 1rem;
     border-radius: 20px;
-    padding: 0.4rem 0.9rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--rose-accent);
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.vogue-cart-counter .lbl {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    color: var(--gold-accent);
+}
+
+.pill-count {
+    font-weight: 700;
 }
 
 /* ============================================================
-   MAIN WORKSPACE DASHBOARD
+   EDITORIAL WORKSPACE GRID
    ============================================================ */
-.shop-dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    flex-grow: 1;
-    min-height: 0;
-}
-
-.shop-main-row {
+.vogue-workspace {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 0.85rem;
     flex-grow: 1;
     min-height: 0;
 }
 
-.shop-panel {
-    background-color: var(--panel-bg);
-    border: 1px solid var(--border-color);
+/* CATALOG PANEL */
+.vogue-catalog-panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
     border-radius: 12px;
-    padding: 0.85rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.75rem;
     min-height: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
-.panel-header {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--rose-accent);
+.editorial-header-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.35rem;
+    gap: 0.75rem;
     flex-shrink: 0;
 }
 
-/* Catalog Cards */
-.catalog-scroll-wrapper {
+.editorial-header-row h2 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--border-light);
+}
+
+.cat-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gold-accent);
+}
+
+.catalog-scroll-viewport {
     flex-grow: 1;
     overflow-y: auto;
     padding-right: 4px;
 }
 
-.catalog-grid {
+.luxury-cards-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.65rem;
+    gap: 0.75rem;
 }
 
-.product-card {
-    background-color: #FAF8F5;
-    border: 1px solid var(--border-color);
+.vogue-product-card {
+    background-color: var(--bg-cream);
+    border: 1px solid var(--border-light);
     border-radius: 10px;
-    padding: 0.75rem;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 0.5rem;
     transition: var(--transition);
 }
 
-.product-card:hover {
-    border-color: var(--rose-accent);
+.vogue-product-card:hover {
+    border-color: var(--gold-accent);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(192, 132, 151, 0.15);
+    box-shadow: 0 8px 25px rgba(197, 160, 89, 0.15);
 }
 
-.prod-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.prod-title {
-    font-size: 0.82rem;
-    font-weight: 700;
-}
-
-.prod-cat {
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    background-color: var(--rose-light);
-    color: var(--rose-accent);
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
-}
-
-.prod-price {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--text-color);
-}
-
-.btn-add-cart {
-    background-color: var(--text-color);
-    color: #FFFFFF;
-    border: none;
-    padding: 0.45rem;
-    border-radius: 6px;
-    font-family: var(--font-family);
-    font-size: 0.72rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    transition: var(--transition);
-}
-
-.btn-add-cart:hover {
-    background-color: var(--rose-accent);
-}
-
-/* ============================================================
-   RIGHT PANEL: JAGGED THERMAL RECEIPT
-   ============================================================ */
-.receipt-paper {
-    background-color: #FFFEEA;
-    border: 1px solid #E6E4C5;
-    border-radius: 4px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex-grow: 1;
-    min-height: 0;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+.card-img-wrap {
+    height: 130px;
+    overflow: hidden;
     position: relative;
 }
 
-.receipt-header {
+.card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.vogue-product-card:hover .card-img-wrap img {
+    transform: scale(1.06);
+}
+
+.card-details-box {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.item-cat-lbl {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gold-accent);
+    text-transform: uppercase;
+}
+
+.item-title {
+    font-family: var(--font-serif);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.item-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.2rem;
+}
+
+.price-tag {
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.btn-add-bag {
+    background-color: var(--text-dark);
+    color: #FFFFFF;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-add-bag:hover {
+    background-color: var(--gold-accent);
+}
+
+/* RIGHT COLUMN: RECEIPT PAPER & TELEMETRY */
+.vogue-receipt-drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-height: 0;
+}
+
+.physical-receipt-paper {
+    background-color: #FFFEE9;
+    border: 1px dashed #D6D1B6;
+    border-radius: 4px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex-grow: 1;
+    min-height: 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.receipt-top-header {
     text-align: center;
 }
 
-.receipt-header h2 {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
+.receipt-top-header h3 {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
-.receipt-date {
+.receipt-address, .receipt-date {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--text-muted);
 }
 
 .dashed-divider {
     border-bottom: 1.5px dashed #A09D80;
-    margin: 0.35rem 0;
+    margin: 0.3rem 0;
 }
 
-.receipt-items-wrapper {
+.receipt-items-scroll {
     flex-grow: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.3rem;
 }
 
-.receipt-item-row {
+.receipt-row-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
 }
 
-.receipt-item-left {
-    display: flex;
-    gap: 0.4rem;
-}
-
-.btn-remove-item {
+.btn-rem-item {
     background: none;
     border: none;
     color: #E53E3E;
     cursor: pointer;
+    margin-right: 0.3rem;
     font-size: 0.75rem;
 }
 
-.receipt-empty {
+.empty-receipt-msg {
     padding: 2rem 0;
     text-align: center;
     color: #A09D80;
     font-family: var(--font-mono);
 }
 
-.receipt-empty i {
-    font-size: 1.8rem;
-    margin-bottom: 0.3rem;
+.empty-receipt-msg i {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
 }
 
-.receipt-empty p {
-    font-size: 0.75rem;
+.empty-receipt-msg p {
+    font-size: 0.68rem;
 }
 
-.receipt-summary {
+.receipt-math-box {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
 }
 
-.sum-row {
+.math-line {
     display: flex;
     justify-content: space-between;
-    padding: 0.1rem 0;
+    padding: 0.08rem 0;
 }
 
-.total-row {
-    font-size: 0.9rem;
+.grand-total-line {
+    font-size: 0.85rem;
     font-weight: 800;
 }
 
-.receipt-footer {
+.receipt-footer-stamp {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.3rem;
 }
 
 .barcode-graphic {
-    width: 140px;
-    height: 24px;
+    width: 120px;
+    height: 20px;
     background-image: repeating-linear-gradient(90deg, 
         #000 0px, #000 2px, 
         transparent 2px, transparent 4px, 
@@ -346,117 +369,82 @@ body {
     );
 }
 
-.barcode-num {
+.barcode-code {
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     color: var(--text-muted);
 }
 
-.btn-checkout {
+.btn-vogue-checkout {
     width: 100%;
-    background-color: var(--text-color);
+    background-color: var(--text-dark);
     color: #FFFFFF;
     border: none;
-    padding: 0.5rem;
-    font-family: var(--font-family);
-    font-size: 0.78rem;
+    padding: 0.45rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
     font-weight: 700;
-    border-radius: 6px;
+    letter-spacing: 1px;
+    border-radius: 4px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
     transition: var(--transition);
 }
 
-.btn-checkout:hover:not(:disabled) {
-    background-color: var(--rose-accent);
+.btn-vogue-checkout:hover:not(:disabled) {
+    background-color: var(--gold-accent);
 }
 
-.btn-checkout:disabled {
-    background-color: #D6D1C7;
+.btn-vogue-checkout:disabled {
+    background-color: #D6D1B6;
     cursor: not-allowed;
 }
 
-/* ============================================================
-   BOTTOM ROW: ARRAY TELEMETRY CONSOLE
-   ============================================================ */
-.telemetry-panel {
-    background-color: #1A1615;
+/* TELEMETRY CARD */
+.array-telemetry-card {
+    background-color: var(--text-dark);
     color: #FFFFFF;
-    border-radius: 10px;
-    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.2rem;
     flex-shrink: 0;
 }
 
-.telemetry-header {
+.tele-title {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     color: var(--gold-accent);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
 }
 
-.telemetry-body {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    font-size: 0.68rem;
-}
-
-.tele-item {
-    display: flex;
-    flex-direction: column;
-    background-color: #272120;
-    padding: 0.35rem 0.5rem;
-    border-radius: 6px;
-}
-
-.tele-lbl {
+.tele-line {
     font-family: var(--font-mono);
-    color: var(--text-muted);
-    font-weight: 700;
-}
-
-.tele-code {
-    font-family: var(--font-mono);
-    color: #48BB78;
+    font-size: 0.62rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.tele-line .lbl { color: var(--text-muted); }
+.tele-line .val { color: #48BB78; }
+
 /* ============================================================
-   PROMINENT BRANDING FOOTER
+   PROMINENT AUTHOR FOOTER
    ============================================================ */
-.shop-footer {
+.vogue-footer {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 0.2rem;
 }
 
-.footer-badge {
-    background-color: var(--panel-bg);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+.footer-vogue-bar {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light);
     border-radius: 20px;
-    padding: 0.45rem 1.25rem;
+    padding: 0.45rem 1.5rem;
     font-size: 0.8rem;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-badge i {
-    color: var(--rose-accent);
-    font-size: 0.9rem;
+    color: var(--text-dark);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
 }
