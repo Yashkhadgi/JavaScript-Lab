@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata about the document -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3: Phone Number Validation</title>
+
+    <!-- 
+      This is the link to our CSS file which we will create next. 
+      It tells the HTML to look for styling instructions in 'style.css'.
+    -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 
+      CRUCIAL STEP FOR jQuery!
+      This script tag downloads the jQuery library from the internet (Google's CDN).
+      Without this line, none of our jQuery code will work because the browser won't know what '$' means.
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <!-- A main container to hold our app -->
+    <div class="container">
+        <h2>Enter Phone Number</h2>
+        
+        <!-- 
+          The Input Field: Where the user types.
+          We give it an id="phone-input" so we can easily find it using jQuery later.
+          placeholder provides a hint inside the box.
+        -->
+        <input type="text" id="phone-input" placeholder="e.g., 9876543210">
+
+        <!-- 
+          The Button: What the user clicks to trigger the validation.
+          We give it an id="submit-btn" so jQuery can "listen" to it.
+        -->
+        <button id="submit-btn">Validate</button>
+
+        <!-- 
+          The Message Area: Currently empty. 
+          jQuery will inject text into this paragraph based on whether the number is valid or not.
+          We give it an id="message" to target it.
+        -->
+        <p id="message"></p>
+    </div>
+
+    <!-- 
+      This links our custom JavaScript file to the HTML.
+      We put it at the end of the <body> so the HTML elements load before the script tries to find them.
+    -->
+    <script src="script.js"></script>
+</body>
+</html>
