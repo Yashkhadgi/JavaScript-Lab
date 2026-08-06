@@ -25,18 +25,17 @@ body {
     text-align: center;
 }
 
-/* Style the input field to make it bigger and nicer */
-#phone-input {
+/* Style the input fields to make them bigger and nicer */
+#email-input, #phone-input, #otp-input {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 10px;
-    width: 200px;
+    width: 250px;
 }
 
-/* Style the button */
-#submit-btn {
+/* Style the buttons */
+#submit-btn, #verify-btn {
     padding: 10px 15px;
     font-size: 16px;
     background-color: #007bff; /* A nice blue color */
@@ -47,8 +46,13 @@ body {
 }
 
 /* Change button color slightly when hovering over it */
-#submit-btn:hover {
+#submit-btn:hover, #verify-btn:hover {
     background-color: #0056b3;
+}
+
+/* Timer warning color */
+.timer-red {
+    color: red;
 }
 
 /* Setup the paragraph that will hold our message.
