@@ -18,31 +18,38 @@
       Without this line, none of our jQuery code will work because the browser won't know what '$' means.
     -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- EMAILJS SDK -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
 </head>
 <body>
 
     <!-- A main container to hold our app -->
     <div class="container">
-        <h2>Enter Phone Number</h2>
+        <h2>Verification System</h2>
         
-        <!-- 
-          The Input Field: Where the user types.
-          We give it an id="phone-input" so we can easily find it using jQuery later.
-          placeholder provides a hint inside the box.
-        -->
-        <input type="text" id="phone-input" placeholder="e.g., 9876543210">
+        <!-- The Initial Form (Email and Phone) -->
+        <div id="initial-form">
+            <input type="email" id="email-input" placeholder="College Email (e.g. student@college.edu)">
+            <br><br>
+            <input type="text" id="phone-input" placeholder="Phone (e.g., 9876543210)">
+            <br><br>
+            <button id="submit-btn">Send OTP to Email</button>
+        </div>
 
-        <!-- 
-          The Button: What the user clicks to trigger the validation.
-          We give it an id="submit-btn" so jQuery can "listen" to it.
-        -->
-        <button id="submit-btn">Validate</button>
+        <!-- The OTP Section (Hidden by default) -->
+        <div id="otp-section" style="display: none;">
+            <h3>Enter OTP</h3>
+            <p>An OTP has been sent to your email.</p>
+            <input type="text" id="otp-input" placeholder="4-digit OTP">
+            <br><br>
+            <button id="verify-btn">Verify OTP</button>
+            <p id="timer-display" style="margin-top: 10px; font-weight: bold;">Expires in: 30s</p>
+        </div>
 
-        <!-- 
-          The Message Area: Currently empty. 
-          jQuery will inject text into this paragraph based on whether the number is valid or not.
-          We give it an id="message" to target it.
-        -->
+        <!-- The Message Area -->
         <p id="message"></p>
     </div>
 
