@@ -1,0 +1,378 @@
+[
+  {
+    "title": "Chhaava",
+    "year": 2025,
+    "rating": 8.1,
+    "poster": "https://m.media-amazon.com/images/M/MV5BN2EwYmU5YWItZGI5Ni00YTUwLTgwMzktNmQ1NmQ1ZWEzZjdmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Laxman Utekar"
+  },
+  {
+    "title": "Sky Force",
+    "year": 2025,
+    "rating": 7.4,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMjY5YTFhMGYtY2ZhNi00N2VhLWE4Y2EtZDlhYjBhNTlhM2UzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Thriller",
+    "director": "Sandeep Kewlani, Abhishek Anil Kapur"
+  },
+  {
+    "title": "Emergency",
+    "year": 2025,
+    "rating": 7.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGJmODE5MDQtYTNlMi00YmNlLWJlMTAtYTRjMTBhNDVlNjcyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama, History",
+    "director": "Kangana Ranaut"
+  },
+  {
+    "title": "12th Fail",
+    "year": 2023,
+    "rating": 8.8,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOTFlOTdhZDgtMDlhNi00MmE4LTkzY2EtMWQ4MDVkNmFjMTEyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama",
+    "director": "Vidhu Vinod Chopra"
+  },
+  {
+    "title": "Stree 2",
+    "year": 2024,
+    "rating": 7.6,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMDA4OTU4NWYtNTNlZS00N2EzLWE0YmEtODc3ZGFiOTM1ZGNhXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Horror",
+    "director": "Amar Kaushik"
+  },
+  {
+    "title": "Lapataa Ladies",
+    "year": 2024,
+    "rating": 8.4,
+    "poster": "https://m.media-amazon.com/images/M/MV5BYzA2Nzk5M2EtNWY4Ny00OTVlLThlMTktYWNmZGIyOTA5MTBmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama",
+    "director": "Kiran Rao"
+  },
+  {
+    "title": "Chandu Champion",
+    "year": 2024,
+    "rating": 8.1,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODlhNzdjYWEtNjRjZC00MjAxLWIzMmMtNmVlZGYyNWM4YTE5XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Kabir Khan"
+  },
+  {
+    "title": "Maidaan",
+    "year": 2024,
+    "rating": 8.0,
+    "poster": "https://m.media-amazon.com/images/M/MV5BNDJiZDliOWYtNzA4YS00YWI3LThlNDktNTMwOTMwNjE2Njc1XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama, Sport",
+    "director": "Amit Ravindernath Sharma"
+  },
+  {
+    "title": "Shaitaan",
+    "year": 2024,
+    "rating": 6.6,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGJmODE5MDQtYTNlMi00YmNlLWJlMTAtYTRjMTBhNDVlNjcyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Horror, Thriller",
+    "director": "Vikas Bahl"
+  },
+  {
+    "title": "Fighter",
+    "year": 2024,
+    "rating": 6.3,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMjY5YTFhMGYtY2ZhNi00N2VhLWE4Y2EtZDlhYjBhNTlhM2UzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Adventure, Thriller",
+    "director": "Siddharth Anand"
+  },
+  {
+    "title": "Article 370",
+    "year": 2024,
+    "rating": 7.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODg1Njg2YzctMmM4OC00MzBiLTliNDItYmZjMTlhY2U4NWJiXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Drama, Thriller",
+    "director": "Aditya Suhas Jambhale"
+  },
+  {
+    "title": "Crew",
+    "year": 2024,
+    "rating": 6.0,
+    "poster": "https://m.media-amazon.com/images/M/MV5BYzA2Nzk5M2EtNWY4Ny00OTVlLThlMTktYWNmZGIyOTA5MTBmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama",
+    "director": "Rajesh A Krishnan"
+  },
+  {
+    "title": "Jawan",
+    "year": 2023,
+    "rating": 6.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMGExNGI1NDktOWI2Mi00NDM3LWIxMmQtNTQxYTgzMzI0MTA1XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Thriller",
+    "director": "Atlee"
+  },
+  {
+    "title": "Dunki",
+    "year": 2023,
+    "rating": 6.7,
+    "poster": "https://m.media-amazon.com/images/M/MV5BN2EwYmU5YWItZGI5Ni00YTUwLTgwMzktNmQ1NmQ1ZWEzZjdmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama",
+    "director": "Rajkumar Hirani"
+  },
+  {
+    "title": "Sam Bahadur",
+    "year": 2023,
+    "rating": 7.8,
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2FiMDhhNGEtODVhOS00NWQ2LTliM2ItNWNmOWFjNWYyN2IzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Meghna Gulzar"
+  },
+  {
+    "title": "OMG 2",
+    "year": 2023,
+    "rating": 7.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOTFlOTdhZDgtMDlhNi00MmE4LTkzY2EtMWQ4MDVkNmFjMTEyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama",
+    "director": "Amit Rai"
+  },
+  {
+    "title": "Rocky Aur Rani Kii Prem Kahaani",
+    "year": 2023,
+    "rating": 6.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODg1Njg2YzctMmM4OC00MzBiLTliNDItYmZjMTlhY2U4NWJiXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Family, Romance",
+    "director": "Karan Johar"
+  },
+  {
+    "title": "Animal",
+    "year": 2023,
+    "rating": 6.1,
+    "poster": "https://m.media-amazon.com/images/M/MV5BNGViM2M4NmUtMmE3ZC00YzU2LWIxWItOTNmN2ZlOTJhN2EyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Crime, Drama",
+    "director": "Sandeep Reddy Vanga"
+  },
+  {
+    "title": "Pathaan",
+    "year": 2023,
+    "rating": 5.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2QzM2JiNTMtOWM4NC00NmYyLTgzYzAtZGU5OTA5OWNlZTFkXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Adventure, Thriller",
+    "director": "Siddharth Anand"
+  },
+  {
+    "title": "Gadar 2",
+    "year": 2023,
+    "rating": 5.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMjY5YTFhMGYtY2ZhNi00N2VhLWE4Y2EtZDlhYjBhNTlhM2UzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Adventure, Drama",
+    "director": "Anil Sharma"
+  },
+  {
+    "title": "The Kashmir Files",
+    "year": 2022,
+    "rating": 8.3,
+    "poster": "https://m.media-amazon.com/images/M/MV5BZjhhMThhNDItNTMyYi00Njg4LWI4OTUtOTU3ZDAxZjJjYjM5XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Drama",
+    "director": "Vivek Agnihotri"
+  },
+  {
+    "title": "Drishyam 2",
+    "year": 2022,
+    "rating": 8.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2FiMDhhNGEtODVhOS00NWQ2LTliM2ItNWNmOWFjNWYyN2IzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Crime, Drama, Mystery",
+    "director": "Abhishek Pathak"
+  },
+  {
+    "title": "Rocketry: The Nambi Effect",
+    "year": 2022,
+    "rating": 8.7,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODg1Njg2YzctMmM4OC00MzBiLTliNDItYmZjMTlhY2U4NWJiXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama",
+    "director": "Madhavan"
+  },
+  {
+    "title": "Gangubai Kathiawadi",
+    "year": 2022,
+    "rating": 7.8,
+    "poster": "https://m.media-amazon.com/images/M/MV5BNTFiN2NlMDAtZTI5Ni00MDZmLTk4ZDMtMTAxYzA0OTVlZDIxXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Crime, Drama",
+    "director": "Sanjay Leela Bhansali"
+  },
+  {
+    "title": "Bhediya",
+    "year": 2022,
+    "rating": 7.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGJmODE5MDQtYTNlMi00YmNlLWJlMTAtYTRjMTBhNDVlNjcyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Horror",
+    "director": "Amar Kaushik"
+  },
+  {
+    "title": "Brahmastra Part One: Shiva",
+    "year": 2022,
+    "rating": 5.6,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMjY5YTFhMGYtY2ZhNi00N2VhLWE4Y2EtZDlhYjBhNTlhM2UzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Adventure, Fantasy",
+    "director": "Ayan Mukerji"
+  },
+  {
+    "title": "Sardar Udham",
+    "year": 2021,
+    "rating": 8.4,
+    "poster": "https://m.media-amazon.com/images/M/MV5BZTFhN2M4ZjYtOWUxMy00N2EzLWE0YmEtODc3ZGFiOTM1ZGNhXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Crime, Drama",
+    "director": "Shoojit Sircar"
+  },
+  {
+    "title": "Shershaah",
+    "year": 2021,
+    "rating": 8.3,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMzkwMTkwNmItZTM4Ni00Njg4LWE2YjktOTZlY2FkNGM1YjE0XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Vishnuvardhan"
+  },
+  {
+    "title": "83",
+    "year": 2021,
+    "rating": 7.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BYzA2Nzk5M2EtNWY4Ny00OTVlLThlMTktYWNmZGIyOTA5MTBmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama, Sport",
+    "director": "Kabir Khan"
+  },
+  {
+    "title": "Sooryavanshi",
+    "year": 2021,
+    "rating": 6.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODg1Njg2YzctMmM4OC00MzBiLTliNDItYmZjMTlhY2U4NWJiXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Crime, Thriller",
+    "director": "Rohit Shetty"
+  },
+  {
+    "title": "Dil Bechara",
+    "year": 2020,
+    "rating": 8.8,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODlhNzdjYWEtNjRjZC00MjAxLWIzMmMtNmVlZGYyNWM4YTE5XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama, Romance",
+    "director": "Mukesh Chhabra"
+  },
+  {
+    "title": "Ludo",
+    "year": 2020,
+    "rating": 7.6,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOTFlOTdhZDgtMDlhNi00MmE4LTkzY2EtMWQ4MDVkNmFjMTEyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Comedy, Crime",
+    "director": "Anurag Basu"
+  },
+  {
+    "title": "Tanhaji: The Unsung Warrior",
+    "year": 2020,
+    "rating": 7.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGJmODE5MDQtYTNlMi00YmNlLWJlMTAtYTRjMTBhNDVlNjcyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Om Raut"
+  },
+  {
+    "title": "Thappad",
+    "year": 2020,
+    "rating": 6.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMjY5YTFhMGYtY2ZhNi00N2VhLWE4Y2EtZDlhYjBhNTlhM2UzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Drama",
+    "director": "Anubhav Sinha"
+  },
+  {
+    "title": "Chhichhore",
+    "year": 2019,
+    "rating": 8.3,
+    "poster": "https://m.media-amazon.com/images/M/MV5BYjg2ZDI2YTYtN2E2Yi00ZGU5LTgwMzktNmQ1NmQ1ZWEzZjdmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama, Romance",
+    "director": "Nitesh Tiwari"
+  },
+  {
+    "title": "Uri: The Surgical Strike",
+    "year": 2019,
+    "rating": 8.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMWU4NWJhMzctZjEwOG00NWU5LWEyZjMtNmFiMGFkNTFjNWUyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Drama, History",
+    "director": "Aditya Dhar"
+  },
+  {
+    "title": "Gully Boy",
+    "year": 2019,
+    "rating": 7.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BN2EwYmU5YWItZGI5Ni00YTUwLTgwMzktNmQ1NmQ1ZWEzZjdmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Drama, Music",
+    "director": "Zoya Akhtar"
+  },
+  {
+    "title": "Super 30",
+    "year": 2019,
+    "rating": 7.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2FiMDhhNGEtODVhOS00NWQ2LTliM2ItNWNmOWFjNWYyN2IzXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama",
+    "director": "Vikas Bahl"
+  },
+  {
+    "title": "War",
+    "year": 2019,
+    "rating": 6.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BNTFiN2NlMDAtZTI5Ni00MDZmLTk4ZDMtMTAxYzA0OTVlZDIxXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Thriller",
+    "director": "Siddharth Anand"
+  },
+  {
+    "title": "Kabir Singh",
+    "year": 2019,
+    "rating": 7.0,
+    "poster": "https://m.media-amazon.com/images/M/MV5BZjhhMThhNDItNTMyYi00Njg4LWI4OTUtOTU3ZDAxZjJjYjM5XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Drama, Romance",
+    "director": "Sandeep Reddy Vanga"
+  },
+  {
+    "title": "Andhadhun",
+    "year": 2018,
+    "rating": 8.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BZWZlMzMzMzUtZDIyOC00MGQ3LTg4NTMtNmVlY2NmZTg1ZTIyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Crime, Drama, Music",
+    "director": "Sriram Raghavan"
+  },
+  {
+    "title": "Tumbbad",
+    "year": 2018,
+    "rating": 8.2,
+    "poster": "https://m.media-amazon.com/images/M/MV5BYmQxNmU4ZjgtZjk2Zi00ZjZmLTgwMzktNmQ1NmQ1ZWEzZjdmXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Drama, Fantasy, Horror",
+    "director": "Rahi Anil Barve, Anand Gandhi"
+  },
+  {
+    "title": "Badhaai Ho",
+    "year": 2018,
+    "rating": 7.9,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOTFlOTdhZDgtMDlhNi00MmE4LTkzY2EtMWQ4MDVkNmFjMTEyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Drama",
+    "director": "Amit Ravindernath Sharma"
+  },
+  {
+    "title": "Raazi",
+    "year": 2018,
+    "rating": 7.7,
+    "poster": "https://m.media-amazon.com/images/M/MV5BODlhNzdjYWEtNjRjZC00MjAxLWIzMmMtNmVlZGYyNWM4YTE5XkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Action, Drama, Thriller",
+    "director": "Meghna Gulzar"
+  },
+  {
+    "title": "Sanju",
+    "year": 2018,
+    "rating": 7.7,
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGJmODE5MDQtYTNlMi00YmNlLWJlMTAtYTRjMTBhNDVlNjcyXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Biography, Drama",
+    "director": "Rajkumar Hirani"
+  },
+  {
+    "title": "Stree",
+    "year": 2018,
+    "rating": 7.5,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMDA4OTU4NWYtNTNlZS00N2EzLWE0YmEtODc3ZGFiOTM1ZGNhXkEyXkFqcGc@._V1_SX300.jpg",
+    "genre": "Comedy, Horror",
+    "director": "Amar Kaushik"
+  },
+  {
+    "title": "Dangal",
+    "year": 2016,
+    "rating": 8.3,
+    "poster": "https://m.media-amazon.com/images/M/MV5BMTQ4MzQzMzM2Nl5BMl5BanBnXkFtZTgwMTQ1NzU3MDI@._V1_SX300.jpg",
+    "genre": "Action, Biography, Drama",
+    "director": "Nitesh Tiwari"
+  }
+]
