@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5 - Authentication</title>
+    <!-- Prevent caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Immediate session check to prevent flashing -->
+    <script>
+        try {
+            if (sessionStorage.getItem('active_session')) {
+                window.location.replace('dashboard.html');
+            }
+        } catch (e) {
+            console.error('Session storage access restricted.');
+        }
+    </script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="glass-panel">
+            <div class="toggle-buttons">
+                <button id="btn-login" class="active" onclick="toggleView('login')">Login</button>
+                <button id="btn-register" onclick="toggleView('register')">Register</button>
+            </div>
+
+            <form id="login-form" class="auth-form active-form">
+                <h2>Welcome Back</h2>
+                <div class="input-group">
+                    <input type="text" id="login-username" required placeholder=" ">
+                    <label>Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" required placeholder=" ">
+                    <label>Password</label>
+                </div>
+                <div id="login-error" class="error-msg"></div>
+                <button type="submit" class="submit-btn">Sign In</button>
+            </form>
+
+            <form id="register-form" class="auth-form">
+                <h2>Create Account</h2>
+                <div class="input-group">
+                    <input type="text" id="reg-username" required placeholder=" ">
+                    <label>Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="reg-password" required placeholder=" ">
+                    <label>Password</label>
+                </div>
+                <div id="reg-message" class="error-msg"></div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

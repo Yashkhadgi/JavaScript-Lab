@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5 - Dashboard</title>
+    <!-- Prevent caching to ensure back button doesn't load stale state -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Immediate session check to prevent unauthorized viewing -->
+    <script>
+        try {
+            if (!sessionStorage.getItem('active_session')) {
+                window.location.replace('index.html');
+            }
+        } catch(e) {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar glass-panel">
+            <div class="logo">SecureApp</div>
+            <div class="user-controls">
+                <span id="welcome-msg"></span>
+                <button id="logout-btn" class="outline-btn">Logout</button>
+            </div>
+        </nav>
+
+        <main class="content-area">
+            <div class="glass-panel main-content">
+                <h1>Dashboard</h1>
+                <p>Welcome to the secure dashboard. This page is protected by strict session checks.</p>
+                
+                <div class="info-card">
+                    <h3>Session Status: <span class="status-active">Active</span></h3>
+                    <p>Try logging out and then using the browser's "Back" button or manually typing the URL to return here. You will be denied access.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
