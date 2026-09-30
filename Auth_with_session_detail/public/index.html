@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure authentication portal with JWT session management and activity reporting.">
+    <!-- Cache prevention -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>SecureAuth — Login</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Redirect logged-in users immediately before paint -->
+    <script>
+        (function () {
+            const token = localStorage.getItem('auth_token');
+            const email = localStorage.getItem('auth_email');
+            if (token && email) {
+                window.location.replace('dashboard.html');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div class="loading-overlay hidden" id="loading-overlay" aria-hidden="true">
+        <div class="loader"></div>
+    </div>
+
+    <main class="page" role="main">
+        <div class="auth-card" role="region" aria-label="Authentication">
+
+            <!-- Brand -->
+            <div class="brand">
+                <div class="brand-icon" role="img" aria-label="Lock icon">🔐</div>
+                <h1>SecureAuth</h1>
+                <p>Sign in to your account or create a new one</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="tab-switcher" role="tablist" aria-label="Authentication mode">
+                <button
+                    class="tab-btn active"
+                    id="btn-login"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="panel-login"
+                    onclick="switchTab('login')"
+                >
+                    Sign In
+                </button>
+                <button
+                    class="tab-btn"
+                    id="btn-register"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-register"
+                    onclick="switchTab('register')"
+                >
+                    Create Account
+                </button>
+            </div>
+
+            <!-- ── Login Form ── -->
+            <div class="form-panel active" id="panel-login" role="tabpanel" aria-labelledby="btn-login">
+                <form id="login-form" novalidate>
+
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="email"
+                                id="login-email"
+                                class="form-input"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                            <span class="input-icon">📧</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="login-password"
+                                class="form-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <span class="input-icon">🔑</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-login-submit">
+                        <span class="btn-text">Sign In</span>
+                        <div class="btn-spinner"></div>
+                    </button>
+
+                    <div class="alert alert-error" id="login-error" role="alert" aria-live="polite"></div>
+                    <div class="alert alert-success" id="login-success" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+
+            <!-- ── Register Form ── -->
+            <div class="form-panel" id="panel-register" role="tabpanel" aria-labelledby="btn-register">
+                <form id="register-form" novalidate>
+
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="email"
+                                id="reg-email"
+                                class="form-input"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                            <span class="input-icon">📧</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="reg-password"
+                                class="form-input"
+                                placeholder="Minimum 6 characters"
+                                autocomplete="new-password"
+                                required
+                                minlength="6"
+                            >
+                            <span class="input-icon">🔒</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="reg-confirm"
+                                class="form-input"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required
+                            >
+                            <span class="input-icon">🔒</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-register-submit">
+                        <span class="btn-text">Create Account</span>
+                        <div class="btn-spinner"></div>
+                    </button>
+
+                    <div class="alert alert-error" id="register-error" role="alert" aria-live="polite"></div>
+                    <div class="alert alert-success" id="register-success" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
