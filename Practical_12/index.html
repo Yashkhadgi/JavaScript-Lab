@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseOps — Real-Time Cloud Operations &amp; API Telemetry Command Hub</title>
+
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ===== CUSTOM STYLES ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="command-container">
+
+        <!-- ===== TOP OPS HEADER ===== -->
+        <header class="ops-header">
+            <div class="brand-block">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-satellite-dish"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">PulseOps Command</h1>
+                    <div class="brand-desc">
+                        <span>Real-Time Cloud Service Incident &amp; Telemetry Hub</span>
+                        <span>&bull;</span>
+                        <span style="color: var(--cyber-cyan); font-weight: 600;">Practical #12</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Status & Student Author Badge -->
+            <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                <div class="header-status-pill">
+                    <span class="live-green-dot"></span>
+                    <span>REST ENGINE ONLINE</span>
+                </div>
+
+                <div class="author-badge">
+                    <div class="author-avatar">YK</div>
+                    <div class="author-meta">
+                        <span class="author-name">Yash Khadgi</span>
+                        <span class="author-prn">PRN: 24070521137</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== TELEMETRY HUD (4 METRICS) ===== -->
+        <section class="telemetry-hud-grid">
+            <div class="hud-card">
+                <div>
+                    <div class="hud-metric-label">AJAX Requests Dispatched</div>
+                    <div id="hudRequestsCount" class="hud-metric-value">0</div>
+                    <div class="hud-metric-sub">Native jQuery $.ajax() Calls</div>
+                </div>
+                <div class="hud-card-icon">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </div>
+            </div>
+
+            <div class="hud-card">
+                <div>
+                    <div class="hud-metric-label">Roundtrip Latency</div>
+                    <div id="hudAvgLatency" class="hud-metric-value">-- ms</div>
+                    <div class="hud-metric-sub">performance.now() High-Res Timing</div>
+                </div>
+                <div class="hud-card-icon" style="color: var(--cyber-green);">
+                    <i class="fa-solid fa-stopwatch"></i>
+                </div>
+            </div>
+
+            <div class="hud-card">
+                <div>
+                    <div class="hud-metric-label">Last HTTP Status</div>
+                    <div style="margin: 4px 0 2px;">
+                        <span id="hudLastStatus" class="telemetry-metric-badge badge-green">200 OK</span>
+                    </div>
+                    <div class="hud-metric-sub">REST Payload Validation</div>
+                </div>
+                <div class="hud-card-icon" style="color: var(--cyber-purple);">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
+            </div>
+
+            <div class="hud-card">
+                <div>
+                    <div class="hud-metric-label">Web Storage Objects</div>
+                    <div class="hud-metric-value">
+                        <span id="hudLocalStorageCount">0</span> <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">local</span> / 
+                        <span id="hudSessionLogsCount">0</span> <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">sess</span>
+                    </div>
+                    <div class="hud-metric-sub">localStorage &amp; sessionStorage</div>
+                </div>
+                <div class="hud-card-icon" style="color: var(--cyber-amber);">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTROL BAR: FILTERS, SEARCH, AJAX & ACTIONS ===== -->
+        <section class="ops-control-bar">
+            <div class="control-left-group">
+                <!-- Search Box -->
+                <div class="search-box-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchIncidentsInput" class="search-input" placeholder="Search incidents, services, authors...">
+                    <span class="search-kbd-hint">⌘K</span>
+                </div>
+
+                <!-- Priority Filters -->
+                <div class="filter-pills-row">
+                    <button class="filter-tab-pill active" data-filter="all">All</button>
+                    <button class="filter-tab-pill" data-filter="Critical">Critical</button>
+                    <button class="filter-tab-pill" data-filter="High">High</button>
+                    <button class="filter-tab-pill" data-filter="Medium">Medium</button>
+                    <button class="filter-tab-pill" data-filter="Low">Low</button>
+                    <button class="filter-tab-pill" data-filter="starred"><i class="fa-solid fa-star" style="color: var(--cyber-amber);"></i> Watchlist</button>
+                </div>
+
+                <!-- Status Select Filter -->
+                <select id="statusSelectFilter" class="select-status-filter">
+                    <option value="all">Status: All</option>
+                    <option value="Investigating">Investigating</option>
+                    <option value="Identified">Identified</option>
+                    <option value="Monitoring">Monitoring</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+
+            <div class="control-right-actions">
+                <!-- AJAX Fetch Button -->
+                <button id="btnFetchAjax" class="btn btn-outline-cyan" title="Fetch live remote incidents via $.ajax()">
+                    <i class="fa-solid fa-arrows-rotate"></i> Sync REST API
+                </button>
+
+                <!-- Real-time Polling Toggle -->
+                <button id="btnTogglePolling" class="btn btn-outline-subtle" title="Toggle real-time interval polling">
+                    <i class="fa-solid fa-wave-square"></i> Real-time Polling: Off
+                </button>
+
+                <!-- New Incident Modal Button -->
+                <button id="btnOpenCreateModal" class="btn btn-primary-green">
+                    <i class="fa-solid fa-plus"></i> Dispatch Incident
+                </button>
+
+                <!-- Storage Inspector Modal Button -->
+                <button id="btnOpenStorageInspector" class="btn btn-outline-subtle" title="Inspect raw localStorage & sessionStorage">
+                    <i class="fa-solid fa-hard-drive"></i> Storage Inspector
+                </button>
+
+                <!-- Session Logs Drawer Toggle -->
+                <button id="btnToggleLogsDrawer" class="btn btn-outline-subtle" title="View in-memory session audit logs">
+                    <i class="fa-solid fa-terminal"></i> Logs
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== SESSION AUDIT LOGS DRAWER (COLLAPSIBLE) ===== -->
+        <section id="sessionLogsDrawer" class="session-logs-drawer">
+            <div class="drawer-header">
+                <div class="drawer-title">
+                    <i class="fa-solid fa-code-commit"></i>
+                    <span>Session Storage Telemetry Audit Trail (sessionStorage)</span>
+                </div>
+                <button id="btnCloseLogsDrawer" class="btn-icon-subtle">&times;</button>
+            </div>
+            <div id="sessionLogList" class="session-log-list">
+                <!-- Dynamically populated via jQuery -->
+            </div>
+        </section>
+
+        <!-- ===== INCIDENTS GRID CONTAINER ===== -->
+        <main id="incidentsGrid" class="incidents-grid">
+            <!-- Dynamically populated via jQuery renderIncidentsGrid() -->
+        </main>
+
+    </div>
+
+    <!-- ===== DISPATCH NEW INCIDENT MODAL ===== -->
+    <div id="newIncidentModal" class="app-modal-overlay">
+        <div class="modal-content-card">
+            <div class="modal-head">
+                <h3 class="modal-head-title">Dispatch Cloud Incident</h3>
+                <button class="btn-icon-subtle btn-close-modal">&times;</button>
+            </div>
+            <form id="createIncidentForm">
+                <div class="form-grid-two">
+                    <div class="form-full">
+                        <label class="field-label" for="inputTitle">Incident Title / Summary</label>
+                        <input type="text" id="inputTitle" class="field-input" placeholder="e.g. Ingress Gateway SSL handshake timeouts on EU-West" required>
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="inputService">Affected Service</label>
+                        <input type="text" id="inputService" class="field-input" placeholder="e.g. Kubernetes Ingress / Redis Cache" required>
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="inputPriority">Severity Priority</label>
+                        <select id="inputPriority" class="field-select">
+                            <option value="Critical">Critical (P1)</option>
+                            <option value="High">High (P2)</option>
+                            <option value="Medium" selected>Medium (P3)</option>
+                            <option value="Low">Low (P4)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="inputStatus">Initial Status</label>
+                        <select id="inputStatus" class="field-select">
+                            <option value="Investigating" selected>Investigating</option>
+                            <option value="Identified">Identified</option>
+                            <option value="Monitoring">Monitoring</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="inputLatency">Measured Latency (ms)</label>
+                        <input type="number" id="inputLatency" class="field-input" value="145" min="1" max="5000">
+                    </div>
+
+                    <div>
+                        <label class="field-label" for="inputAuthor">Assigned Engineer</label>
+                        <input type="text" id="inputAuthor" class="field-input" value="Yash Khadgi">
+                    </div>
+
+                    <div class="form-full">
+                        <label class="field-label" for="inputDescription">Technical Incident Log / Diagnosis</label>
+                        <textarea id="inputDescription" class="field-textarea" rows="3" placeholder="Root cause diagnosis, stack traces, or observed error rates..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-outline-subtle btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary-green">
+                        <i class="fa-solid fa-paper-plane"></i> Dispatch via AJAX POST
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== STORAGE INSPECTOR MODAL ===== -->
+    <div id="storageInspectorModal" class="app-modal-overlay">
+        <div class="modal-content-card modal-content-card-large">
+            <div class="modal-head">
+                <h3 class="modal-head-title">Web Storage API Live Inspector</h3>
+                <button class="btn-icon-subtle btn-close-modal">&times;</button>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 16px;">
+                Direct inspection of browser storage engines: <strong>localStorage</strong> (persistent incidents and starred items) and <strong>sessionStorage</strong> (in-memory telemetry metrics &amp; audit events).
+            </p>
+
+            <div class="inspector-split-view">
+                <div>
+                    <div class="inspector-column-title">
+                        <i class="fa-solid fa-database"></i> localStorage JSON Dump
+                    </div>
+                    <pre id="localStorageDump" class="json-dump-box"></pre>
+                </div>
+                <div>
+                    <div class="inspector-column-title">
+                        <i class="fa-solid fa-clock-rotate-left"></i> sessionStorage JSON Dump
+                    </div>
+                    <pre id="sessionStorageDump" class="json-dump-box"></pre>
+                </div>
+            </div>
+
+            <div class="modal-foot">
+                <button id="btnClearStorageBtn" class="btn btn-outline-cyan" style="border-color: rgba(239, 68, 68, 0.4); color: var(--cyber-red);">
+                    <i class="fa-solid fa-trash-can"></i> Purge All Storage
+                </button>
+                <button type="button" class="btn btn-outline-subtle btn-close-modal">Close Inspector</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING TOAST NOTIFICATIONS ===== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ===== JQUERY 3.7.1 & APP ENGINE ===== -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
+
