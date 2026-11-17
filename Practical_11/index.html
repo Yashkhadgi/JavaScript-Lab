@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoSync — Dynamic Academic Class Scheduler & Timer Engine</title>
+    
+    <!-- ===== GOOGLE FONTS (INTER & JETBRAINS MONO) ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ===== FONT AWESOME ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- ===== CUSTOM STYLES ===== -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- ===== TOP HEADER & NAVIGATION ===== -->
+        <header class="app-header">
+            <!-- Brand & Lab Identifier -->
+            <div class="brand-section">
+                <div class="brand-icon-box">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h1 class="brand-title">ChronoSync</h1>
+                    <p class="brand-subtitle">
+                        <span>Dynamic Academic Scheduler</span>
+                        <span>&bull;</span>
+                        <span style="color: var(--accent-cyan); font-weight: 600;">Practical #11</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Real-Time Master Digital Clock Widget (setInterval) -->
+            <div class="header-clock-widget">
+                <div class="clock-live-indicator">
+                    <span class="live-pulse-dot"></span>
+                    <span>LIVE</span>
+                </div>
+                <div class="clock-digits-group">
+                    <span id="liveClockTime" class="clock-time">--:--:--</span>
+                    <span id="liveClockAmPm" class="clock-ampm">--</span>
+                </div>
+                <div class="clock-meta">
+                    <span id="liveClockDate" class="clock-date">Loading...</span>
+                    <span id="liveClockDayPill" class="clock-day-pill">Today</span>
+                </div>
+            </div>
+
+            <!-- Actions: Audio, Time Machine, Author Badge -->
+            <div class="header-actions">
+                <button id="soundToggleBtn" class="btn btn-outline-subtle" title="Toggle audio chime alerts">
+                    <i class="fa-solid fa-volume-high"></i> Sound: Active
+                </button>
+                <button id="toggleSimulationBtn" class="btn btn-outline-subtle" title="Fast-forward or simulate custom time">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Simulate Time
+                </button>
+                <div class="author-pill">
+                    <div class="author-avatar">YK</div>
+                    <div class="author-info">
+                        <span class="author-name">Yash Khadgi</span>
+                        <span class="author-prn">PRN: 24070521137</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== TIME SIMULATION COLLAPSIBLE PANEL ===== -->
+        <section id="simulationControlPanel" class="simulation-panel">
+            <div class="sim-panel-content">
+                <div class="sim-info">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div>
+                        <div class="sim-title">Evaluator Time Warp & Interval Test Suite</div>
+                        <div class="sim-desc">Fast-forward wall-clock or warp to lecture start times to verify setInterval & setTimeout transitions</div>
+                    </div>
+                </div>
+                <div class="sim-form-group">
+                    <select id="simDaySelect" class="sim-select">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                    </select>
+                    <input type="time" id="simTimeInput" class="sim-input" value="10:00">
+                    <select id="timerSpeedSelect" class="sim-select" title="Timer tick speed multiplier">
+                        <option value="1">Speed: 1x (Normal)</option>
+                        <option value="5">Speed: 5x Fast</option>
+                        <option value="10">Speed: 10x Fast</option>
+                        <option value="60">Speed: 60x Super</option>
+                    </select>
+                    <button id="applySimulationBtn" class="btn btn-outline-cyan">Warp Clock</button>
+                    <button id="resetSimulationBtn" class="btn btn-outline-subtle">Restore Live</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HERO DYNAMIC SPLIT SECTION ===== -->
+        <main class="hero-grid">
+            
+            <!-- LEFT: Real-Time Session Tracker & Countdown -->
+            <section id="heroTrackerCard" class="hero-card status-active">
+                <div class="hero-card-glow"></div>
+                <div>
+                    <div class="hero-header">
+                        <span id="heroStatusPill" class="status-tag tag-live">
+                            <span class="live-pulse"></span> IN SESSION NOW
+                        </span>
+                        <span id="heroCategory" class="category-badge-pill">Lecture • CS-401</span>
+                    </div>
+
+                    <h2 id="heroCourseTitle" class="hero-course-name">Full Stack Web Development (ES6 &amp; React)</h2>
+
+                    <div class="hero-meta-group">
+                        <span class="hero-meta-item">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span id="heroInstructor">Dr. Yashvardhan Patil</span>
+                        </span>
+                        <span class="hero-meta-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="heroRoom">Lab 402 - Silicon Block</span>
+                        </span>
+                    </div>
+
+                    <div class="hero-timer-display">
+                        <div id="heroTimerDigits" class="hero-timer-digits">00:00:00</div>
+                        <div id="heroTimerLabel" class="hero-timer-label">Time Remaining In This Session</div>
+                    </div>
+
+                    <div class="hero-progress-container">
+                        <div class="progress-header">
+                            <span>Session Progression</span>
+                            <span id="heroProgressPct">0% Elapsed</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="heroProgressFill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="heroNextPreview" class="hero-next-preview">
+                    <span class="preview-label">NEXT UP:</span>
+                    <span class="preview-title">Advanced Computer Networks</span>
+                    <span class="preview-time">at 11:00 AM (Hall 201)</span>
+                </div>
+            </section>
+
+            <!-- RIGHT: Study Sprint & Pomodoro Countdown Engine -->
+            <section class="sprint-card">
+                <div class="sprint-card-glow"></div>
+                <div>
+                    <div class="sprint-header">
+                        <div class="sprint-title-group">
+                            <i class="fa-solid fa-stopwatch-20"></i>
+                            <h3 class="sprint-title">Academic Focus Sprint</h3>
+                        </div>
+                        <span id="sprintStateTag" class="pill-state state-idle">READY</span>
+                    </div>
+
+                    <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 14px;">
+                        Interactive custom countdown timer driven by JavaScript setInterval() and setTimeout() callbacks.
+                    </p>
+
+                    <div class="sprint-presets">
+                        <button class="sprint-preset-chip" data-mins="15">15m Break</button>
+                        <button class="sprint-preset-chip active" data-mins="25">25m Focus</button>
+                        <button class="sprint-preset-chip" data-mins="45">45m Sprint</button>
+                        <button class="sprint-preset-chip" data-mins="60">60m Exam</button>
+                    </div>
+
+                    <div class="sprint-center-display">
+                        <div id="sprintTimeDigits" class="sprint-digits">25m 00s</div>
+                        <div class="sprint-subtext">Deep Work / Review Sprint</div>
+                    </div>
+
+                    <div class="sprint-progress-wrapper">
+                        <div class="progress-track">
+                            <div id="sprintProgressBar" class="progress-fill" style="background: linear-gradient(90deg, #a855f7, #ec4899);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sprint-actions">
+                    <button id="sprintStartBtn" class="btn btn-primary-cyan btn-sprint-action">
+                        <i class="fa-solid fa-play"></i> Start Countdown
+                    </button>
+                    <button id="sprintPauseBtn" class="btn btn-outline-cyan btn-sprint-action" style="display: none;">
+                        <i class="fa-solid fa-pause"></i> Pause
+                    </button>
+                    <button id="sprintResetBtn" class="btn btn-outline-subtle">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== TIMETABLE CONTROLS & FILTER BAR ===== -->
+        <section class="timetable-control-bar">
+            <!-- Day tabs -->
+            <div id="dayTabsList" class="day-tabs">
+                <button class="day-tab-btn" data-day="all">All Days</button>
+                <button class="day-tab-btn" data-day="Monday">Mon</button>
+                <button class="day-tab-btn" data-day="Tuesday">Tue</button>
+                <button class="day-tab-btn" data-day="Wednesday">Wed</button>
+                <button class="day-tab-btn" data-day="Thursday">Thu</button>
+                <button class="day-tab-btn" data-day="Friday">Fri</button>
+                <button class="day-tab-btn" data-day="Saturday">Sat</button>
+            </div>
+
+            <!-- Filters & Actions -->
+            <div class="bar-right-actions">
+                <span id="scheduleItemsCount" class="items-counter-badge">Loading...</span>
+                
+                <select id="statusFilterSelect" class="select-filter">
+                    <option value="all">Status: All Sessions</option>
+                    <option value="active">🔴 Live Now</option>
+                    <option value="upcoming">🟡 Upcoming</option>
+                    <option value="completed">🟢 Completed</option>
+                </select>
+
+                <button id="openAddClassModalBtn" class="btn btn-primary-cyan">
+                    <i class="fa-solid fa-plus"></i> Add Session
+                </button>
+
+                <button id="resetScheduleBtn" class="btn btn-outline-subtle" title="Reset to default University curriculum">
+                    <i class="fa-solid fa-arrows-rotate"></i> Reset Defaults
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== SCHEDULE CARDS GRID CONTAINER ===== -->
+        <section id="scheduleGridContainer" class="schedule-grid">
+            <!-- Dynamically populated via ui.js renderScheduleGrid() -->
+        </section>
+
+        <!-- ===== TELEMETRY & ES6 MODULE ARCHITECTURE INSPECTOR ===== -->
+        <section class="telemetry-section">
+            <div class="telemetry-header">
+                <div class="telemetry-title-group">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h3 class="telemetry-title">Timer Telemetry &amp; ES6 Module Inspector</h3>
+                </div>
+                <span class="telemetry-tag">
+                    <i class="fa-solid fa-code"></i> ES6 Modules Architecture
+                </span>
+            </div>
+
+            <div class="telemetry-grid">
+                <div class="telemetry-card">
+                    <div class="telemetry-card-label">Active setInterval Timers</div>
+                    <div id="telemetryIntervalCount" class="telemetry-card-value">0</div>
+                    <div class="telemetry-card-desc">Master clock &amp; countdown tickers</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-card-label">Active setTimeout Handles</div>
+                    <div id="telemetryTimeoutCount" class="telemetry-card-value">0</div>
+                    <div class="telemetry-card-desc">Scheduled alerts &amp; self-dismissing toasts</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-card-label">Timer Jitter / Drift</div>
+                    <div id="telemetryDrift" class="telemetry-card-value">0ms</div>
+                    <div class="telemetry-card-desc">Variance vs real event-loop wall clock</div>
+                </div>
+                <div class="telemetry-card">
+                    <div class="telemetry-card-label">Total Heartbeat Ticks</div>
+                    <div id="telemetryTicks" class="telemetry-card-value">0</div>
+                    <div class="telemetry-card-desc">Cycles processed since page mount</div>
+                </div>
+            </div>
+
+            <div class="modules-architecture-box">
+                <div class="modules-title">Loaded ES6 Modules in Dependency Tree:</div>
+                <div class="modules-badges-list">
+                    <div class="module-badge"><i class="fa-solid fa-cube"></i> js/modules/timer.js</div>
+                    <div class="module-badge"><i class="fa-solid fa-cube"></i> js/modules/schedule.js</div>
+                    <div class="module-badge"><i class="fa-solid fa-cube"></i> js/modules/storage.js</div>
+                    <div class="module-badge"><i class="fa-solid fa-cube"></i> js/modules/audio.js</div>
+                    <div class="module-badge"><i class="fa-solid fa-cube"></i> js/modules/ui.js</div>
+                    <div class="module-badge"><i class="fa-solid fa-rocket"></i> js/main.js</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===== ADD / EDIT CLASS MODAL ===== -->
+    <div id="classModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">Add Academic Session</h3>
+                <button id="closeModalBtn" class="btn-icon">&times;</button>
+            </div>
+            <form id="classForm">
+                <div class="form-grid">
+                    <div class="form-group-full">
+                        <label class="form-label" for="inputTitle">Course / Subject Name</label>
+                        <input type="text" id="inputTitle" class="form-input" placeholder="e.g. Full Stack Web Development" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputCode">Course Code</label>
+                        <input type="text" id="inputCode" class="form-input" placeholder="e.g. CS-401" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputCategory">Session Type</label>
+                        <select id="inputCategory" class="form-select">
+                            <option value="Lecture">Lecture</option>
+                            <option value="Lab">Lab Practical</option>
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Break">Break / Recess</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputInstructor">Faculty / Instructor</label>
+                        <input type="text" id="inputInstructor" class="form-input" placeholder="e.g. Dr. Yashvardhan Patil" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputRoom">Location / Classroom</label>
+                        <input type="text" id="inputRoom" class="form-input" placeholder="e.g. Lab 402 - Silicon Block" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputDay">Day of Week</label>
+                        <select id="inputDay" class="form-select">
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputColor">Accent Color</label>
+                        <select id="inputColor" class="form-select">
+                            <option value="#00f2fe">Electric Cyan</option>
+                            <option value="#a855f7">Neon Purple</option>
+                            <option value="#10b981">Emerald Green</option>
+                            <option value="#f59e0b">Amber Gold</option>
+                            <option value="#ec4899">Hot Pink</option>
+                            <option value="#6366f1">Indigo Blue</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputStartTime">Start Time (24h)</label>
+                        <input type="time" id="inputStartTime" class="form-input" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="inputEndTime">End Time (24h)</label>
+                        <input type="time" id="inputEndTime" class="form-input" required>
+                    </div>
+
+                    <div class="form-group-full">
+                        <label class="form-label" for="inputNotes">Syllabus / Notes</label>
+                        <textarea id="inputNotes" class="form-textarea" rows="2" placeholder="Brief topics, lab requirements, or classroom notes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelModalBtn" class="btn btn-outline-subtle">Cancel</button>
+                    <button type="submit" id="saveClassBtn" class="btn btn-primary-cyan">Save Session</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== TOAST NOTIFICATIONS CONTAINER ===== -->
+    <div id="toastNotificationArea" class="toast-container"></div>
+
+    <!-- ===== ES6 MODULE ENTRY POINT ===== -->
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
+
