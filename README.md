@@ -29,6 +29,8 @@ Each practical is designed as a standalone, responsive, single-viewport web appl
 | **Practical 8** | Iron Forge Athletic Gym Member Portal | Form validation (`e.preventDefault()`), regex field validation, dynamic member access pass generator | Nike Athletic Brand Portal |
 | **Practical 9** | Native macOS System Preferences Console | Web Storage API (`localStorage` vs `sessionStorage`), persistent theme sync, font scaling, JSON inspectors | Native macOS / iPadOS Settings |
 | **Practical 10**| Developer Portfolio & API Telemetry | Asynchronous JavaScript, native Fetch API, jQuery `$.getJSON()`, latency timing (`performance.now()`) | Vercel Dark Charcoal |
+| **Practical 11**| Dynamic Academic Scheduler & Timers (ChronoSync) | JS Timers (`setInterval`, `setTimeout`), ES6 Modules (`import`/`export`), Real-time Progress, Web Audio | Linear / Raycast Cyber-Academic |
+| **Practical 12**| Cloud Operations & API Telemetry (PulseOps) | jQuery DOM Manipulation, Event Delegation, Web Storage (`localStorage`/`sessionStorage`), AJAX (`$.ajax()`) | Cyberpunk Cloud Ops Command |
 | **Task 1** | Secure Email Authentication Portal | Form validation, real-time input indicators, password strength meter, session state switching | Scandinavian Security Panel |
 | **Task 2** | Cascading Weather Telemetry Engine | Cascading dropdown handlers (State $\rightarrow$ City), °C/°F unit conversion, 5-day climate forecast cards | Vercel Weather Console |
 
@@ -48,6 +50,8 @@ JavaScript-Lab/
 ├── Practical_8/       # Form Validation & Digital Access Badge Compiler
 ├── Practical_9/       # Web Storage API (localStorage & sessionStorage) Sync
 ├── Practical_10/      # Async JS (Fetch API & jQuery $.getJSON) & Latency Telemetry
+├── Practical_11/      # Dynamic Scheduler, Countdown Timers & ES6 Modules (import/export)
+├── Practical_12/      # Interactive Cloud Ops (jQuery DOM, Events, Storage & AJAX)
 ├── Task_1/            # Email Authentication & Session Management Module
 ├── Task_2/            # Cascading State-City Weather Telemetry Module
 ├── .gitignore
